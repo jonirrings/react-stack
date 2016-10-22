@@ -1,0 +1,136 @@
+{
+  "name": "react-stack",
+  "version": "1.0.0",
+  "description": "An isomorphic web app boilerplate (Node.js, Express, GraphQL, React.js, Babel 6, PostCSS, Webpack, Browsersync)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonirrings/react-stack.git"
+  },
+  "keywords": [
+    "react",
+    "stack"
+  ],
+  "author": "Jonir Rings",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonirrings/react-stack/issues"
+  },
+  "homepage": "https://github.com/jonirrings/react-stack#readme",
+  "engines": {
+    "node": ">=5.0 <7",
+    "npm": ">=3.3 <4"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "node-fetch": "^1.6.3"
+  },
+  "devDependencies": {
+    "assets-webpack-plugin": "^3.5.0",
+    "autoprefixer": "^6.5.1",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.2.5",
+    "browser-sync": "^2.17.5",
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-loader": "^1.6.0",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "extend": "^3.0.0",
+    "gaze": "^1.1.2",
+    "git-repository": "^0.1.4",
+    "glob": "^7.1.1",
+    "mkdirp": "^0.5.1",
+    "pixrem": "^3.0.2",
+    "pleeease-filters": "^3.0.0",
+    "postcss-calc": "^5.3.1",
+    "postcss-color-function": "^2.0.1",
+    "postcss-custom-media": "^5.0.1",
+    "postcss-custom-properties": "^5.0.1",
+    "postcss-custom-selectors": "^3.0.0",
+    "postcss-flexbugs-fixes": "^2.0.0",
+    "postcss-media-minmax": "^2.1.2",
+    "postcss-nested": "^1.0.0",
+    "postcss-nesting": "^2.3.1",
+    "postcss-partial-import": "^2.1.0",
+    "postcss-selector-matches": "^2.0.5",
+    "postcss-selector-not": "^2.0.0",
+    "postcss-url": "^5.1.2",
+    "rimraf": "^2.5.4",
+    "webpack": "^1.13.2",
+    "webpack-hot-middleware": "^2.13.0",
+    "webpack-middleware": "^1.5.1"
+  },
+  "babel": {
+    "presets": [
+      "react",
+      "node5",
+      "stage-0"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "rewire"
+        ]
+      }
+    }
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "globals": {
+      "__DEV__": true
+    },
+    "env": {
+      "browser": true
+    },
+    "rules": {
+      "arrow-parens": "off",
+      "generator-star-spacing": "off",
+      "import/extensions": "off",
+      "import/no-extraneous-dependencies": "off",
+      "react/forbid-prop-types": "off",
+      "react/jsx-filename-extension": "off",
+      "react/no-danger": "off",
+      "react/no-unused-prop-types": "off"
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard",
+    "rules": {
+      "string-quotes": "single",
+      "property-no-unknown": [
+        true,
+        {
+          "ignoreProperties": [
+            "composes"
+          ]
+        }
+      ],
+      "selector-pseudo-class-no-unknown": [
+        true,
+        {
+          "ignorePseudoClasses": [
+            "global"
+          ]
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "lint:js": "eslint src tools",
+    "lint:css": "stylelint \"src/**/*.{css,less,scss,sss}\"",
+    "lint": "npm run lint:js && npm run lint:css",
+    "test": "mocha \"src/**/*.test.js\" --require test/setup.js --compilers js:babel-register",
+    "test:watch": "npm run test -- --reporter min --watch",
+    "clean": "babel-node tools/run clean",
+    "copy": "babel-node tools/run copy",
+    "bundle": "babel-node tools/run bundle",
+    "build": "babel-node tools/run build",
+    "deploy": "babel-node tools/run deployToAzureWebApps",
+    "render": "babel-node tools/run render",
+    "serve": "babel-node tools/run runServer",
+    "start": "babel-node tools/run start"
+  }
+}
