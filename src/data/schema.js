@@ -7,3 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { GraphQLSchema } from 'graphql';
+import query from './queries';
+
+const schema = new GraphQLSchema({ query });
+export default schema;

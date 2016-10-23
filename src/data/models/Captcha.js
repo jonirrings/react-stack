@@ -11,6 +11,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const CaptchaSchema = new Schema({
   value: String,
+  base64: String,
   created: {
     type: Date,
     required: true,

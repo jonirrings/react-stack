@@ -26,6 +26,11 @@ const EssaySchema = new Schema({
   comments: [{ type: Schema.ObjectId, ref: 'Essay' }],
   commentOn: { type: Schema.ObjectId, ref: 'Essay' },
   replyTo: { type: Schema.ObjectId, ref: 'Essay' },
+  private: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   visit: {
     type: Number,
     required: true,

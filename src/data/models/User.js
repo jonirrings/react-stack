@@ -16,11 +16,13 @@ const UserSchema = new Schema({
   twitter: String,
   google: String,
   github: String,
-  avator: String,
-  visit: {
-    type: Number,
+  name: { type: String, required: true },
+  avatar: String,
+  essay: [{ type: Schema.ObjectId, ref: 'Essay' }],
+  admin: {
+    type: Boolean,
     required: true,
-    default: 0,
+    default: false,
   },
   created: {
     type: Date,

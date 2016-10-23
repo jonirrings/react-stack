@@ -7,3 +7,23 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import {
+  GraphQLObjectType as ObjectType,
+  GraphQLNonNull as NonNull,
+  GraphQLInt as IntType,
+} from 'graphql';
+
+import Post from './Post';
+import User from './User';
+
+const StatType = new ObjectType({
+  name: 'Stat',
+  description: 'A stat is the statics on how long one stays on one page',
+  fields: () => ({
+    user: { type: new NonNull(User) },
+    post: { type: new NonNull(Post) },
+    long: { type: new NonNull(IntType) },
+  }),
+});
+
+export default StatType;

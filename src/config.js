@@ -7,3 +7,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+export const port = process.env.PORT || 3000;
+export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
