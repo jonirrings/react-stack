@@ -12,16 +12,22 @@ import {
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
-  GraphQLList as ListType,
 } from 'graphql';
+import {
+  connectionDefinitions, connectionArgs,
+  connectionFromArray, globalIdField,
+} from 'graphql-relay';
 import User from './User';
+import { nodeInterface } from './Interface';
 // import Essay from './Essay';
-import Comment from './Comment';
+import { CommentConnection } from './Comment';
+import { getCommentsByPostId } from '../models';
 
 const PostType = new ObjectType({
   name: 'Post',
   description: 'A Post is an article with comments',
   fields: () => ({
+    id: globalIdField('Post'),
     author: {
       type: new NonNull(User),
       description: 'who wrote the post',
@@ -35,7 +41,11 @@ const PostType = new ObjectType({
       description: 'the content of post',
     },
     comments: {
-      type: new ListType(Comment),
+      type: CommentConnection,
+      args: connectionArgs,
+      resolve: (post, args, context, info) =>
+          connectionFromArray(getCommentsByPostId(post.id), args),
+      // TODO modify to meet mongoose promise
       description: 'the comments on the posts',
     },
     visit: {
@@ -51,7 +61,15 @@ const PostType = new ObjectType({
       description: 'the time post was modified',
     },
   }),
+  interfaces: [nodeInterface],
   // interfaces: [Essay],
 });
-
+const {
+  connectionType: PostConnection,
+  edgeType: PostEdge,
+} = connectionDefinitions({
+  name: 'Post',
+  nodeType: PostType,
+});
+export { PostConnection, PostEdge };
 export default PostType;

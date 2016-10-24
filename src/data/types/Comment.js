@@ -13,14 +13,18 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
 } from 'graphql';
+import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { nodeInterface } from './Interface';
 import User from './User';
 import Post from './Post';
+
 // import Essay from './Essay';
 
 const CommentType = new ObjectType({
   name: 'Comment',
   description: 'Comment on a post and reply to other comment',
   fields: () => ({
+    id: globalIdField('Comment'),
     author: {
       type: new NonNull(User),
       description: 'who wrote the comment',
@@ -42,7 +46,15 @@ const CommentType = new ObjectType({
       description: 'the comment it reply to',
     },
   }),
+  interfaces: [nodeInterface],
   // interfaces: [Essay],
 });
-
+const {
+  connectionType: CommentConnection,
+  edgeType: CommentEdge,
+} = connectionDefinitions({
+  name: 'Comment',
+  nodeType: CommentType,
+});
+export { CommentConnection, CommentEdge };
 export default CommentType;

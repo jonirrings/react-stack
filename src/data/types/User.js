@@ -10,13 +10,14 @@
 import {
   GraphQLObjectType as ObjectType,
   GraphQLString as StringType,
-  GraphQLList as ListType,
   GraphQLBoolean as BooleanType,
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
 } from 'graphql';
-
-import Post from './Post';
+import { connectionDefinitions, connectionArgs, connectionFromArray, globalIdField } from 'graphql-relay';
+import { nodeInterface } from './Interface';
+import { PostConnection } from './Post';
+import { getPostsByAuthorId } from '../models';
 
 // TODO to confirm the auth token of each and its auth info structure
 
@@ -24,6 +25,7 @@ const UserType = new ObjectType({
   name: 'User',
   description: 'A user is who bond its social account',
   fields: () => ({
+    id: globalIdField('User'),
     qq: {
       type: StringType,
       description: 'QQ',
@@ -56,9 +58,12 @@ const UserType = new ObjectType({
       type: new NonNull(StringType),
       description: 'a user\'s nickname chosen from social networks above',
     },
-    essay: {
-      type: new ListType(Post),
+    post: {
+      type: PostConnection,
       description: 'what the user has wrote',
+      args: connectionArgs,
+      resolve: (user, args, context, info) =>
+        connectionFromArray(getPostsByAuthorId(user.id), args),
     },
     publisher: {
       type: new NonNull(BooleanType),
@@ -73,6 +78,14 @@ const UserType = new ObjectType({
       description: 'the time the user info was updated',
     },
   }),
+  interfaces: [nodeInterface],
 });
-
+const {
+  connectionType: UserConnection,
+  edgeType: UserEdge,
+} = connectionDefinitions({
+  name: 'User',
+  nodeType: UserType,
+});
+export { UserConnection, UserEdge };
 export default UserType;

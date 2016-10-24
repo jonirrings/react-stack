@@ -12,12 +12,15 @@ import {
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
 } from 'graphql';
+import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { nodeInterface } from './Interface';
 
 const CaptchaType = new ObjectType({
   name: 'Captcha',
   description: 'A Captcha is what verify the client whether is a human',
   fields: {
-    id: {
+    id: globalIdField('Captcha'),
+    _id: {
       type: new NonNull(StringType),
       description: 'the id of a captcha which is used at BE to verify the true value',
     },
@@ -26,6 +29,14 @@ const CaptchaType = new ObjectType({
       description: 'the base64 image of a captcha',
     },
   },
+  interfaces: [nodeInterface],
 });
-
+const {
+  connectionType: CaptchaConnection,
+  edgeType: CaptchaEdge,
+} = connectionDefinitions({
+  name: 'Captcha',
+  nodeType: CaptchaType,
+});
+export { CaptchaConnection, CaptchaEdge };
 export default CaptchaType;

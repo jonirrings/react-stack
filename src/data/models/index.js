@@ -14,6 +14,16 @@ import Essay from './Essay';
 import Stat from './Stat';
 import User from './User';
 
+export function getCaptchaById() {}
+export function getChatById() {}
+export function getCookieById() {}
+export function getEssayById() {}
+export function getStatById() {}
+export function getUserById() {}
+
+export function getCommentsByPostId() {}
+export function getPostsByAuthorId() {}
+
 export {
   Captcha,
   Chat,

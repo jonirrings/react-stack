@@ -7,29 +7,32 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GraphQLObjectType as ObjectType } from 'graphql';
-
-import Captcha from '../types/Captcha';
-import User from '../types/User';
-import Post from '../types/Post';
-import Stat from '../types/Stat';
+import {GraphQLObjectType as ObjectType} from 'graphql';
+import {
+  CaptchaType, PostType, StatType, UserType,
+} from '../types';
+import { nodeField} from '../types/Interface';
 
 const queryType = new ObjectType({
   name: 'Query',
   fields: {
-    captcha: { type: Captcha },
+    captcha: {
+      type: CaptchaType,
+      description: 'captcha info stored in DB'
+    },
     user: {
-      type: User,
+      type: UserType,
       description: 'users info stored in DB',
     },
     post: {
-      type: Post,
+      type: PostType,
       description: 'posts stored in DB',
     },
     stat: {
-      type: Stat,
+      type: StatType,
       description: 'pages read info in DB',
     },
+    node: nodeField,
   },
 });
 
