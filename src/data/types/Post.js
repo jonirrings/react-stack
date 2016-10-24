@@ -10,16 +10,17 @@
 import {
   GraphQLObjectType as ObjectType,
   GraphQLString as StringType,
+  GraphQLID as IDType,
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
 } from 'graphql';
 import {
   connectionDefinitions, connectionArgs,
-  connectionFromArray, globalIdField,
+  connectionFromArray,
 } from 'graphql-relay';
 import User from './User';
 import { nodeInterface } from './Interface';
-// import Essay from './Essay';
+// import Post from './Post';
 import { CommentConnection } from './Comment';
 import { getCommentsByPostId } from '../models';
 
@@ -27,7 +28,10 @@ const PostType = new ObjectType({
   name: 'Post',
   description: 'A Post is an article with comments',
   fields: () => ({
-    id: globalIdField('Post'),
+    id: {
+      type: new NonNull(IDType),
+      description: ' the id of a post in DB',
+    },
     author: {
       type: new NonNull(User),
       description: 'who wrote the post',
@@ -43,7 +47,7 @@ const PostType = new ObjectType({
     comments: {
       type: CommentConnection,
       args: connectionArgs,
-      resolve: (post, args, context, info) =>
+      resolve: (post, args) =>
           connectionFromArray(getCommentsByPostId(post.id), args),
       // TODO modify to meet mongoose promise
       description: 'the comments on the posts',
@@ -62,7 +66,7 @@ const PostType = new ObjectType({
     },
   }),
   interfaces: [nodeInterface],
-  // interfaces: [Essay],
+  // interfaces: [Post],
 });
 const {
   connectionType: PostConnection,

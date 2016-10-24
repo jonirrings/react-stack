@@ -12,19 +12,24 @@ import {
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
+  GraphQLBoolean as BooleanType,
+  GraphQLID as IDType,
 } from 'graphql';
-import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { connectionDefinitions, connectionArgs, connectionFromArray } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import User from './User';
 import Post from './Post';
 
-// import Essay from './Essay';
+// import Post from './Post';
 
 const CommentType = new ObjectType({
   name: 'Comment',
   description: 'Comment on a post and reply to other comment',
   fields: () => ({
-    id: globalIdField('Comment'),
+    id: {
+      type: new NonNull(IDType),
+      description: ' the id of a comment in DB',
+    },
     author: {
       type: new NonNull(User),
       description: 'who wrote the comment',
@@ -32,10 +37,6 @@ const CommentType = new ObjectType({
     content: {
       type: new NonNull(StringType),
       description: 'the content of the comment',
-    },
-    created: {
-      type: new NonNull(IntType),
-      description: 'the time the comment was wrote',
     },
     commentOn: {
       type: new NonNull(Post),
@@ -45,9 +46,21 @@ const CommentType = new ObjectType({
       type: CommentType,
       description: 'the comment it reply to',
     },
+    locked: {
+      type: new NonNull(BooleanType),
+      description: 'a comment will be locked after others replied to'
+    },
+    created: {
+      type: new NonNull(IntType),
+      description: 'the time the comment was wrote',
+    },
+    updated: {
+      type: new NonNull(IntType),
+      description: 'the time the comment was wrote',
+    },
   }),
   interfaces: [nodeInterface],
-  // interfaces: [Essay],
+  // interfaces: [Post],
 });
 const {
   connectionType: CommentConnection,

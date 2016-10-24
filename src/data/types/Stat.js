@@ -10,9 +10,10 @@
 import {
   GraphQLObjectType as ObjectType,
   GraphQLNonNull as NonNull,
+  GraphQLID as IDType,
   GraphQLInt as IntType,
 } from 'graphql';
-import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { connectionDefinitions } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import Post from './Post';
 import User from './User';
@@ -21,7 +22,10 @@ const StatType = new ObjectType({
   name: 'Stat',
   description: 'A stat is the statics on how long one stays on one page',
   fields: () => ({
-    id: globalIdField('Stat'),
+    id: {
+      type: new NonNull(IDType),
+      description: ' the id of a Stat in DB',
+    },
     user: { type: new NonNull(User) },
     post: { type: new NonNull(Post) },
     long: { type: new NonNull(IntType) },

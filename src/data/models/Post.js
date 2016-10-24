@@ -9,7 +9,7 @@
 
 import mongoose, { Schema } from 'mongoose';
 
-const EssaySchema = new Schema({
+const PostSchema = new Schema({
   author: {
     type: Schema.ObjectId,
     ref: 'User',
@@ -23,14 +23,7 @@ const EssaySchema = new Schema({
     type: String,
     required: true,
   },
-  comments: [{ type: Schema.ObjectId, ref: 'Essay' }],
-  commentOn: { type: Schema.ObjectId, ref: 'Essay' },
-  replyTo: { type: Schema.ObjectId, ref: 'Essay' },
-  private: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
+  comments: [{ type: Schema.ObjectId, ref: 'Comment' }],
   visit: {
     type: Number,
     required: true,
@@ -47,5 +40,5 @@ const EssaySchema = new Schema({
     default: Date.now,
   },
 });
-const EssayModel = mongoose.model('Essay', EssaySchema);
-export default EssayModel;
+const PostModel = mongoose.model('Post', PostSchema);
+export default PostModel;

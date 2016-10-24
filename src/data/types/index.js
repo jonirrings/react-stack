@@ -9,14 +9,12 @@
 
 export CaptchaType from './Captcha';
 export CommentType from './Comment';
-export EssayType from './Interface';
 export PostType from './Post';
 export StatType from './Stat';
 export UserType from './User';
 
 export class Captcha {}
 export class Comment {}
-export class Essay {}
 export class Post {}
 export class Stat {}
 export class User {}

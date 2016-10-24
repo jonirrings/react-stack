@@ -12,12 +12,14 @@ import {
   GraphQLString as StringType,
   GraphQLBoolean as BooleanType,
   GraphQLNonNull as NonNull,
+  GraphQLID as IDType,
   GraphQLInt as IntType,
 } from 'graphql';
-import { connectionDefinitions, connectionArgs, connectionFromArray, globalIdField } from 'graphql-relay';
+import { connectionDefinitions, connectionArgs, connectionFromArray } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import { PostConnection } from './Post';
-import { getPostsByAuthorId } from '../models';
+import { CommentConnection } from './Comment';
+import { getPostsByAuthorId,getCommentsByAuthorId } from '../models';
 
 // TODO to confirm the auth token of each and its auth info structure
 
@@ -25,7 +27,10 @@ const UserType = new ObjectType({
   name: 'User',
   description: 'A user is who bond its social account',
   fields: () => ({
-    id: globalIdField('User'),
+    id: {
+      type: new NonNull(IDType),
+      description: ' the id of a user in DB',
+    },
     qq: {
       type: StringType,
       description: 'QQ',
@@ -58,12 +63,19 @@ const UserType = new ObjectType({
       type: new NonNull(StringType),
       description: 'a user\'s nickname chosen from social networks above',
     },
-    post: {
+    posts: {
       type: PostConnection,
-      description: 'what the user has wrote',
+      description: 'posts the user has wrote',
       args: connectionArgs,
-      resolve: (user, args, context, info) =>
+      resolve: (user, args) =>
         connectionFromArray(getPostsByAuthorId(user.id), args),
+    },
+    comments: {
+      type: CommentConnection,
+      description: 'comments the user has wrote',
+      args: connectionArgs,
+      resolve: (user, args) =>
+        connectionFromArray(getCommentsByAuthorId(user.id), args),
     },
     publisher: {
       type: new NonNull(BooleanType),

@@ -18,7 +18,7 @@ const StatSchema = new Schema({
   post: {
     type: Schema.ObjectId,
     required: true,
-    ref: 'Essay',
+    ref: 'Post',
   },
   long: {
     type: Number,

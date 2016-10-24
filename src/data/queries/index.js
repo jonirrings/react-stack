@@ -7,30 +7,55 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {GraphQLObjectType as ObjectType} from 'graphql';
+import { GraphQLObjectType as ObjectType, GraphQLID as IDType ,GraphQLNonNull as NonNull} from 'graphql';
+import { connectionArgs, connectionFromArray } from 'graphql-relay';
 import {
   CaptchaType, PostType, StatType, UserType,
 } from '../types';
-import { nodeField} from '../types/Interface';
+import { nodeField } from '../types/Interface';
+import { PostConnection } from '../types/Post';
+import { getPosts,getCaptchaById,getUserById,getPostById,getStatById } from '../models';
 
 const queryType = new ObjectType({
   name: 'Query',
   fields: {
     captcha: {
       type: CaptchaType,
-      description: 'captcha info stored in DB'
+      description: 'captcha info stored in DB',
+      args: {
+        id: { type: new NonNull(IDType) },
+      },
+      resolve:(_,{id})=>getCaptchaById(id),
     },
     user: {
       type: UserType,
       description: 'users info stored in DB',
+      args: {
+        id: { type: new NonNull(IDType) },
+      },
+      resolve:(_,{id})=>getUserById(id),
     },
     post: {
       type: PostType,
       description: 'posts stored in DB',
+      args: {
+        id: { type: new NonNull(IDType) },
+      },
+      resolve:(_,{id})=>getPostById(id),
+    },
+    posts: {
+      type: PostConnection,
+      description: 'the posts in DB',
+      args: connectionArgs,
+      resolve: (_, args) => connectionFromArray(getPosts(), args),
     },
     stat: {
       type: StatType,
       description: 'pages read info in DB',
+      args: {
+        id: { type: new NonNull(IDType) },
+      },
+      resolve:(_,{id})=>getStatById(id),
     },
     node: nodeField,
   },

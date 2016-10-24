@@ -8,7 +8,7 @@
  */
 
 import { nodeDefinitions, fromGlobalId } from 'graphql-relay';
-import { getCaptchaById, getUserById, getEssayById, getStatById } from '../models';
+import { getCaptchaById, getUserById, getPostById, getStatById } from '../models';
 import {
   Captcha, Comment, Post, Stat, User,
   CaptchaType, CommentType, PostType, StatType, UserType,
@@ -20,9 +20,9 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     if (type === 'Captcha') {
       return getCaptchaById(id);
     } else if (type === 'Comment') {
-      return getEssayById(id);
+      return getPostById(id);
     } else if (type === 'Post') {
-      return getEssayById(id);
+      return getPostById(id);
     } else if (type === 'User') {
       return getUserById(id);
     } else if (type === 'Stat') {

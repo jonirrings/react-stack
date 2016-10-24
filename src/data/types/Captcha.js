@@ -10,18 +10,18 @@
 import {
   GraphQLObjectType as ObjectType,
   GraphQLString as StringType,
+  GraphQLID as IDType,
   GraphQLNonNull as NonNull,
 } from 'graphql';
-import { connectionDefinitions, globalIdField } from 'graphql-relay';
+import { connectionDefinitions } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 
 const CaptchaType = new ObjectType({
   name: 'Captcha',
   description: 'A Captcha is what verify the client whether is a human',
   fields: {
-    id: globalIdField('Captcha'),
-    _id: {
-      type: new NonNull(StringType),
+    id: {
+      type: new NonNull(IDType),
       description: 'the id of a captcha which is used at BE to verify the true value',
     },
     base64: {

@@ -10,25 +10,40 @@
 import Captcha from './Captcha';
 import Chat from './Chat';
 import Cookie from './Cookie';
-import Essay from './Essay';
+import Post from './Post';
+import Comment from './Comment';
 import Stat from './Stat';
 import User from './User';
 
-export function getCaptchaById() {}
-export function getChatById() {}
-export function getCookieById() {}
-export function getEssayById() {}
-export function getStatById() {}
-export function getUserById() {}
-
-export function getCommentsByPostId() {}
-export function getPostsByAuthorId() {}
+export function getCaptchaById() {
+}
+export function getChatById() {
+}
+export function getCookieById() {
+}
+export function getPostById() {
+}
+export function getCommentById() {
+}
+export function getStatById() {
+}
+export function getUserById() {
+}
+export function getCommentsByPostId() {
+}
+export function getPostsByAuthorId() {
+}
+export function getCommentsByAuthorId() {
+}
+export function getPosts() {
+}
 
 export {
   Captcha,
   Chat,
   Cookie,
-  Essay,
+  Post,
+  Comment,
   Stat,
   User,
 };

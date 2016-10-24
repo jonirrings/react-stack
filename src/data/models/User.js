@@ -18,7 +18,8 @@ const UserSchema = new Schema({
   github: String,
   name: { type: String, required: true },
   avatar: String,
-  essay: [{ type: Schema.ObjectId, ref: 'Essay' }],
+  posts: [{ type: Schema.ObjectId, ref: 'Post' }],
+  comments: [{ type: Schema.ObjectId, ref: 'Comment' }],
   admin: {
     type: Boolean,
     required: true,
