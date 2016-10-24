@@ -15,7 +15,7 @@ import {
   GraphQLBoolean as BooleanType,
   GraphQLID as IDType,
 } from 'graphql';
-import { connectionDefinitions, connectionArgs, connectionFromArray } from 'graphql-relay';
+import { connectionDefinitions } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import User from './User';
 import Post from './Post';
@@ -48,7 +48,7 @@ const CommentType = new ObjectType({
     },
     locked: {
       type: new NonNull(BooleanType),
-      description: 'a comment will be locked after others replied to'
+      description: 'a comment will be locked after others replied to',
     },
     created: {
       type: new NonNull(IntType),

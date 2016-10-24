@@ -19,7 +19,7 @@ import { connectionDefinitions, connectionArgs, connectionFromArray } from 'grap
 import { nodeInterface } from './Interface';
 import { PostConnection } from './Post';
 import { CommentConnection } from './Comment';
-import { getPostsByAuthorId,getCommentsByAuthorId } from '../models';
+import { getPostsByAuthorId, getCommentsByAuthorId } from '../models';
 
 // TODO to confirm the auth token of each and its auth info structure
 

@@ -37,6 +37,42 @@ export function getCommentsByAuthorId() {
 }
 export function getPosts() {
 }
+export function getUsers() {
+}
+
+export function addUser({ name, avatar }) {
+  return { name, avatar };
+}
+export function updateUser({ id, name, avatar }) {
+  return { id, name, avatar };
+}
+export function addPost({ author, title, content }) {
+  return { author, title, content };
+}
+export function updatePost({ id, title, content }) {
+  return { id, title, content };
+}
+export function removePost({id}) {
+  return {id};
+}
+export function addComment({author,content,commentOnId,replyToId}) {
+  return {author,content,commentOnId,replyToId};
+}
+export function removeComment({id}) {
+  return {id};
+}
+export function updateComment({commentId,content}) {
+  return {commentId, content};
+}
+export function addCaptcha({userId}) {
+  return{userId}
+}
+export function removeCaptcha({id, value}) {
+  return{id,value}
+}
+export function updateCaptcha({id}) {
+  return {id};
+}
 
 export {
   Captcha,

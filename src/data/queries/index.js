@@ -7,14 +7,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GraphQLObjectType as ObjectType, GraphQLID as IDType ,GraphQLNonNull as NonNull} from 'graphql';
+import { GraphQLObjectType as ObjectType, GraphQLID as IDType, GraphQLNonNull as NonNull } from 'graphql';
 import { connectionArgs, connectionFromArray } from 'graphql-relay';
 import {
   CaptchaType, PostType, StatType, UserType,
 } from '../types';
 import { nodeField } from '../types/Interface';
 import { PostConnection } from '../types/Post';
-import { getPosts,getCaptchaById,getUserById,getPostById,getStatById } from '../models';
+import { getPosts, getCaptchaById, getUserById, getPostById, getStatById } from '../models';
 
 const queryType = new ObjectType({
   name: 'Query',
@@ -25,7 +25,7 @@ const queryType = new ObjectType({
       args: {
         id: { type: new NonNull(IDType) },
       },
-      resolve:(_,{id})=>getCaptchaById(id),
+      resolve: (_, { id }) => getCaptchaById(id),
     },
     user: {
       type: UserType,
@@ -33,7 +33,7 @@ const queryType = new ObjectType({
       args: {
         id: { type: new NonNull(IDType) },
       },
-      resolve:(_,{id})=>getUserById(id),
+      resolve: (_, { id }) => getUserById(id),
     },
     post: {
       type: PostType,
@@ -41,7 +41,7 @@ const queryType = new ObjectType({
       args: {
         id: { type: new NonNull(IDType) },
       },
-      resolve:(_,{id})=>getPostById(id),
+      resolve: (_, { id }) => getPostById(id),
     },
     posts: {
       type: PostConnection,
@@ -55,7 +55,7 @@ const queryType = new ObjectType({
       args: {
         id: { type: new NonNull(IDType) },
       },
-      resolve:(_,{id})=>getStatById(id),
+      resolve: (_, { id }) => getStatById(id),
     },
     node: nodeField,
   },

@@ -21,9 +21,9 @@ const CommentSchema = new Schema({
   },
   commentOn: { type: Schema.ObjectId, ref: 'Post' },
   replyTo: { type: Schema.ObjectId, ref: 'Comment' },
-  //TODO if null, Level 1 comment else Level 2
+  // TODO if null, Level 1 comment else Level 2
   locked: {
-    //TODO once comment by others, it is locked
+    // TODO once comment by others, it is locked
     type: Boolean,
     required: true,
     default: false,
