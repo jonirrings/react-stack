@@ -9,7 +9,6 @@
 
 import {
   GraphQLNonNull as NonNull,
-  GraphQLString as StringType,
   GraphQLID as IDType,
 } from 'graphql';
 import {
@@ -21,7 +20,7 @@ import { updateCaptcha } from '../../models';
 const mutation = mutationWithClientMutationId({
   name: 'UpdateCaptcha',
   inputFields: {
-    id: { type: new NonNull(IDType) }
+    id: { type: new NonNull(IDType) },
   },
   outputFields: {
     user: {
@@ -29,7 +28,7 @@ const mutation = mutationWithClientMutationId({
       resolve: captcha => captcha,
     },
   },
-  mutateAndGetPayload: ({ id}) => updateCaptcha({ id}),
+  mutateAndGetPayload: ({ id }) => updateCaptcha({ id }),
 });
 
 export default mutation;

@@ -7,6 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+
 import {
   GraphQLNonNull as NonNull,
   GraphQLID as IDType,
@@ -14,20 +15,20 @@ import {
 import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
-import { removePost } from '../../models';
+import { removeComment } from '../../models';
 
 const mutation = mutationWithClientMutationId({
-  name: 'DeleteUser',
+  name: 'DeleteComment',
   inputFields: {
     id: { type: new NonNull(IDType) },
   },
   outputFields: {
     user: {
       type: IDType,
-      resolve: ({id}) => id,
+      resolve: ({ id }) => id,
     },
   },
-  mutateAndGetPayload: ({ id }) => removePost({ id }),
+  mutateAndGetPayload: ({ id }) => removeComment({ id }),
 });
 
 export default mutation;

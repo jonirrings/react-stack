@@ -39,7 +39,8 @@ const mutation = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload:
-    ({author,content,commentOnId,replyToId}) => addComment({author,content,commentOnId,replyToId}),
+    ({ author, content, commentOnId, replyToId }) =>
+      addComment({ author, content, commentOnId, replyToId }),
 });
 
 export default mutation;

@@ -25,10 +25,10 @@ const mutation = mutationWithClientMutationId({
   outputFields: {
     userEdge: {
       type: CaptchaType,
-      resolve: captcha=>captcha,
+      resolve: captcha => captcha,
     },
   },
-  mutateAndGetPayload: ({userId }) => addCaptcha({userId }),
+  mutateAndGetPayload: ({ userId }) => addCaptcha({ userId }),
 });
 
 export default mutation;

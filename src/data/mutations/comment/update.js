@@ -15,23 +15,22 @@ import {
 import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
-import { PostType } from '../../types';
-import { updatePost } from '../../models';
+import { CommentType } from '../../types';
+import { updateComment } from '../../models';
 
 const mutation = mutationWithClientMutationId({
-  name: 'UpdateUser',
+  name: 'UpdateComment',
   inputFields: {
-    id: { type: new NonNull(IDType) },
-    name: { type: new NonNull(StringType) },
-    avatar: { type: new NonNull(StringType) },
+    commentId: { type: new NonNull(IDType) },
+    content: { type: new NonNull(StringType) },
   },
   outputFields: {
     user: {
-      type: PostType,
-      resolve: post => post,
+      type: CommentType,
+      resolve: comment => comment,
     },
   },
-  mutateAndGetPayload: ({ id, name, avatar }) => updatePost({ id, name, avatar }),
+  mutateAndGetPayload: ({ commentId, content }) => updateComment({ commentId, content }),
 });
 
 export default mutation;

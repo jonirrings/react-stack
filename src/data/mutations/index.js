@@ -12,17 +12,17 @@ import { GraphQLObjectType as ObjectType } from 'graphql';
 import UserCreateMutation from './user/create';
 import UserUpdateMutation from './user/update';
 
-import PostCreateMutation from './post/create'
-import PostUpdateMutation from './post/update'
-import PostDeleteMutation from './post/delete'
+import PostCreateMutation from './post/create';
+import PostUpdateMutation from './post/update';
+import PostDeleteMutation from './post/delete';
 
-import CaptchaCreateMutation from './captcha/create'
-import CaptchaUpdateMutation from './captcha/update'
-import CaptchaDeleteMutation from './captcha/delete'
+import CaptchaCreateMutation from './captcha/create';
+import CaptchaUpdateMutation from './captcha/update';
+import CaptchaDeleteMutation from './captcha/delete';
 
-import CommentCreateMutation from './comment/create'
-import CommentUpdateMutation from './comment/update'
-import CommentDeleteMutation from './comment/delete'
+import CommentCreateMutation from './comment/create';
+import CommentUpdateMutation from './comment/update';
+import CommentDeleteMutation from './comment/delete';
 
 const mutationType = new ObjectType({
   name: 'Mutation',

@@ -7,6 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+
 import {
   GraphQLNonNull as NonNull,
   GraphQLString as StringType,
@@ -15,22 +16,23 @@ import {
 import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
-import { CommentType } from '../../types';
-import { updateComment } from '../../models';
+import { PostType } from '../../types';
+import { updatePost } from '../../models';
 
 const mutation = mutationWithClientMutationId({
-  name: 'UpdateComment',
+  name: 'UpdatePost',
   inputFields: {
-    commentId: { type: new NonNull(IDType) },
-    content: { type: new NonNull(StringType) },
+    id: { type: new NonNull(IDType) },
+    name: { type: new NonNull(StringType) },
+    avatar: { type: new NonNull(StringType) },
   },
   outputFields: {
     user: {
-      type: CommentType,
-      resolve: comment => comment,
+      type: PostType,
+      resolve: post => post,
     },
   },
-  mutateAndGetPayload: ({commentId,content}) => updateComment({commentId,content}),
+  mutateAndGetPayload: ({ id, name, avatar }) => updatePost({ id, name, avatar }),
 });
 
 export default mutation;

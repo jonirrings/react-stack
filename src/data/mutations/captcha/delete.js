@@ -21,15 +21,15 @@ const mutation = mutationWithClientMutationId({
   name: 'DeleteCaptcha',
   inputFields: {
     id: { type: new NonNull(IDType) },
-    value:{type:new NonNull(StringType)}
+    value: { type: new NonNull(StringType) },
   },
   outputFields: {
     user: {
       type: IDType,
-      resolve: ({id})=>id,
+      resolve: ({ id }) => id,
     },
   },
-  mutateAndGetPayload: ({ id,value }) => removeCaptcha({ id,value }),
+  mutateAndGetPayload: ({ id, value }) => removeCaptcha({ id, value }),
 });
 
 export default mutation;
