@@ -12,8 +12,8 @@ import webpack from 'webpack';
 import extend from 'extend';
 import AssetsPlugin from 'assets-webpack-plugin';
 
-const DEBUG = !process.argv.includes('--release');
-const VERBOSE = process.argv.includes('--verbose');
+const isDebug = !process.argv.includes('--release');
+const isVerbose = process.argv.includes('--verbose');
 const AUTOPREFIXER_BROWSERS = [
   'Android 2.3',
   'Android >= 4',
@@ -25,8 +25,8 @@ const AUTOPREFIXER_BROWSERS = [
   'Safari >= 7.1',
 ];
 const GLOBALS = {
-  'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
-  __DEV__: DEBUG,
+  'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+  __DEV__: isDebug,
 };
 //
 // Common config for both client and server bundles
@@ -48,16 +48,16 @@ const config = {
           path.resolve(__dirname, '../src'),
         ],
         query: {
-          cacheDirectory: DEBUG,
+          cacheDirectory: isDebug,
           babelrc: false,
           presets: [
             'react',
-            'es2015',
+            'latest',
             'stage-0',
           ],
           plugins: [
             'transform-runtime',
-            ...DEBUG ? [] : [
+            ...isDebug ? ['transform-react-jsx-source','transform-react-jsx-self'] : [
               'transform-react-remove-prop-types',
               'transform-react-constant-elements',
               'transform-react-inline-elements',
@@ -70,18 +70,18 @@ const config = {
         loaders: [
           'isomorphic-style-loader',
           `css-loader?${JSON.stringify({
-            sourceMap: DEBUG,
-            module: true,
-            localIdentName: DEBUG ? '[name]_[local]_[hash:base64:3]' : '[hash"base64:4]',
-            minimize: !DEBUG,
+            importLoaders: 1,sourceMap: isDebug,
+            modules: true,
+            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+            minimize: !isDebug,
           })}`,
           'postcss-loader?pack=default',
         ],
       }, {
         test: /\.scss$/,
         loaders: [
-          'isomorhpic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: DEBUG, minimize: !DEBUG })}`,
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
           'postcss-loader?pack=scss',
           'sass-loader',
         ],
@@ -95,7 +95,7 @@ const config = {
         test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
         loader: 'url-loader',
         query: {
-          name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
           limit: 10000,
         },
       },
@@ -103,7 +103,7 @@ const config = {
         test: /\.(eot|ttf|wav|mp3)$/,
         loader: 'file-loader',
         query: {
-          name: DEBUG ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
         },
       },
     ],
@@ -113,19 +113,19 @@ const config = {
     modulesDirectories: ['node_modules'],
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json'],
   },
-  cache: DEBUG,
-  debug: DEBUG,
+  cache: isDebug,
+  debug: isDebug,
 
   stats: {
     colors: true,
-    reasons: DEBUG,
-    hash: VERBOSE,
-    version: VERBOSE,
+    reasons: isDebug,
+    hash: isVerbose,
+    version: isVerbose,
     timings: true,
-    chunks: VERBOSE,
-    chunkModules: VERBOSE,
-    cached: VERBOSE,
-    cachedAssets: VERBOSE,
+    chunks: isVerbose,
+    chunkModules: isVerbose,
+    cached: isVerbose,
+    cachedAssets: isVerbose,
   },
   postcss(bundler) {
     return {
@@ -193,29 +193,29 @@ const config = {
 const clientConfig = extend(true, {}, config, {
   entry: './client.js',
   output: {
-    filename: DEBUG ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
-    chunkFilename: DEBUG ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
+    filename: isDebug ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
+    chunkFilename: isDebug ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
   },
   target: 'web',
   plugins: [
-    new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true }),
+    new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true}),
     new AssetsPlugin({
       path: path.resolve(__dirname, '../build'),
       filename: 'assets.js',
       processOutput: x => `module.exports = ${JSON.stringify(x)};`,
     }),
     new webpack.optimize.OccurrenceOrderPlugin(true),
-    ...DEBUG ? [] : [
+    ...isDebug ? [] : [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           screw_ie8: true,
-          warnings: VERBOSE,
+          warnings: isVerbose,
         },
       }),
     ],
   ],
-  devtool: DEBUG ? 'source-map' : false,
+  devtool: isDebug ? 'source-map' : false,
 });
 
 //
@@ -255,7 +255,4 @@ const serverConfig = extend(true, {}, config, {
   devtool: 'source-map',
 });
 
-export default [
-  clientConfig,
-  serverConfig,
-];
+export default [clientConfig,serverConfig];

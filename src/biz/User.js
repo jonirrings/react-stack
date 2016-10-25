@@ -8,11 +8,23 @@
  */
 import { User } from '../data/models';
 
-export function findOrCreate({ github, name, avatar }) {
+export function create({ github, name, avatar }) {
   const user = new User({ github, name, avatar });
-  return user;
+  return user.save();
 }
-export function remove({ id }, cb) {
-  return cb({ id });
+function retrieve({ github }, cb) {
+  return User.findOne({ github }, cb);
 }
-//TODO put CURD ops in the biz dir
+
+export async function findOrCreate({ github, name, avatar }) {
+  return await retrieve({ github },
+    async (err, user) => {
+      if (err)
+        { throw err; }
+      if (user) {
+        return user.toObject();
+      } else {
+        return create({ github, name, avatar }).then(user => user.toObject());
+      }
+    });
+}

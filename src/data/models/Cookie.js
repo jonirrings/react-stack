@@ -10,8 +10,16 @@
 import mongoose, { Schema } from 'mongoose';
 
 const CookieSchema = new Schema({
-  name: String, // User ID
-  value: String, // CookieID
+  name: {
+    type:String,
+    default:'login',
+    required:true,
+  },
+  value: {
+    type:String,
+    required:true
+  },
+  // CookieID most is a base64 hash digest of an uuid
   maxAge: {
     type: Number,
     required: true,
@@ -25,8 +33,8 @@ const CookieSchema = new Schema({
     type: Date,
     required: true,
     default: Date.now,
-    expires: '30d',
+    expires: '7d',
   },
-});
+},{ capped: 1024 * 1024 * 512 });
 const CookieModel = mongoose.model('Cookie', CookieSchema);
 export default CookieModel;
