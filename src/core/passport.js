@@ -19,8 +19,8 @@ passport.use(new GitHubStrategy({
   callbackURL: 'http://127.0.0.1:3000/login/github/callback',
 },
   async (accessToken, refreshToken, profile, done) => {
-    const {_json:{name,id:github,avatar_url:avatar}} = profile;
-    const user = await findOrCreate({name, github, avatar});
+    const { _json: { name, id: github, avatar_url: avatar } } = profile;
+    const user = await findOrCreate({ name, github, avatar });
     done(null, user);
   }
 ));

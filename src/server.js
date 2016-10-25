@@ -14,6 +14,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import expressGraphQL from 'express-graphql';
 import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
@@ -24,7 +25,8 @@ import passport from './core/passport';
 import Html from './components/Html';
 import App from './components/App';
 import RouteRoot from './route';
-import {port, auth,databaseUrl} from './config';
+import assets from './assets'; // eslint-disable-line
+import { port, auth, databaseUrl } from './config';
 
 import schema from './data/schema';
 
@@ -43,8 +45,9 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 app.use(express.static(path.join(__dirname, 'public')));
 app.get('/favicon.ico', (req, res) => res.send(''));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(session({ secret: 'jonirrings', resave: false, saveUninitialized: false }));
 
 //
 // Authentication
@@ -55,20 +58,21 @@ app.use(expressJwt({
   getToken: req => req.cookies.id_token,
 }));
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.get('/login/github',
-  passport.authenticate('github', {scope: ['user:email'], session: false})
+  passport.authenticate('github', { scope: ['user:email'], session: true })
 );
 app.get('/login/github/callback',
-  passport.authenticate('github', {failureRedirect: '/', session: false}),
+  passport.authenticate('github', { failureRedirect: '/', session: true }),
   (req, res) => {
     const expiresIn = 60 * 60 * 24 * 180; // 180 days
-    const token = jwt.sign(req.user, auth.jwt.secret, {expiresIn});
-    res.cookie('id_token', token, {maxAge: 1000 * expiresIn, httpOnly: true});
+    const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
+    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
     res.redirect('/');
   }
 );
-app.get('/logout', function (req, res) {
+app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
@@ -77,22 +81,22 @@ app.get('/logout', function (req, res) {
 app.use('/graphql', expressGraphQL(req => ({
   schema,
   graphiql: true,
-  rootValue: {request: req},
+  rootValue: { request: req },
   pretty: process.env.NODE_ENV !== 'production',
 })));
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 
-app.get('/', async(req, res, next)=> {
+app.get('/', async(req, res, next) => {
   try {
-    const data = {title: 'Home'};
-    data.children = ReactDOM.renderToString(<App><RouteRoot/></App>);
+    const data = { title: 'Home' };
+    data.script = assets.main.js;
+    data.children = ReactDOM.renderToString(<App><RouteRoot {...{ user: req.user?req.user.name:'not logined' }} /></App>);
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(200);
-    res.send(`<!doctype html>${html}`)
-  }
-  catch (err) {
+    res.send(`<!doctype html>${html}`);
+  } catch (err) {
     next(err);
   }
 });

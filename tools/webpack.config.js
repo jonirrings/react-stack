@@ -11,6 +11,7 @@ import path from 'path';
 import webpack from 'webpack';
 import extend from 'extend';
 import AssetsPlugin from 'assets-webpack-plugin';
+import babelRelayPlugin from './babelRelayPlugin';
 
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
@@ -38,75 +39,6 @@ const config = {
     path: path.resolve(__dirname, '../build/public/assets'),
     publicPath: '/assets/',
     sourcePrefix: '  ',
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: [
-          path.resolve(__dirname, '../src'),
-        ],
-        query: {
-          cacheDirectory: isDebug,
-          babelrc: false,
-          presets: [
-            'react',
-            'latest',
-            'stage-0',
-          ],
-          plugins: [
-            'transform-runtime',
-            ...isDebug ? ['transform-react-jsx-source','transform-react-jsx-self'] : [
-              'transform-react-remove-prop-types',
-              'transform-react-constant-elements',
-              'transform-react-inline-elements',
-            ],
-          ],
-        },
-      },
-      {
-        test: /\.css$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({
-            importLoaders: 1,sourceMap: isDebug,
-            modules: true,
-            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-            minimize: !isDebug,
-          })}`,
-          'postcss-loader?pack=default',
-        ],
-      }, {
-        test: /\.scss$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
-          'postcss-loader?pack=scss',
-          'sass-loader',
-        ],
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
-      }, {
-        test: /\.txt$/,
-        loader: 'raw-loader',
-      }, {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-          limit: 10000,
-        },
-      },
-      {
-        test: /\.(eot|ttf|wav|mp3)$/,
-        loader: 'file-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-        },
-      },
-    ],
   },
   resolve: {
     root: path.resolve(__dirname, '../src'),
@@ -196,9 +128,80 @@ const clientConfig = extend(true, {}, config, {
     filename: isDebug ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
     chunkFilename: isDebug ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
   },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, '../src'),
+        ],
+        query: {
+          cacheDirectory: isDebug,
+          babelrc: false,
+          presets: [
+            // {plugins:[babelRelayPlugin]}, TODO make sure where to put plugin
+            'react',
+            'latest',
+            'stage-0',
+          ],
+          plugins: [
+            'transform-runtime',
+            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
+              'transform-react-remove-prop-types',
+              'transform-react-constant-elements',
+              'transform-react-inline-elements',
+            ],
+          ],
+        },
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({
+            importLoaders: 1,
+            sourceMap: isDebug,
+            modules: true,
+            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+            minimize: !isDebug,
+          })}`,
+          'postcss-loader?pack=default',
+        ],
+      }, {
+        test: /\.scss$/,
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
+          'postcss-loader?pack=scss',
+          'sass-loader',
+        ],
+      }, {
+        test: /\.json$/,
+        loader: 'json-loader',
+      }, {
+        test: /\.txt$/,
+        loader: 'raw-loader',
+      }, {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          limit: 10000,
+        },
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+        },
+      },
+    ],
+  },
   target: 'web',
   plugins: [
-    new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true}),
+    new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true }),
     new AssetsPlugin({
       path: path.resolve(__dirname, '../build'),
       filename: 'assets.js',
@@ -228,13 +231,82 @@ const serverConfig = extend(true, {}, config, {
     filename: '../../server.js',
     libraryTarget: 'commonjs2',
   },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, '../src'),
+        ],
+        query: {
+          cacheDirectory: isDebug,
+          babelrc: false,
+          presets: [
+            'react',
+            'latest',
+            'stage-0',
+          ],
+          plugins: [
+            'transform-runtime',
+            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
+              'transform-react-remove-prop-types',
+              'transform-react-constant-elements',
+              'transform-react-inline-elements',
+            ],
+          ],
+        },
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({
+            importLoaders: 1,
+            sourceMap: isDebug,
+            modules: true,
+            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+            minimize: !isDebug,
+          })}`,
+          'postcss-loader?pack=default',
+        ],
+      }, {
+        test: /\.scss$/,
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
+          'postcss-loader?pack=scss',
+          'sass-loader',
+        ],
+      }, {
+        test: /\.json$/,
+        loader: 'json-loader',
+      }, {
+        test: /\.txt$/,
+        loader: 'raw-loader',
+      }, {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          limit: 10000,
+        },
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+        },
+      },
+    ],
+  },
   target: 'node',
   externals: [
     /^\.\/assets$/,
     (context, request, callback) => {
       const isExternal =
-        request.match(/^[@a-z][a-z\/\.\-0-9]*$/i) &&
-          !request.match(/\.(css|less|scss|sss)$/i);
+        request.match(/^[@a-z][a-z\/\.\-0-9]*$/i) && !request.match(/\.(css|less|scss|sss)$/i);
       callback(null, Boolean(isExternal));
     },
   ],
@@ -255,4 +327,4 @@ const serverConfig = extend(true, {}, config, {
   devtool: 'source-map',
 });
 
-export default [clientConfig,serverConfig];
+export default [clientConfig, serverConfig];

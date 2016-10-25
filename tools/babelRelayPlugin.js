@@ -7,11 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Promise from 'bluebird';
+const getbabelRelayPlugin = require('babel-relay-plugin');
+const schema = require('../src/data/schema.json');
 
-export function saveInPromise(model) {
-  const p = new Promise();
-  model.save((err, result) => {
-    p.then(err, result);
-  });
-}
+module.exports = getbabelRelayPlugin(schema.data);

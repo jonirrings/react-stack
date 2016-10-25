@@ -11,7 +11,7 @@ export const port = process.env.PORT || 3000;
 export const host = process.env.WEBSITE_HOSTNAME || `localhost:${port}`;
 
 export const databaseUrl = process.env.DATABASE_URL || 'mongodb://localhost/blog';
-//TODO add your auth
+// TODO add your auth
 export const auth = {
   jwt: { secret: process.env.JWT_SECRET || 'Jonir Rings\' Home' },
   github: {
