@@ -9,7 +9,6 @@
 
 import { GraphQLObjectType as ObjectType } from 'graphql';
 
-import UserCreateMutation from './user/create';
 import UserUpdateMutation from './user/update';
 
 import PostCreateMutation from './post/create';
@@ -27,7 +26,6 @@ import CommentDeleteMutation from './comment/delete';
 const mutationType = new ObjectType({
   name: 'Mutation',
   fields: {
-    createUser: UserCreateMutation,
     updateUser: UserUpdateMutation,
     createPost: PostCreateMutation,
     updatePost: PostUpdateMutation,

@@ -30,6 +30,8 @@
     "graphql-relay": "^0.4.3",
     "mongoose": "^4.6.4",
     "node-fetch": "^1.6.3",
+    "passport": "^0.3.2",
+    "passport-github2": "^0.1.10",
     "pretty-error": "^2.0.2",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
