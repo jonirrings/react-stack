@@ -7,13 +7,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Captcha from './Captcha';
-import Chat from './Chat';
-import Cookie from './Cookie';
-import Post from './Post';
-import Comment from './Comment';
-import Stat from './Stat';
-import User from './User';
+export Captcha from './Captcha';
+export Chat from './Chat';
+export Cookie from './Cookie';
+export Post from './Post';
+export Comment from './Comment';
+export Stat from './Stat';
+export User from './User';
 
 export function getCaptchaById() {
 }
@@ -73,13 +73,3 @@ export function removeCaptcha({ id, value }) {
 export function updateCaptcha({ id }) {
   return { id };
 }
-
-export {
-  Captcha,
-  Chat,
-  Cookie,
-  Post,
-  Comment,
-  Stat,
-  User,
-};

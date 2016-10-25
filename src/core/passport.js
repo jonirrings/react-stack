@@ -9,18 +9,20 @@
 
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
-import { findOrCreate } from '../biz/User';
 import { auth as config } from '../config';
+import { findOrCreate } from '../biz/User';
 
 const { github: { clientID, clientSecret } } = config;
 passport.use(new GitHubStrategy({
   clientID,
   clientSecret,
-  callbackURL: 'http://127.0.0.1:3000/auth/github/callback',
+  callbackURL: 'http://127.0.0.1:3000/login/github/callback',
 },
-  (accessToken, refreshToken, profile, done) => {
-    findOrCreate({ ...profile }, (err, user) =>
-      done(err, user)
-    );
+  async (accessToken, refreshToken, profile, done) => {
+    const {_json:{name,id:github,avatar_url:avatar}} = profile;
+    const user = await findOrCreate({name, github, avatar});
+    done(null, user);
   }
 ));
+
+export default passport;
