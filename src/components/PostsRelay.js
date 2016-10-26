@@ -46,6 +46,6 @@ const PostsContainer = Relay.createContainer(Posts, {
 const RootContainer =
   (<Relay.RootContainer
     Component={PostsContainer}
-    route={new PostsRoute({ num: 10 })}
+    route={new PostsRoute({ num: 1 })}
   />);
 export default RootContainer;

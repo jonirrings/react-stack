@@ -14,7 +14,8 @@ import {
 } from '../types';
 import { nodeField } from '../types/Interface';
 import { PostConnection } from '../types/Post';
-import { getPosts, getCaptchaById, getUserById, getPostById, getStatById } from '../models';
+import { getPosts, getCaptchaById, getPostById, getStatById } from '../models';
+import { findUserById } from '../../biz/User';
 
 const queryType = new ObjectType({
   name: 'Query',
@@ -33,7 +34,7 @@ const queryType = new ObjectType({
       args: {
         id: { type: new NonNull(IDType) },
       },
-      resolve: (_, { id }) => getUserById(id),
+      resolve: (_, { id }) => findUserById(id),
     },
     post: {
       type: PostType,

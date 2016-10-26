@@ -27,12 +27,14 @@ export function getCommentById() {
 }
 export function getStatById() {
 }
-export function getUserById() {
+export async function getUserById(id) {
+  const user = await User.findOne({ _id: id }).exec().then(e => e.toObject());
+  return user;
 }
 export function getCommentsByPostId() {
 }
 export async function getPostsByAuthorId(id) {
-  return await User.findOne({ id }).exec().then(e => e.toObject());
+  return await Post.findOne({ id }).exec().then(e => e.toObject());
 }
 export function getCommentsByAuthorId() {
 }

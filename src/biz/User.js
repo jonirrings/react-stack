@@ -16,7 +16,13 @@ export function create({ github, name, avatar }) {
 export function retrieve({ github }) {
   return User.findOne({ github }).exec();
 }
-
+export async function findUserById(id) {
+  const user = await User.findById(id).exec();
+  if (user) {
+    return user.toObject();
+  }
+  return user;
+}
 export function findOrCreate({ github, name, avatar }) {
   return retrieve({ github })
     .then((e) => {
