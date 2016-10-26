@@ -9,7 +9,7 @@
 
 import Relay from 'react-relay';
 import React, { Component, PropTypes } from 'react';
-import Comment from './Comment';
+import {PostContainer} from './Post';
 
 class PostsRoute extends Relay.Route {
   static queries = {
@@ -17,88 +17,30 @@ class PostsRoute extends Relay.Route {
   };
   static routeName = 'PostsRoute';
 }
-class PostApp extends Component {
-  static propTypes = {
-    post: PropTypes.shape({
-      author: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-      }),
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      comments: PropTypes.array,
-      created: PropTypes.number.isRequired,
-      updated: PropTypes.number.isRequired,
-    }),
-  };
-  render() {
-    const { author: { name, avatar }, title, content, comments, created, updated } = this.props.post;
-    return (
-      <div>
-        <div>
-          <img alt={`the avatar of ${name}`} src={avatar} />
-          <strong>{name}</strong>
-        </div>
-        <div>
-          <title>{title}</title>
-          <span>created:{new Date(created)}&nbsp;|&nbsp;updated:{new Date(updated)}</span>
-        </div>
-        <div>{content}</div>
-        <div>
-          {comments.edges.map(node => <Comment key={node.id} {...node} />)}
-        </div>
-      </div>
-    );
-  }
-}
-const PostContainer = Relay.createContainer(PostApp, {
-  fragments: {
-    post: Relay.QL`
-        fragment on Post{
-            author{
-                name
-                avatar
-            }
-            title
-            content
-            comments{
-                edges{
-                    node{
-                        id
-                        ${Component.getFragment('comment')}                        
-                    }
-                }
-            }
-            created
-            updated
-        }
-    `,
-  },
-});
 class Posts extends Component {
   render() {
     const posts = this.props.posts;
     return (
       <div>
         {
-            posts.edges.map(node => <PostContainer key={node.id} {...node} />)
+          posts.edges.map(node => <Post key={node.id} {...node} />)
         }
       </div>
-      );
+    );
   }
 }
 const PostsContainer = Relay.createContainer(Posts, {
   fragments: {
-    posts: Relay.QL`
-        fragment on PostConnection{
-            edges{
-                node{
-                    id
-                    ${PostContainer.getFragment('post')}
+    posts: () => Relay.QL`
+            fragment on PostConnection{
+                edges{
+                    node{
+                        id
+                        ${PostContainer.getFragment('post')}
+                    }
                 }
             }
-        }
-    `,
+        `,
   },
 });
 const RootContainer =

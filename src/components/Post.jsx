@@ -7,24 +7,27 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import React, { Component, PropTypes } from 'react';
+import {CommentContainer} from './Comment';
 
-class Comment extends Component {
+class Post extends Component {
   static propTypes = {
-    comment: PropTypes.shape({
+    post: PropTypes.shape({
       author: PropTypes.shape({
         name: PropTypes.string.isRequired,
         avatar: PropTypes.string.isRequired,
       }),
+      title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
-      replyTo: PropTypes.object,
+      comments: PropTypes.array,
       created: PropTypes.number.isRequired,
       updated: PropTypes.number.isRequired,
     }),
   };
   render() {
-    const { author: { name, avatar }, content, replyTo, created, updated } = this.props.comment;
+    const { author: { name, avatar }, title, content, comments, created, updated }
+      = this.props.post;
     return (
       <div>
         <div>
@@ -32,35 +35,40 @@ class Comment extends Component {
           <strong>{name}</strong>
         </div>
         <div>
-          <div>
-            <strong>
-              {replyTo ? `replyTo:${replyTo.author.name}` : ''}
-            </strong>{content}
-          </div>
+          <title>{title}</title>
           <span>created:{new Date(created)}&nbsp;|&nbsp;updated:{new Date(updated)}</span>
+        </div>
+        <div>{content}</div>
+        <div>
+          {comments.edges.map(node => <CommentContainer key={node.id} {...node} />)}
         </div>
       </div>
     );
   }
 }
-
-export default Relay.createContainer(Comment, {
-  fragments: {
-    comment: Relay.QL`
-            fragment on Comment{
+const PostContainer = Relay.createContainer(Post, {
+    fragments: {
+        post: () => Relay.QL`
+            fragment on Post{
                 author{
                     name
                     avatar
                 }
+                title
                 content
-                replyTo{
-                    author{
-                        name
+                comments(first:1){
+                    edges{
+                        node{
+                            id
+                            ${CommentContainer.getFragment('comment')}
+                        }
                     }
                 }
                 created
                 updated
             }
         `,
-  },
+    },
 });
+
+export {Post,PostContainer} ;
