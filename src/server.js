@@ -92,7 +92,7 @@ app.get('/', async(req, res, next) => {
   try {
     const data = { title: 'Home' };
     data.script = assets.main.js;
-    data.children = ReactDOM.renderToString(<App><RouteRoot {...{ user: req.user?req.user.name:'not logined' }} /></App>);
+    data.children = ReactDOM.renderToString(<App><RouteRoot {...{ user: req.user ? req.user.name : 'not logined' }} /></App>);
     const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
     res.status(200);
     res.send(`<!doctype html>${html}`);

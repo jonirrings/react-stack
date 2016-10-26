@@ -31,7 +31,8 @@ export function getUserById() {
 }
 export function getCommentsByPostId() {
 }
-export function getPostsByAuthorId() {
+export async function getPostsByAuthorId(id) {
+  return await User.findOne({ id }).exec().then(e => e.toObject());
 }
 export function getCommentsByAuthorId() {
 }

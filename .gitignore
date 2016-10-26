@@ -56,3 +56,4 @@ build/
 schema.json
 schema.graphql
 schema.graphqls
+data/

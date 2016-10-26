@@ -98,11 +98,6 @@
   },
   "babel": {
     "presets": [
-      {
-        "plugins": [
-          "./tools/babelRelayPlugin"
-        ]
-      },
       "react",
       "node5",
       "stage-0"

@@ -4,7 +4,7 @@
   "schema": {
 
     "README_file" : "Remove 'file' to use request url below. A relative or absolute path to the JSON from a schema introspection query, e.g. '{ data: ... }'. Changes to the file are watched.",
-    "file": "src/data/schema.json",
+    "file": "data/schema.json",
 
     "README_request" : "To request the schema from a url instead, remove the 'file' JSON property above (and optionally delete the default graphql.schema.json file).",
     "request": {

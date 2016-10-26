@@ -7,10 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import fs from 'fs';
 import path from 'path';
 import { graphql } from 'graphql';
 import { introspectionQuery, printSchema } from 'graphql/utilities';
+import { writeFile } from './lib/fs';
 import schema from '../src/data/schema';
 
 // Save JSON of full schema introspection for Babel Relay Plugin to use
@@ -22,15 +22,15 @@ import schema from '../src/data/schema';
       JSON.stringify(result.errors, null, 2)
     );
   } else {
-    fs.writeFileSync(
-      path.join(__dirname, '../src/data/schema.json'),
+    writeFile(
+      path.join(__dirname, 'data/schema.json'),
       JSON.stringify(result, null, 2)
     );
   }
 })();
 
 // Save user readable type system shorthand of schema
-fs.writeFileSync(
-  path.join(__dirname, '../src/data/schema.graphqls'),
+writeFile(
+  path.join(__dirname, 'data/schema.graphqls'),
   printSchema(schema)
 );

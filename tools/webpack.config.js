@@ -11,7 +11,7 @@ import path from 'path';
 import webpack from 'webpack';
 import extend from 'extend';
 import AssetsPlugin from 'assets-webpack-plugin';
-import babelRelayPlugin from './babelRelayPlugin';
+// import babelRelayPlugin from './babelRelayPlugin';
 
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
@@ -140,7 +140,7 @@ const clientConfig = extend(true, {}, config, {
           cacheDirectory: isDebug,
           babelrc: false,
           presets: [
-            // {plugins:[babelRelayPlugin]}, TODO make sure where to put plugin
+
             'react',
             'latest',
             'stage-0',
