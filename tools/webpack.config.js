@@ -11,20 +11,9 @@ import path from 'path';
 import webpack from 'webpack';
 import extend from 'extend';
 import AssetsPlugin from 'assets-webpack-plugin';
-// import babelRelayPlugin from './babelRelayPlugin';
 
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
-const AUTOPREFIXER_BROWSERS = [
-  'Android 2.3',
-  'Android >= 4',
-  'Chrome >= 35',
-  'Firefox >= 31',
-  'Explorer >= 9',
-  'iOS >= 7',
-  'Opera >= 12',
-  'Safari >= 7.1',
-];
 const GLOBALS = {
   'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
   __DEV__: isDebug,
@@ -109,10 +98,10 @@ const config = {
         require('postcss-flexbugs-fixes')(),
         // Add vendor prefixes to CSS rules using values from caniuse.com
         // https://github.com/postcss/autoprefixer
-        require('autoprefixer')({ browsers: AUTOPREFIXER_BROWSERS }),
+        require('autoprefixer')(),
       ],
       sass: [
-        require('autoprefixer')({ browsers: AUTOPREFIXER_BROWSERS }),
+        require('autoprefixer')(),
       ],
     };
   },
@@ -138,21 +127,6 @@ const clientConfig = extend(true, {}, config, {
         ],
         query: {
           cacheDirectory: isDebug,
-          babelrc: false,
-          presets: [
-
-            'react',
-            'latest',
-            'stage-0',
-          ],
-          plugins: [
-            'transform-runtime',
-            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
-              'transform-react-remove-prop-types',
-              'transform-react-constant-elements',
-              'transform-react-inline-elements',
-            ],
-          ],
         },
       },
       {
@@ -235,7 +209,7 @@ const serverConfig = extend(true, {}, config, {
     loaders: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        loader: 'babel',
         include: [
           path.resolve(__dirname, '../src'),
         ],
@@ -248,6 +222,7 @@ const serverConfig = extend(true, {}, config, {
             'stage-0',
           ],
           plugins: [
+            // babelRelayPlugin,
             'transform-runtime',
             ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
               'transform-react-remove-prop-types',
