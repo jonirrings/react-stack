@@ -217,26 +217,6 @@ const serverConfig = extend(true, {}, config, {
     filename: '../../server.js',
     libraryTarget: 'commonjs2',
   },
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel',
-        include: [
-          path.resolve(__dirname, '../src'),
-        ],
-        query: {
-          cacheDirectory: isDebug,
-          babelrc: false,
-          presets: [
-            'react',
-            'latest',
-            'stage-0',
-          ],
-        },
-      },
-    ],
-  },
   target: 'node',
   externals: [
     /^\.\/assets$/,
