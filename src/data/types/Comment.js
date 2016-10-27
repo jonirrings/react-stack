@@ -14,7 +14,7 @@ import {
   GraphQLBoolean as BooleanType,
   GraphQLID as IDType,
 } from 'graphql';
-import DateType from './custom/date';
+import DateType from './custom/Date';
 import { connectionDefinitions } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import User from './User';

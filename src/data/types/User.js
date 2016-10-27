@@ -14,7 +14,7 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLID as IDType,
 } from 'graphql';
-import DateType from './custom/date';
+import DateType from './custom/Date';
 import { connectionDefinitions, connectionArgs, connectionFromPromisedArray } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import { PostConnection } from './Post';

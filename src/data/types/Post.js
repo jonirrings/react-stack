@@ -14,7 +14,7 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
 } from 'graphql';
-import DateType from './custom/date';
+import DateType from './custom/Date';
 import {
   connectionDefinitions, connectionArgs,
   connectionFromPromisedArray,
