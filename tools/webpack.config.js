@@ -29,6 +29,74 @@ const config = {
     publicPath: '/assets/',
     sourcePrefix: '  ',
   },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, '../src'),
+        ],
+        query: {
+          cacheDirectory: isDebug,
+          plugins: [
+            'transform-runtime',
+            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
+              'transform-react-remove-prop-types',
+              'transform-react-constant-elements',
+              'transform-react-inline-elements',
+            ],
+          ],
+        },
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({
+            importLoaders: 1,
+            sourceMap: isDebug,
+            modules: true,
+            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
+            minimize: !isDebug,
+          })}`,
+          'postcss-loader?pack=default',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'isomorphic-style-loader',
+          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
+          'postcss-loader?pack=scss',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.txt$/,
+        loader: 'raw-loader',
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          limit: 10000,
+        },
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+        query: {
+          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+        },
+      },
+    ],
+  },
   resolve: {
     root: path.resolve(__dirname, '../src'),
     modulesDirectories: ['node_modules'],
@@ -117,62 +185,6 @@ const clientConfig = extend(true, {}, config, {
     filename: isDebug ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
     chunkFilename: isDebug ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
   },
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        include: [
-          path.resolve(__dirname, '../src'),
-        ],
-        query: {
-          cacheDirectory: isDebug,
-        },
-      },
-      {
-        test: /\.css$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({
-            importLoaders: 1,
-            sourceMap: isDebug,
-            modules: true,
-            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-            minimize: !isDebug,
-          })}`,
-          'postcss-loader?pack=default',
-        ],
-      }, {
-        test: /\.scss$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
-          'postcss-loader?pack=scss',
-          'sass-loader',
-        ],
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
-      }, {
-        test: /\.txt$/,
-        loader: 'raw-loader',
-      }, {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-          limit: 10000,
-        },
-      },
-      {
-        test: /\.(eot|ttf|wav|mp3)$/,
-        loader: 'file-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-        },
-      },
-    ],
-  },
   target: 'web',
   plugins: [
     new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true }),
@@ -221,57 +233,6 @@ const serverConfig = extend(true, {}, config, {
             'latest',
             'stage-0',
           ],
-          plugins: [
-            // babelRelayPlugin,
-            'transform-runtime',
-            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
-              'transform-react-remove-prop-types',
-              'transform-react-constant-elements',
-              'transform-react-inline-elements',
-            ],
-          ],
-        },
-      },
-      {
-        test: /\.css$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({
-            importLoaders: 1,
-            sourceMap: isDebug,
-            modules: true,
-            localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
-            minimize: !isDebug,
-          })}`,
-          'postcss-loader?pack=default',
-        ],
-      }, {
-        test: /\.scss$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
-          'postcss-loader?pack=scss',
-          'sass-loader',
-        ],
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader',
-      }, {
-        test: /\.txt$/,
-        loader: 'raw-loader',
-      }, {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-          limit: 10000,
-        },
-      },
-      {
-        test: /\.(eot|ttf|wav|mp3)$/,
-        loader: 'file-loader',
-        query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
         },
       },
     ],
