@@ -8,29 +8,15 @@
  */
 
 import React, {Component, PropTypes} from 'react';
-import Relay from 'react-relay';
+import Author from '../Author';
 
 class Comment extends Component {
-  static propTypes = {
-    comment: PropTypes.shape({
-      author: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-      }),
-      content: PropTypes.string.isRequired,
-      replyTo: PropTypes.object,
-      created: PropTypes.number.isRequired,
-      updated: PropTypes.number.isRequired,
-    }),
-  };
-
   render() {
-    const {author: {name, avatar}, content, replyTo, created, updated} = this.props.comment;
+    const {author, content, replyTo, created, updated} = this.props.comment;
     return (
       <div>
         <div>
-          <img alt={`the avatar of ${name}`} src={avatar}/>
-          <strong>{name}</strong>
+          <Author author={author} />
         </div>
         <div>
           <div>
@@ -38,32 +24,12 @@ class Comment extends Component {
               {replyTo ? `replyTo:${replyTo.author.name}` : ''}
             </strong>{content}
           </div>
-          <span>created:{new Date(created)}&nbsp;|&nbsp;updated:{new Date(updated)}</span>
+          <span>created:{new Date(created).toISOString().split('T')[0]}&nbsp;|&nbsp;
+            updated:{new Date(updated).toISOString().split('T')[0]}</span>
         </div>
       </div>
     );
   }
 }
 
-const CommentContainer =  Relay.createContainer(Comment, {
-    fragments: {
-        comment: () => Relay.QL`
-            fragment on Comment{
-                author{
-                    name
-                    avatar
-                }
-                content
-                replyTo{
-                    author{
-                        name
-                    }
-                }
-                created
-                updated
-            }
-        `,
-    },
-});
-
-export {Comment, CommentContainer};
+export default Comment;

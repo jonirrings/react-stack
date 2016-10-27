@@ -13,7 +13,7 @@ import { findUserById } from './User';
 import { getPosts, writePost } from './Post';
 
 describe('CRUD Test Against mongoose', () => {
-  describe('Find User By id', () => {
+  describe('Find Author By id', () => {
     it('should return an object', async() => {
       const user2 = await findUserById('580f3277b5bec30230bfa179');
       expect(user2).to.have.any.keys('github', 'name', 'avatar');

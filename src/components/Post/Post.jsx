@@ -7,68 +7,38 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import Relay from 'react-relay';
 import React, { Component, PropTypes } from 'react';
-import {CommentContainer} from '../Comment/Comment';
+import Comment from '../Comment';
+import Author from '../Author';
 
 class Post extends Component {
-  static propTypes = {
-    post: PropTypes.shape({
-      author: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        avatar: PropTypes.string.isRequired,
-      }),
-      title: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      comments: PropTypes.array,
-      created: PropTypes.number.isRequired,
-      updated: PropTypes.number.isRequired,
-    }),
-  };
   render() {
-    const { author: { name, avatar }, title, content, comments, created, updated }
+    const { author,title, content, comments, created, updated }
       = this.props.post;
     return (
       <div>
         <div>
-          <img alt={`the avatar of ${name}`} src={avatar} />
-          <strong>{name}</strong>
+          <Author author={author} />
         </div>
         <div>
           <title>{title}</title>
-          <span>created:{new Date(created)}&nbsp;|&nbsp;updated:{new Date(updated)}</span>
+          <span>
+            created:{new Date(created).toISOString().split('T')[0]}
+            &nbsp;|&nbsp;
+            updated:{new Date(updated).toISOString().split('T')[0]}
+          </span>
         </div>
         <div>{content}</div>
         <div>
-          {comments.edges.map(node => <CommentContainer key={node.id} {...node} />)}
+          <ul>
+            {comments.edges.map(edge => <li key={edge.cursor}><Comment comment={edge.node} /></li>)}
+          </ul>
         </div>
       </div>
     );
   }
 }
-const PostContainer = Relay.createContainer(Post, {
-    fragments: {
-        post: () => Relay.QL`
-            fragment on Post{
-                author{
-                    name
-                    avatar
-                }
-                title
-                content
-                comments(first:1){
-                    edges{
-                        node{
-                            id
-                            ${CommentContainer.getFragment('comment')}
-                        }
-                    }
-                }
-                created
-                updated
-            }
-        `,
-    },
-});
 
-export {Post,PostContainer} ;
+export default Post;
+
+

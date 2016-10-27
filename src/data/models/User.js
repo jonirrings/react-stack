@@ -20,7 +20,7 @@ const UserSchema = new Schema({
   avatar: String,
   posts: [{ type: Schema.ObjectId, ref: 'Post' }],
   comments: [{ type: Schema.ObjectId, ref: 'Comment' }],
-  admin: {
+  publisher: {
     type: Boolean,
     required: true,
     default: false,

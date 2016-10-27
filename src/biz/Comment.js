@@ -11,8 +11,9 @@ import { Comment } from '../data/models';
 
 export async function getCommentsByAuthorId(id) {
   const comments = await Comment.find({ author: id }).exec();
-  if (comments.length > 0)
-    { return comments.map(extendId); }
+  if (comments.length > 0) {
+    return comments.map(extendId);
+  }
   return comments;
 }
 export async function getCommentById(id) {
@@ -24,7 +25,8 @@ export async function getCommentById(id) {
 }
 export async function getCommentsByPostId(id) {
   const comments = await Comment.find({ commentOn: id }).exec();
-  if (comments.length > 0)
-    { return comments.map(extendId); }
+  if (comments.length > 0) {
+    return comments.map(extendId);
+  }
   return comments;
 }
