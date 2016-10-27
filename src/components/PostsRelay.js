@@ -9,7 +9,7 @@
 
 import Relay from 'react-relay';
 import React, { Component, PropTypes } from 'react';
-import {PostContainer} from './Post';
+import { PostContainer } from './Post/Post';
 
 class PostsRoute extends Relay.Route {
   static queries = {
@@ -23,8 +23,15 @@ class Posts extends Component {
     return (
       <div>
         {
-          posts.edges.map(node => <Post key={node.id} {...node} />)
+          posts.edges.map(node => <PostContainer key={node.id} {...node} />)
         }
+        <form >
+          <input type="text" />
+          <textarea name="postContent">
+            type any thing here
+          </textarea>
+          <input type="submit" />
+        </form>
       </div>
     );
   }
@@ -46,6 +53,6 @@ const PostsContainer = Relay.createContainer(Posts, {
 const RootContainer =
   (<Relay.RootContainer
     Component={PostsContainer}
-    route={new PostsRoute({ num: 1 })}
+    route={new PostsRoute({ num: 10 })}
   />);
 export default RootContainer;

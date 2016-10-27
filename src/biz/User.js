@@ -8,10 +8,12 @@
  */
 
 import { User } from '../data/models';
-
+import extendId from './util/extendId';
 export function create({ github, name, avatar }) {
-  const user = new User({ github, name, avatar });
-  return user.save();
+  const user = new User({ github, name, avatar }).save();
+  if (user)
+    { return extendId(user); }
+  return user;
 }
 export function retrieve({ github }) {
   return User.findOne({ github }).exec();
@@ -19,7 +21,7 @@ export function retrieve({ github }) {
 export async function findUserById(id) {
   const user = await User.findById(id).exec();
   if (user) {
-    return user.toObject();
+    return extendId(user);
   }
   return user;
 }
@@ -31,5 +33,5 @@ export function findOrCreate({ github, name, avatar }) {
       }
       return create({ github, name, avatar });
     })
-    .then(e => e.toObject());
+    .then(extendId);
 }

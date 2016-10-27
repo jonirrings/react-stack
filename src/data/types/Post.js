@@ -14,15 +14,16 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLInt as IntType,
 } from 'graphql';
+import DateType from './custom/date';
 import {
   connectionDefinitions, connectionArgs,
-  connectionFromArray,
+  connectionFromPromisedArray,
 } from 'graphql-relay';
 import User from './User';
 import { nodeInterface } from './Interface';
-// import Post from './Post';
 import { CommentConnection } from './Comment';
-import { getCommentsByPostId } from '../models';
+import { findUserById } from '../../biz/User';
+import { getCommentsByPostId } from '../../biz/Comment';
 
 const PostType = new ObjectType({
   name: 'Post',
@@ -35,6 +36,7 @@ const PostType = new ObjectType({
     author: {
       type: new NonNull(User),
       description: 'who wrote the post',
+      resolve: post => findUserById(post.author),
     },
     title: {
       type: new NonNull(StringType),
@@ -48,7 +50,7 @@ const PostType = new ObjectType({
       type: CommentConnection,
       args: connectionArgs,
       resolve: (post, args) =>
-          connectionFromArray(getCommentsByPostId(post.id), args),
+          connectionFromPromisedArray(getCommentsByPostId(post.id), args),
       // TODO modify to meet mongoose promise
       description: 'the comments on the posts',
     },
@@ -57,11 +59,11 @@ const PostType = new ObjectType({
       description: 'the times the post been visited',
     },
     created: {
-      type: new NonNull(IntType),
+      type: new NonNull(DateType),
       description: 'the time post was wrote',
     },
     updated: {
-      type: new NonNull(IntType),
+      type: new NonNull(DateType),
       description: 'the time post was modified',
     },
   }),

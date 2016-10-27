@@ -13,13 +13,14 @@ import {
   GraphQLBoolean as BooleanType,
   GraphQLNonNull as NonNull,
   GraphQLID as IDType,
-  GraphQLInt as IntType,
 } from 'graphql';
-import { connectionDefinitions, connectionArgs, connectionFromArray } from 'graphql-relay';
+import DateType from './custom/date';
+import { connectionDefinitions, connectionArgs, connectionFromPromisedArray } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import { PostConnection } from './Post';
 import { CommentConnection } from './Comment';
-import { getPostsByAuthorId, getCommentsByAuthorId } from '../models';
+import { getPostsByAuthorId } from '../../biz/Post';
+import { getCommentsByAuthorId } from '../../biz/Comment';
 
 // TODO to confirm the auth token of each and its auth info structure
 
@@ -68,25 +69,25 @@ const UserType = new ObjectType({
       description: 'posts the user has wrote',
       args: connectionArgs,
       resolve: (user, args) =>
-        connectionFromArray(getPostsByAuthorId(user.id), args),
+        connectionFromPromisedArray(getPostsByAuthorId(user.id), args),
     },
     comments: {
       type: CommentConnection,
       description: 'comments the user has wrote',
       args: connectionArgs,
       resolve: (user, args) =>
-        connectionFromArray(getCommentsByAuthorId(user.id), args),
+        connectionFromPromisedArray(getCommentsByAuthorId(user.id), args),
     },
     publisher: {
       type: new NonNull(BooleanType),
       description: 'whether the user can publish post',
     },
     created: {
-      type: new NonNull(IntType),
+      type: new NonNull(DateType),
       description: 'the time the user was created',
     },
     updated: {
-      type: new NonNull(IntType),
+      type: new NonNull(DateType),
       description: 'the time the user info was updated',
     },
   }),

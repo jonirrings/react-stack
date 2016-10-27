@@ -8,9 +8,10 @@
  */
 
 import 'babel-polyfill';
+import 'react';
 import ReactDOM from 'react-dom';
-import PostsRelay from './components/PostsRelay';
+// import TestComp from './components/TestComp';
+import Posts from './components/PostsRelay';
 
 const container = document.getElementById('inner');
-
-ReactDOM.render(PostsRelay, container);
+ReactDOM.render(Posts, container);

@@ -9,7 +9,7 @@
 
 import Relay from 'react-relay';
 import React, { Component, PropTypes } from 'react';
-import {CommentContainer} from './Comment';
+import {CommentContainer} from '../Comment/Comment';
 
 class Post extends Component {
   static propTypes = {

@@ -11,10 +11,10 @@ import {
   GraphQLObjectType as ObjectType,
   GraphQLString as StringType,
   GraphQLNonNull as NonNull,
-  GraphQLInt as IntType,
   GraphQLBoolean as BooleanType,
   GraphQLID as IDType,
 } from 'graphql';
+import DateType from './custom/date';
 import { connectionDefinitions } from 'graphql-relay';
 import { nodeInterface } from './Interface';
 import User from './User';
@@ -51,11 +51,11 @@ const CommentType = new ObjectType({
       description: 'a comment will be locked after others replied to',
     },
     created: {
-      type: new NonNull(IntType),
+      type: new NonNull(DateType),
       description: 'the time the comment was wrote',
     },
     updated: {
-      type: new NonNull(IntType),
+      type: new NonNull(DateType),
       description: 'the time the comment was wrote',
     },
   }),
