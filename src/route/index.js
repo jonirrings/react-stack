@@ -7,44 +7,24 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-// TODO add component
-export default [
-  {
-    path: '/',
-    component: 'layout',
-    queries: 'queris',
-    indexRoute: {
-      component: 'WELCOME',
-      queries: 'queries',
-    },
-    childRoutes: [
-      {
-        path: 'posts',
-        component: 'posts',
-        queries: 'query',
-      },
-      {
-        path: 'post/:id',
-        component: 'post',
-        queries: 'query',
-      },
-      {
-        path: 'about',
-        component: 'about',
-        queries: 'query',
-      },
-      {
-        path: 'publish',
-        component: 'publish',
-        queries: 'query',
-        childRoutes: [
-          {
-            path: 'publish/:id',
-            component: 'publish',
-            queries: 'query',
-          },
-        ],
-      },
-    ],
-  },
-];
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+import Layout from '../components/Layout';
+import Welcome from '../components/Welcome';
+import Posts from '../components/Posts';
+import Post from '../components/Post';
+import Publish from '../components/Publish';
+import About from '../components/About';
+
+const routes = (
+  <Route path="/" component={Layout}>
+    <IndexRoute component={Welcome} />
+    <Route path="posts" component={Posts} />
+    <Route path="posts" component={Post} />
+    <Route path="publish" component={Publish}>
+      <Route path=":repoName" component={Publish} />
+    </Route>
+    <Route path="/about" component={About} />
+  </Route>
+);
+export default routes;
