@@ -32,6 +32,8 @@
     "graphiql": "^0.7.8",
     "graphql": "^0.7.2",
     "graphql-relay": "^0.4.3",
+    "isomorphic-relay": "^0.7.3",
+    "isomorphic-relay-router": "^0.8.4",
     "jsonwebtoken": "latest",
     "mongoose": "^4.6.4",
     "node-fetch": "^1.6.3",
@@ -42,7 +44,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-relay": "^0.9.3",
-    "react-router": "^3.0.0",
+    "react-router": "^2.8.1",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

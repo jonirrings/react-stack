@@ -7,23 +7,44 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
-
-function Root({ user }) {
-  return (
-    <div>
-      <div>
-        <a href="/login/github">Login with GitHub</a>&nbsp;|&nbsp;<a href="/logout">Log Out</a>
-      </div>
-      <div>
-        Loged:{user}
-      </div>
-    </div>
-  );
-}
-
-Root.propTypes = {
-  user: PropTypes.string.isRequired,
-};
-
-export default Root;
+// TODO add component
+export default [
+  {
+    path: '/',
+    component: 'layout',
+    queries: 'queris',
+    indexRoute: {
+      component: 'WELCOME',
+      queries: 'queries',
+    },
+    childRoutes: [
+      {
+        path: 'posts',
+        component: 'posts',
+        queries: 'query',
+      },
+      {
+        path: 'post/:id',
+        component: 'post',
+        queries: 'query',
+      },
+      {
+        path: 'about',
+        component: 'about',
+        queries: 'query',
+      },
+      {
+        path: 'publish',
+        component: 'publish',
+        queries: 'query',
+        childRoutes: [
+          {
+            path: 'publish/:id',
+            component: 'publish',
+            queries: 'query',
+          },
+        ],
+      },
+    ],
+  },
+];

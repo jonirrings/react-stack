@@ -13,18 +13,17 @@ import Post from './Post';
 
 class Posts extends Component {
   render() {
-    const {edges} = this.props.posts;
+    const { edges } = this.props.posts;
     return (
       <div>
         <ul>
           {
-            edges.map(edge =><li key={edge.cursor}><Post post={edge.node} /></li>)
+            edges.map(edge => <li key={edge.cursor}><Post post={edge.node} /></li>)
           }
         </ul>
         <form >
           <input type="text" />
-          <textarea name="postContent" defaultValue={'type any thing here'}>
-          </textarea>
+          <textarea name="postContent" defaultValue={'type any thing here'} />
           <input type="submit" />
         </form>
       </div>
@@ -33,7 +32,7 @@ class Posts extends Component {
 }
 const PostsContainer = Relay.createContainer(Posts, {
   fragments: {
-    posts: (variables ) => Relay.QL`
+    posts: variables => Relay.QL`
             fragment on PostConnection{
                 edges{
                     cursor
@@ -47,7 +46,7 @@ const PostsContainer = Relay.createContainer(Posts, {
 });
 class PostsRoute extends Relay.Route {
   static queries = {
-      posts: () => Relay.QL`query { posts(first:$num) }`,
+    posts: () => Relay.QL`query { posts(first:$num) }`,
   };
   static routeName = 'PostsRoute';
 }
