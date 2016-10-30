@@ -20,11 +20,9 @@ const routes = (
   <Route path="/" component={Layout}>
     <IndexRoute component={Welcome} />
     <Route path="posts" component={Posts} />
-    <Route path="posts" component={Post} />
-    <Route path="publish" component={Publish}>
-      <Route path=":repoName" component={Publish} />
-    </Route>
-    <Route path="/about" component={About} />
+    <Route path="post" component={Post} />
+    <Route path="publish(/:id)" component={Publish}/>
+    <Route path="about" component={About} />
   </Route>
 );
 export default routes;

@@ -20,16 +20,13 @@ import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import PrettyError from 'pretty-error';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
 import passport from './core/passport';
-import Html from './components/Html';
-import App from './components/App';
-import RouteRoot from './route';
-import assets from './assets'; // eslint-disable-line
 import { port, auth, databaseUrl } from './config';
-
+import renderOnServer from './renderOnServer'
 import schema from './data/schema';
 
+mongoose.Promise = Promise;
+mongoose.connect(databaseUrl);
 const app = express();
 
 //
@@ -88,18 +85,7 @@ app.use('/graphql', expressGraphQL(req => ({
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
 
-app.get('/', async(req, res, next) => {
-  try {
-    const data = { title: 'Home' };
-    data.script = assets.main.js;
-    data.children = ReactDOM.renderToString(<App><RouteRoot {...{ user: req.user ? req.user.name : 'not logined' }} /></App>);
-    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
-    res.status(200);
-    res.send(`<!doctype html>${html}`);
-  } catch (err) {
-    next(err);
-  }
-});
+app.get('*', renderOnServer);
 
 //
 // Error handling
@@ -117,6 +103,4 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 
 app.listen(port, () => {
   console.log(`The server is running at http://localhost:${port}/`);// eslint-disable-line no-console
-  mongoose.Promise = Promise;
-  mongoose.connect(databaseUrl);
 });
