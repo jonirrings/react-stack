@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { PropTypes,Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 
 const ContextType = {
   insertCss: PropTypes.func.isRequired,
@@ -27,11 +27,11 @@ class Layout extends Component {
   }
 
   render() {
-    //TODO add layout detail like nav,header,footer
+    // TODO add layout detail like nav,header,footer
     return (
       <div>
-        {React.Children.only(this.props.children}
-        </div>
+        {React.Children.only(this.props.children)}
+      </div>
       );
   }
 

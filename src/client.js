@@ -13,5 +13,5 @@ import ReactDOM from 'react-dom';
 // import TestComp from './components/TestComp';
 import Posts from './components/PostsRelay';
 
-const container = document.getElementById('inner');
+const container = document.getElementById('app');
 ReactDOM.render(Posts, container);
