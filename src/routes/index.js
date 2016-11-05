@@ -11,7 +11,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Layout from '../components/Layout';
 import Welcome from '../components/Welcome';
-import Posts from '../components/Posts';
+import Posts, { PostsQuery } from '../components/Posts';
 import Post from '../components/Post';
 import Publish from '../components/Publish';
 import About from '../components/About';
@@ -19,7 +19,7 @@ import About from '../components/About';
 const routes = (
   <Route path="/" component={Layout}>
     <IndexRoute component={Welcome} />
-    <Route path="posts" component={Posts} />
+    <Route path="posts" component={Posts} queries={PostsQuery} />
     <Route path="post" component={Post} />
     <Route path="publish(/:id)" component={Publish} />
     <Route path="about" component={About} />

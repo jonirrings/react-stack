@@ -8,7 +8,8 @@
  */
 import Relay from 'react-relay';
 import Posts from './Posts';
-import Post from '../Post';
+import Glance from '../Glance';
+import PostsQuery from './PostsQueries';
 
 const PostsContainer = Relay.createContainer(Posts, {
   fragments: {
@@ -17,7 +18,7 @@ const PostsContainer = Relay.createContainer(Posts, {
                 edges{
                     cursor
                     node{
-                        ${Post.getFragment('post')}
+                        ${Glance.getFragment('post')}
                     }
                 }
             }
@@ -26,3 +27,4 @@ const PostsContainer = Relay.createContainer(Posts, {
 });
 
 export default PostsContainer;
+export { PostsQuery };

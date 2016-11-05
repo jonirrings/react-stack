@@ -10,20 +10,20 @@
 import 'babel-polyfill';
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { findUserById } from './User';
+import { findUserById, findOne } from './User';
 import { getPosts, writePost } from './Post';
 
 describe('CRUD Test Against mongoose', () => {
-  describe('Find Author By id', () => {
-    it('should return an object', async() => {
-      const user2 = await findUserById('580f3277b5bec30230bfa179');
-      expect(user2).to.have.any.keys('github', 'name', 'avatar');
+  describe('Write Glance', () => {
+    it('should return the post', async() => {
+      const user = await findOne();
+      const post = writePost({ authorId: user.id, title: 'Test Title', content: 'Test Content' });
+      expect(post).to.have.property('id');
     });
   });
   describe('Get Posts', () => {
     it('should return an array', async() => {
       const posts = await getPosts();
-      console.log(posts[0]);
       expect(posts[0]).to.have.property('id');
     });
   });

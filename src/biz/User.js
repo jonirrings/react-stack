@@ -35,3 +35,6 @@ export function findOrCreate({ github, name, avatar }) {
     })
     .then(extendId);
 }
+export function findOne() {
+  return User.findOne().exec();
+}

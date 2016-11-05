@@ -4,11 +4,13 @@
 
 import React, { Component, PropTypes } from 'react';
 
-class PostBrief extends Component{
+class Glance extends Component{
   render(){
+    const {title,content} = this.props.post;
     return <div>
-      this is a post brief
+      <div>{title}</div>
+      <div>{content}</div>
     </div>
   }
 }
-export default PostBrief;
+export default Glance;

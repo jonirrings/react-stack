@@ -8,23 +8,14 @@
  */
 
 import React, { PropTypes, Component } from 'react';
+import Relay from 'react-relay';
 
-const ContextType = {
-  insertCss: PropTypes.func.isRequired,
-};
 
 class Layout extends Component {
 
   static propTypes = {
-    context: PropTypes.shape(ContextType).isRequired,
     children: PropTypes.element.isRequired,
   };
-
-  static childContextTypes = ContextType;
-
-  getChildContext() {
-    return this.props.context;
-  }
 
   render() {
     // TODO add layout detail like nav,header,footer

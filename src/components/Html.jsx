@@ -32,13 +32,9 @@ function Html({ title, description, style, script, data, children } ) {
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: children }} />
-          {script && <script src={script} />}
-          {
-            data &&
-            <script id="preloadedData" type="application/json" >
-              {JSON.stringify(data)}
-            </script>
+          { data && <script id="preloadedData" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data)}}/>
           }
+          {script && <script src={script} />}
         </body>
       </html>
     );

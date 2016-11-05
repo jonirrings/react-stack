@@ -6,7 +6,16 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
+import Relay from 'react-relay';
+import Glance from './Glance';
 
-import PostBrief from './Glance';
-
-export default PostBrief;
+export default Relay.createContainer(Glance, {
+  fragments: {
+    post: () => Relay.QL`
+        fragment on Post{
+            title
+            content
+        }
+    `,
+  },
+});

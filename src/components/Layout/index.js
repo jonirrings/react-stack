@@ -8,7 +8,7 @@
  */
 // import Relay from 'react-relay;';
 import Layout from './Layout';
-/*class LayoutRoute extends Relay.Route {
+/* class LayoutRoute extends Relay.Route {
   static queries = {
     posts: () => Relay.QL`query { posts(first:$num) }`,
   };

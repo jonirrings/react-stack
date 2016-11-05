@@ -27,7 +27,7 @@ import { getCommentsByPostId } from '../../biz/Comment';
 
 const PostType = new ObjectType({
   name: 'Post',
-  description: 'A Post is an article with comments',
+  description: 'A Glance is an article with comments',
   fields: () => ({
     id: {
       type: new NonNull(IDType),
@@ -68,7 +68,7 @@ const PostType = new ObjectType({
     },
   }),
   interfaces: [nodeInterface],
-  // interfaces: [Post],
+  // interfaces: [Glance],
 });
 const {
   connectionType: PostConnection,

@@ -68,7 +68,7 @@ const config = {
         loaders: [
           'isomorphic-style-loader',
           `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
-          'postcss-loader?pack=scss',
+          'postcss-loader?pack=sass',
           'sass-loader',
         ],
       },

@@ -20,7 +20,7 @@ import { nodeInterface } from './Interface';
 import User from './User';
 import Post from './Post';
 
-// import Post from './Post';
+// import Glance from './Glance';
 
 const CommentType = new ObjectType({
   name: 'Comment',
@@ -60,7 +60,7 @@ const CommentType = new ObjectType({
     },
   }),
   interfaces: [nodeInterface],
-  // interfaces: [Post],
+  // interfaces: [Glance],
 });
 const {
   connectionType: CommentConnection,
