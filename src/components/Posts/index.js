@@ -8,10 +8,11 @@
  */
 import Relay from 'react-relay';
 import Posts from './Posts';
+import Post from '../Post';
 
 const PostsContainer = Relay.createContainer(Posts, {
-    fragments: {
-        posts: variables => Relay.QL`
+  fragments: {
+    posts: variables => Relay.QL`
             fragment on PostConnection{
                 edges{
                     cursor
@@ -21,7 +22,7 @@ const PostsContainer = Relay.createContainer(Posts, {
                 }
             }
         `,
-    },
+  },
 });
 
 export default PostsContainer;

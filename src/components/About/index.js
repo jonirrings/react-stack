@@ -7,6 +7,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import About from  './About';
+import About from './About';
 
 export default About;

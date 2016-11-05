@@ -7,7 +7,9 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { match } from 'react-router';
 import Relay from 'react-relay';
-import routes from './route';
+import routes from './routes';
+import assets from './assets'; // eslint-disable-line import/no-unresolved
+import Html from './components/Html';
 
 const GRAPHQL_URL = `http://localhost:3000/graphql`;
 
@@ -26,12 +28,11 @@ export default (req, res, next) => {
     }
 
     function render({ data, props }) {
-      const reactOutput = ReactDOMServer.renderToString(IsomorphicRouter.render(props));
-
-      res.render(path.resolve(__dirname, '..', 'views', 'index.ejs'), {
-        preloadedData: data,
-        reactOutput
-      });
+      const children = ReactDOMServer.renderToString(IsomorphicRouter.render(props));
+      const title = 'Jonir Rings';
+      const description = 'Jonir Tings\' blog';
+      const html =ReactDOMServer.renderToStaticMarkup(<Html { ...{title,description,script:assets.main.js,data, children} } />);
+      res.status(200).send(`<!doctype html>${html}`);
     }
   });
 };

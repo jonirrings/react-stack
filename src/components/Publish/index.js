@@ -9,4 +9,4 @@
 
 import Publish from './Editor';
 
-export default Publish
+export default Publish;

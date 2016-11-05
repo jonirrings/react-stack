@@ -22,7 +22,7 @@ import PrettyError from 'pretty-error';
 import React from 'react';
 import passport from './core/passport';
 import { port, auth, databaseUrl } from './config';
-import renderOnServer from './renderOnServer'
+import renderOnServer from './renderOnServer';
 import schema from './data/schema';
 
 mongoose.Promise = Promise;

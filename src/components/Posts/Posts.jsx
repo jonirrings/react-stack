@@ -8,7 +8,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import PostBrief from '../PostBrief';
+import Glance from '../Glance';
 
 class Posts extends Component {
   render() {
@@ -17,7 +17,7 @@ class Posts extends Component {
       <div>
         <ul>
           {
-            edges.map(edge => <li key={edge.cursor}><PostBrief post={edge.node} /></li>)
+            edges.map(edge => <li key={edge.cursor}><Glance post={edge.node} /></li>)
           }
         </ul>
       </div>

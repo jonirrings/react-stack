@@ -21,7 +21,7 @@ const routes = (
     <IndexRoute component={Welcome} />
     <Route path="posts" component={Posts} />
     <Route path="post" component={Post} />
-    <Route path="publish(/:id)" component={Publish}/>
+    <Route path="publish(/:id)" component={Publish} />
     <Route path="about" component={About} />
   </Route>
 );
