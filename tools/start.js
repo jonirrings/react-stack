@@ -16,6 +16,7 @@ import runServer from './runServer';
 import webpackConfig from './webpack.config';
 import clean from './clean';
 import copy from './copy';
+import updateSchema from './updateSchema';
 
 process.argv.push('--watch');
 const [config] = webpackConfig;
