@@ -14,10 +14,7 @@ import AssetsPlugin from 'assets-webpack-plugin';
 
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
-const GLOBALS = {
-  'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
-  __DEV__: isDebug,
-};
+
 //
 // Common config for both client and server bundles
 // ------------------------------------------------
@@ -39,9 +36,15 @@ const config = {
         ],
         query: {
           cacheDirectory: isDebug,
+          babelrc: false,
+          presets: [
+            'react',
+            'latest',
+            'stage-0',
+          ],
           plugins: [
             'transform-runtime',
-            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [
+            ...isDebug ? ['babel-relay-plugin-loader','transform-react-jsx-source', 'transform-react-jsx-self'] : [
               'transform-react-remove-prop-types',
               'transform-react-constant-elements',
               'transform-react-inline-elements',
@@ -187,7 +190,11 @@ const clientConfig = extend(true, {}, config, {
   },
   target: 'web',
   plugins: [
-    new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': true }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+      'process.env.BROWSER': true,
+      __DEV__: isDebug,
+    }),
     new AssetsPlugin({
       path: path.resolve(__dirname, '../build'),
       filename: 'assets.js',
@@ -222,12 +229,17 @@ const serverConfig = extend(true, {}, config, {
     /^\.\/assets$/,
     (context, request, callback) => {
       const isExternal =
-        request.match(/^[@a-z][a-z\/\.\-0-9]*$/i) && !request.match(/\.(css|less|scss|sss)$/i);
+        request.match(/^[@a-z][a-z/.\-0-9]*$/i) &&
+        !request.match(/\.(css|less|scss|sss)$/i);
       callback(null, Boolean(isExternal));
     },
   ],
   plugins: [
-    new webpack.DefinePlugin({ ...GLOBALS, 'process.env.BROWSER': false }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
+      'process.env.BROWSER': false,
+      __DEV__: isDebug,
+    }),
     new webpack.BannerPlugin('require("source-map-support").install();',
       { raw: true, entryOnly: false }),
     new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),

@@ -64,6 +64,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-relay-plugin": "^0.9.3",
+    "babel-relay-plugin-loader": "^0.9.0",
     "browser-sync": "^2.17.5",
     "chai": "^3.5.0",
     "eslint": "^3.8.1",
@@ -155,8 +156,13 @@
       ]
     }
   },
+  "metadata": {
+    "graphql": {
+      "schema": "./data/schema.json"
+    }
+  },
   "scripts": {
-    "update-schema": "babel-node tools/updateSchema.js",
+    "update-schema": "babel-node tools/run updateSchema",
     "lint:js": "eslint src tools",
     "lint:css": "stylelint \"src/**/*.{css,less,scss,sss}\"",
     "lint": "npm run lint:js && npm run lint:css",
