@@ -23,6 +23,7 @@ const [config] = webpackConfig;
 async function start() {
   await run(clean);
   await run(copy);
+  await run(updateSchema);
   await new Promise(resolve => {
     if (config.debug) {
       config.entry = ['react-hot-loader/patch', 'webpack-hot-middleware/client', config.entry];
