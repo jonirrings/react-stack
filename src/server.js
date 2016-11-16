@@ -25,6 +25,7 @@ import { port, auth, databaseUrl } from './config';
 import renderOnServer from './renderOnServer';
 import schema from './data/schema';
 
+const isDebug = process.env.NODE_ENV !== 'production';
 mongoose.Promise = Promise;
 mongoose.connect(databaseUrl);
 const app = express();
@@ -77,9 +78,9 @@ app.get('/logout', (req, res) => {
 
 app.use('/graphql', expressGraphQL(req => ({
   schema,
-  graphiql: true,
+  graphiql: isDebug,
   rootValue: { request: req },
-  pretty: process.env.NODE_ENV !== 'production',
+  pretty: isDebug,
 })));
 //
 // Register server-side rendering middleware
