@@ -6,12 +6,12 @@ import mongoose, { Schema } from 'mongoose';
 const Github = new Schema({
   login_name: String,
   login_id: {
-    type:Number,
-    required:true
+    type: Number,
+    required: true,
   },
   avatar_url: String,
-  nick_name:String,
-  user:{
+  nick_name: String,
+  user: {
     type: Schema.ObjectId,
     ref: 'User',
     required: true,

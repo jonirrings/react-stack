@@ -7,7 +7,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import mongoose, {Schema} from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new Schema({
   qq: String,
@@ -15,11 +15,11 @@ const UserSchema = new Schema({
   facebook: String,
   twitter: String,
   google: String,
-  github: {type: Schema.ObjectId, ref: 'GitHub',},
-  name: {type: String, required: true},
+  github: { type: Schema.ObjectId, ref: 'GitHub' },
+  name: { type: String, required: true },
   avatar: String,
-  posts: [{type: Schema.ObjectId, ref: 'Post'}],
-  comments: [{type: Schema.ObjectId, ref: 'Comment'}],
+  posts: [{ type: Schema.ObjectId, ref: 'Post' }],
+  comments: [{ type: Schema.ObjectId, ref: 'Comment' }],
   publisher: {
     type: Boolean,
     required: true,

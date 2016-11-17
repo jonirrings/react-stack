@@ -8,6 +8,7 @@
  */
 
 import 'babel-polyfill';
+import 'react';
 import Promise from 'bluebird';
 import path from 'path';
 import mongoose from 'mongoose';
@@ -19,7 +20,6 @@ import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
 import PrettyError from 'pretty-error';
-import React from 'react';
 import passport from './core/passport';
 import { port, auth, databaseUrl } from './config';
 import renderOnServer from './renderOnServer';
