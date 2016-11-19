@@ -63,10 +63,9 @@ app.get('/login/github',
 app.get('/login/github/callback',
   passport.authenticate('github', { failureRedirect: '/', session: true }),
   (req, res) => {
-    const expiresIn = 60 * 60 * 24 * 180; // 180 days
+    const expiresIn = 3600 * 24 * 30; // 30 days
     const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
-    res.redirect('back');
+    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true }).redirect('back');
   }
 );
 app.get('/logout', (req, res) => {

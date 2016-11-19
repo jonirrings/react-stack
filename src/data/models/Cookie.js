@@ -19,11 +19,10 @@ const CookieSchema = new Schema({
     type: String,
     required: true,
   },
-  // CookieID most is a base64 hash digest of an uuid
   maxAge: {
     type: Number,
     required: true,
-    default: 30 * 24 * 3600,
+    default: 30 * 24 * 3600 * 1000,
   },
   secure: Boolean,
   path: String,
@@ -34,6 +33,11 @@ const CookieSchema = new Schema({
     required: true,
     default: Date.now,
     expires: '7d',
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User',
+    required: true,
   },
 }, { capped: 1024 * 1024 * 512 });
 const CookieModel = mongoose.model('Cookie', CookieSchema);
