@@ -57,7 +57,12 @@ app.use(expressJwt({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.get('/login/jwt', (req, res) => {
+  const expiresIn = 60 * 60;
+  const token = jwt.sign({ name: 'jonirrings' }, auth.jwt.secret, { expiresIn });
+  res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true });
+  res.redirect('back');
+});
 app.get('/login/github',
   passport.authenticate('github', { scope: ['user:email'], session: true })
 );

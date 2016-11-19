@@ -8,11 +8,14 @@
  */
 
 import { User } from '../data/models';
+import { Github } from '../data/models/OAuth';
 import extendId from './util/extendId';
+
 export function create({ github, name, avatar }) {
   const user = new User({ github, name, avatar }).save();
-  if (user)
-    { return extendId(user); }
+  if (user) {
+    return extendId(user);
+  }
   return user;
 }
 export function retrieve({ github }) {
@@ -37,4 +40,21 @@ export function findOrCreate({ github, name, avatar }) {
 }
 export function findOne() {
   return User.findOne().exec();
+}
+
+export function signInGithubUser({ login_name, login_id, avatar_url, nick_name, access_token }) {
+  Github.findOne({ login_id }).exec().next((github) => {
+    if (!github) {
+      const user = new User({ name: login_name, avatar: avatar_url });
+      const newGithub = new Github(
+        { login_name, login_id, avatar_url, nick_name, access_token, user: user.id }
+        );
+      user.github = newGithub.id;
+      user.save();
+      return github.save();
+    }
+    github.set('nick_name', nick_name);
+    github.set('access_token', access_token);
+    return github.save();
+  });
 }
