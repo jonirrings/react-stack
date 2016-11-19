@@ -42,19 +42,19 @@ export function findOne() {
   return User.findOne().exec();
 }
 
-export function signInGithubUser({ login_name, login_id, avatar_url, nick_name, access_token }) {
-  Github.findOne({ login_id }).exec().next((github) => {
+export function signInGithubUser({ loginName, loginId, avatarUrl, nickName, accessToken }) {
+  return Github.findOne({ loginId }).exec().then((github) => {
     if (!github) {
-      const user = new User({ name: login_name, avatar: avatar_url });
-      const newGithub = new Github(
-        { login_name, login_id, avatar_url, nick_name, access_token, user: user.id }
+      const user = new User({ name: nickName || loginName, avatar: avatarUrl });
+      const newGitHub = new Github(
+        { loginName, loginId, avatarUrl, nickName, accessToken, user: user.id }
         );
-      user.github = newGithub.id;
+      user.set('github', github.id);
       user.save();
-      return github.save();
+      newGitHub.save();
+      return user;
     }
-    github.set('nick_name', nick_name);
-    github.set('access_token', access_token);
-    return github.save();
+    github.update({ nickName, accessToken }).exec();
+    return github.populate('user').execPopulate().then(g => g.user);
   });
 }

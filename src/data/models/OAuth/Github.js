@@ -3,19 +3,24 @@
  */
 import mongoose, { Schema } from 'mongoose';
 
-const Github = new Schema({
-  login_name: String,
-  login_id: {
-    type: Number,
+const GitHubSchema = new Schema({
+  accessToken: {
+    type: String,
     required: true,
   },
-  avatar_url: String,
-  nick_name: String,
+  loginName: String,
+  loginId: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
+  avatarUrl: String,
+  nickName: String,
   user: {
     type: Schema.ObjectId,
     ref: 'User',
     required: true,
   },
 });
-const GithubModel = mongoose.model('GitHub', Github);
+const GithubModel = mongoose.model('GitHub', GitHubSchema);
 export default GithubModel;

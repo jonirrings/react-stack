@@ -10,18 +10,30 @@
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { auth as config } from '../config';
-import { findOrCreate } from '../biz/User';
+import { signInGithubUser } from '../biz/User';
 
 const { github: { clientID, clientSecret } } = config;
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 passport.use(new GitHubStrategy({
   clientID,
   clientSecret,
   callbackURL: 'http://127.0.0.1:3000/login/github/callback',
 },
   async (accessToken, refreshToken, profile, done) => {
-    const { _json: { name, id: github, avatar_url: avatar } } = profile;
-    const user = await findOrCreate({ name, github, avatar });
-    done(null, user);
+    const { _json: {
+      login: loginName,
+      id: loginId,
+      avatar_url: avatarUrl,
+      name: nickName,
+    } } = profile;
+    const user = await signInGithubUser({ loginName, loginId, avatarUrl, nickName, accessToken });
+    done(null, { id: user.id, name: user.name });
   }
 ));
 

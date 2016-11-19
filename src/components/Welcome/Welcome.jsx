@@ -12,13 +12,14 @@ class Welcome extends Component {
   render() {
     return (
       <div>
-        this is the welcome page, and it should post the host links
+        Welcome
         <div>
           <Link to="/posts">BLOG</Link> &nbsp;|&nbsp;
           <Link to="/about">ABOUT</Link>&nbsp;|&nbsp;
           <a href="http://resume.jonirrings.com">RESUME</a>&nbsp;|&nbsp;
           <a href="http://github.com/jonirrings">GitUub</a>
           <a href="/login/jwt">JWT</a> &nbsp;|&nbsp;
+          <a href="/login/github">GitHub Login</a>
         </div>
       </div>
     );
