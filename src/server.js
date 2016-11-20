@@ -16,6 +16,7 @@ import express from 'express';
 import expressGraphQL from 'express-graphql';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import MongoDBStore from 'connect-mongodb-session';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
 import jwt from 'jsonwebtoken';
@@ -28,6 +29,11 @@ import schema from './data/schema';
 const isDebug = process.env.NODE_ENV !== 'production';
 mongoose.Promise = Promise;
 mongoose.connect(databaseUrl);
+const store = new MongoDBStore(session)({
+  uri: databaseUrl,
+  collection: 'sessions',
+});
+// const db = mongoose.connection;
 const app = express();
 
 //
@@ -45,7 +51,15 @@ app.get('/favicon.ico', (req, res) => res.send(''));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({ secret: 'jonirrings', resave: false, saveUninitialized: false }));
+app.use(session({
+  secret: 'jonirrings',
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+  },
+  store,
+  resave: true,
+  saveUninitialized: true,
+}));
 
 //
 // Authentication
