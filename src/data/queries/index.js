@@ -21,6 +21,16 @@ import { getPosts, getPostById } from '../../biz/Post';
 const queryType = new ObjectType({
   name: 'Query',
   fields: {
+    viewer:{
+      type:UserType,
+      description:'the viewer\'s information',
+      resolve:(_,__,{session})=>{
+        if(session.user_id){
+          return findUserById(session.user_id)
+        }
+        return null;
+      }
+    },
     captcha: {
       type: CaptchaType,
       description: 'captcha info stored in DB',

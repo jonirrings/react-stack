@@ -7,5 +7,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import Relay from 'react-relay';
 import Welcome from './Welcome';
-export default Welcome;
+import WelcomeQueries from './WelcomeQueries';
+
+export default Relay.createContainer(Welcome, {
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on User{
+        id
+        name
+      }
+    `,
+  },
+});
+export { WelcomeQueries };
