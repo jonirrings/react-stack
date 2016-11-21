@@ -11,6 +11,6 @@ import { GraphQLSchema } from 'graphql';
 import query from './queries';
 import mutation from './mutations';
 // import subscription from './subscriptions';
-//TODO add subscription
-const schema = new GraphQLSchema({ query, mutation/*, subscription*/ });
+// TODO add subscription
+const schema = new GraphQLSchema({ query, mutation/* , subscription*/ });
 export default schema;
