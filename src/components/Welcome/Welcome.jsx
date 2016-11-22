@@ -10,13 +10,16 @@ class Welcome extends Component {
     relay: Relay.PropTypes.Environment,
   };
   static propTypes={
-    viewer: PropTypes.Object,
+    viewer: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
   };
   render() {
-    const { name: name = 'Visitor' } = this.props.viewer;
+    const viewer = this.props.viewer;
     return (
       <div>
-        Welcome, {`${name}`}
+        Welcome, {`${viewer ? viewer.name : 'Visitor'}`}
         <div>
           <Link to="/posts">BLOG</Link> &nbsp;|&nbsp;
           <Link to="/about">ABOUT</Link>&nbsp;|&nbsp;
