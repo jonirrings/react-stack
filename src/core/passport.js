@@ -37,8 +37,10 @@ passport.use(new GitHubStrategy({
         return github.populate('user', (githubErr, { user }) => done(null, user));
       }
       const user = new User({ name: nickName || loginName, avatar: avatarUrl });
-      new Github({ loginName, loginId, avatarUrl, nickName, accessToken, user: user.id }).save();
-      user.set('github', github.id);
+      new Github({ loginName, loginId, avatarUrl, nickName, accessToken, user: user.id })
+        .save((githubErr, savedGithub) => {
+          user.set('github', savedGithub.id);
+        });
       return user.save((userErr, savedUser) => {
         if (err) {
           return done(err, savedUser);
