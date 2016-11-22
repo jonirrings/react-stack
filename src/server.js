@@ -72,7 +72,7 @@ app.get('/login/github',
 app.get('/login/github/callback',
   passport.authenticate('github', { failureRedirect: '/', session: true }),
   (req, res) => {
-    res.redirect('back');
+    res.redirect('/');
   }
 );
 app.get('/logout', (req, res) => {

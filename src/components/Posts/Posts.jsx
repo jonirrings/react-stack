@@ -8,6 +8,7 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import Glance from '../Glance';
 
 class Posts extends Component {
@@ -15,6 +16,7 @@ class Posts extends Component {
     const { edges } = this.props.posts;
     return (
       <div>
+        <Link to="/">HOME</Link>
         <ul>
           {
             edges.map(edge => <li key={edge.cursor}><Glance post={edge.node} /></li>)
