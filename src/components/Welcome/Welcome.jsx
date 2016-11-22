@@ -24,8 +24,7 @@ class Welcome extends Component {
           <Link to="/posts">BLOG</Link> &nbsp;|&nbsp;
           <Link to="/about">ABOUT</Link>&nbsp;|&nbsp;
           <a href="http://resume.jonirrings.com">RESUME</a>&nbsp;|&nbsp;
-          <a href="http://github.com/jonirrings">GitUub</a>
-          <a href="/login/jwt">JWT</a> &nbsp;|&nbsp;
+          <a href="http://github.com/jonirrings">GitUub</a>&nbsp;|&nbsp;
           <a href="/login/github">GitHub Login</a>
         </div>
       </div>

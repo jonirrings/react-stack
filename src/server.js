@@ -64,11 +64,6 @@ app.use(session({
 //
 // Authentication
 // -----------------------------------------------------------------------------
-app.use(expressJwt({
-  secret: auth.jwt.secret,
-  credentialsRequired: false,
-  getToken: req => req.cookies.id_token,
-}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.get('/login/github',
@@ -77,9 +72,7 @@ app.get('/login/github',
 app.get('/login/github/callback',
   passport.authenticate('github', { failureRedirect: '/', session: true }),
   (req, res) => {
-    const expiresIn = 3600 * 24 * 30; // 30 days
-    const token = jwt.sign(req.user, auth.jwt.secret, { expiresIn });
-    res.cookie('id_token', token, { maxAge: 1000 * expiresIn, httpOnly: true }).redirect('back');
+    res.redirect('back');
   }
 );
 app.get('/logout', (req, res) => {

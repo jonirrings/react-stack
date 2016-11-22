@@ -11,7 +11,7 @@ import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import Html from './components/Html';
 
-const GRAPHQL_URL = `http://localhost:3000/graphql`;
+const GRAPHQL_URL = 'http://localhost:3000/graphql';
 
 const networkLayer = new Relay.DefaultNetworkLayer(GRAPHQL_URL);
 
@@ -31,7 +31,7 @@ export default (req, res, next) => {
       const children = ReactDOMServer.renderToString(IsomorphicRouter.render(props));
       const title = 'Jonir Rings';
       const description = 'Jonir Tings\' blog';
-      const html =ReactDOMServer.renderToStaticMarkup(<Html { ...{title,description,script:assets.main.js,data, children} } />);
+      const html = ReactDOMServer.renderToStaticMarkup(<Html {...{ title, description, script: assets.main.js, data, children }} />);
       res.status(200).send(`<!doctype html>${html}`);
     }
   });

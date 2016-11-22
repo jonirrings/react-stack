@@ -24,9 +24,9 @@ const queryType = new ObjectType({
     viewer: {
       type: UserType,
       description: 'the viewer\'s information',
-      resolve: (_, __, { session }) => {
-        if (session.user_id) {
-          return findUserById(session.user_id);
+      resolve: (_, __, { user }) => {
+        if (user) {
+          return findUserById(user.id);
         }
         return null;
       },
