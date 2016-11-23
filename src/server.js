@@ -64,6 +64,9 @@ app.use(session({
 // -----------------------------------------------------------------------------
 app.use(passport.initialize());
 app.use(passport.session());
+if (isDebug) {
+  app.enable('trust proxy');
+}
 app.get('/login/github',
   passport.authenticate('github', { scope: ['user:email'], session: true })
 );

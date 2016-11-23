@@ -10,10 +10,7 @@ class Welcome extends Component {
     relay: Relay.PropTypes.Environment,
   };
   static propTypes={
-    viewer: PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.string,
-    }),
+    viewer: PropTypes.object,
   };
   render() {
     const viewer = this.props.viewer;
@@ -24,8 +21,7 @@ class Welcome extends Component {
           <Link to="/posts">BLOG</Link> &nbsp;|&nbsp;
           <Link to="/about">ABOUT</Link>&nbsp;|&nbsp;
           <a href="http://resume.jonirrings.com">RESUME</a>&nbsp;|&nbsp;
-          <a href="http://github.com/jonirrings">GitUub</a>&nbsp;|&nbsp;
-          <a href="/login/github">GitHub Login</a>
+          <a href="http://github.com/jonirrings">GitUub</a>
         </div>
       </div>
     );

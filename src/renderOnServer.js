@@ -2,7 +2,6 @@
  * Created by JonirRings on 2016/10/30.
  */
 import IsomorphicRouter from 'isomorphic-relay-router';
-import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { match } from 'react-router';

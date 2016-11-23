@@ -9,34 +9,35 @@
 
 import React, { PropTypes } from 'react';
 
-Html.propTypes = {
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    style: PropTypes.string,
-    script: PropTypes.string,
-    chunk: PropTypes.string,
-    children: PropTypes.string,
-  };
-
-function Html({ title, description, style, script, data, children } ) {
-    return (
-      <html className="no-js" lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <title>{title}</title>
-          <meta name="description" content={description} />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-          {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
-        </head>
-        <body>
-          <div id="root" dangerouslySetInnerHTML={{ __html: children }} />
-          { data && <script id="preloadedData" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data)}}/>
+function Html({ title, description, style, script, data, children }) {
+  return (
+    <html className="no-js" lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
+      </head>
+      <body>
+        <div id="root" dangerouslySetInnerHTML={{ __html: children }} />
+        { data && <script id="preloadedData" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
           }
-          {script && <script src={script} />}
-        </body>
-      </html>
-    );
-  }
+        {script && <script src={script} />}
+      </body>
+    </html>
+  );
+}
+
+Html.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  style: PropTypes.string,
+  script: PropTypes.string,
+  data: PropTypes.string,
+  children: PropTypes.string,
+};
+
 export default Html;
