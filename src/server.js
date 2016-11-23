@@ -16,10 +16,8 @@ import express from 'express';
 import expressGraphQL from 'express-graphql';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
-import MongoDBStore from 'connect-mongodb-session';
+import mongoDBStore from 'connect-mongodb-session';
 import bodyParser from 'body-parser';
-import expressJwt from 'express-jwt';
-import jwt from 'jsonwebtoken';
 import PrettyError from 'pretty-error';
 import passport from './core/passport';
 import { port, auth, databaseUrl } from './config';
@@ -29,7 +27,7 @@ import schema from './data/schema';
 const isDebug = process.env.NODE_ENV !== 'production';
 mongoose.Promise = Promise;
 mongoose.connect(databaseUrl);
-const store = new MongoDBStore(session)({
+const store = new (mongoDBStore(session))({
   uri: databaseUrl,
   collection: 'sessions',
 });
@@ -52,7 +50,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'jonirrings',
+  secret: auth.jwt,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   },
