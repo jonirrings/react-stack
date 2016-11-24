@@ -6,22 +6,53 @@ import { Link } from 'react-router';
 import Relay from 'react-relay';
 
 class Welcome extends Component {
-  static contextTypes = {
-    relay: Relay.PropTypes.Environment,
-  };
-  static propTypes={
-    viewer: PropTypes.object,
-  };
   render() {
-    const viewer = this.props.viewer;
     return (
       <div>
-        Welcome, {`${viewer ? viewer.name : 'Visitor'}`}
-        <div>
-          <Link to="/posts">BLOG</Link> &nbsp;|&nbsp;
-          <Link to="/about">ABOUT</Link>&nbsp;|&nbsp;
-          <a href="http://resume.jonirrings.com">RESUME</a>&nbsp;|&nbsp;
-          <a href="http://github.com/jonirrings">GitUub</a>
+        <div><Link to="'/" className="">Jonir Rings</Link></div>
+        <div className="navWrapper">
+          <nav>
+            <ul>
+              <li><Link to="/">主页</Link></li>
+              <li><Link to="/posts">博客</Link></li>
+              <li><a href="http://resume.jonirrings.com">简历</a></li>
+              <li><Link to="/about">关于</Link></li>
+            </ul>
+          </nav>
+          <div>
+            <ul>
+              <li>
+                <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
+                  <i></i>
+                  <span className="label">Github</span>
+                </a>
+              </li>
+              <li>
+                <a href="weibo" title="微博" rel="noopener noreferrer" target="_blank">
+                  <i></i>
+                  <span className="label">Weibo</span>
+                </a>
+              </li>
+              <li>
+                <a href="qq" title="QQ" rel="noopener noreferrer" target="_blank">
+                  <i></i>
+                  <span className="label">QQ</span>
+                </a>
+              </li>
+              <li>
+                <a href="mail" title="邮箱" rel="noopener noreferrer" target="_blank">
+                  <i></i>
+                  <span className="label">Email</span>
+                </a>
+              </li>
+              <li>
+                <a href="zhihu" title="知乎" rel="noopener noreferrer" target="_blank">
+                  <i></i>
+                  <span className="label">Zhihu</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );
