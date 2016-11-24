@@ -1,62 +1,67 @@
 /**
  * Created by JonirRings on 2016/10/29.
  */
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router';
-import Relay from 'react-relay';
+import withStyle from 'isomorphic-style-loader/lib/withStyles';
+import s from './Welcome.css';
 
 class Welcome extends Component {
   render() {
     return (
-      <div>
-        <div><Link to="'/" className="">Jonir Rings</Link></div>
-        <div className="navWrapper">
-          <nav>
-            <ul>
-              <li><Link to="/">主页</Link></li>
-              <li><Link to="/posts">博客</Link></li>
-              <li><a href="http://resume.jonirrings.com">简历</a></li>
-              <li><Link to="/about">关于</Link></li>
-            </ul>
-          </nav>
-          <div>
-            <ul>
-              <li>
-                <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
-                  <i></i>
-                  <span className="label">Github</span>
-                </a>
-              </li>
-              <li>
-                <a href="weibo" title="微博" rel="noopener noreferrer" target="_blank">
-                  <i></i>
-                  <span className="label">Weibo</span>
-                </a>
-              </li>
-              <li>
-                <a href="qq" title="QQ" rel="noopener noreferrer" target="_blank">
-                  <i></i>
-                  <span className="label">QQ</span>
-                </a>
-              </li>
-              <li>
-                <a href="mail" title="邮箱" rel="noopener noreferrer" target="_blank">
-                  <i></i>
-                  <span className="label">Email</span>
-                </a>
-              </li>
-              <li>
-                <a href="zhihu" title="知乎" rel="noopener noreferrer" target="_blank">
-                  <i></i>
-                  <span className="label">Zhihu</span>
-                </a>
-              </li>
-            </ul>
+      <div className={s.panelCover}>
+        <div>
+          <div><Link to="/" className="">Jonir Rings</Link></div>
+          <div className="navWrapper">
+            <nav>
+              <ul>
+                <li><Link to="/">主页</Link></li>
+                <li><Link to="/posts">博客</Link></li>
+                <li><a href="http://resume.jonirrings.com">简历</a></li>
+                <li><Link to="/about">关于</Link></li>
+              </ul>
+            </nav>
+            <div>
+              <ul>
+                <li>
+                  <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
+                    <i>X</i>
+                    <span className="label">Github</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="weibo" title="微博" rel="noopener noreferrer" target="_blank">
+                    <i>X</i>
+                    <span className="label">Weibo</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="qq" title="QQ" rel="noopener noreferrer" target="_blank">
+                    <i>X</i>
+                    <span className="label">QQ</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="mail" title="邮箱" rel="noopener noreferrer" target="_blank">
+                    <i>X</i>
+                    <span className="label">Email</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="zhihu" title="知乎" rel="noopener noreferrer" target="_blank">
+                    <i>X</i>
+                    <span className="label">Zhihu</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div className={s.panelCoverOverlay} />
       </div>
     );
   }
 }
 
-export default Welcome;
+export default withStyle(s)(Welcome);
+

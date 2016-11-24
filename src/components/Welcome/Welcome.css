@@ -1,0 +1,13 @@
+.panelCover {
+  background: url(https://congm.in/bing.php) center center no-repeat #666;
+  background-size: cover;
+}
+
+.panelCoverOverlay {
+  background: rgba(61, 66, 96, 0.4) linear-gradient(140deg, rgba(61, 66, 96, 0.4) 15%, rgba(31, 34, 49, 0.6));
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}

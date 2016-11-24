@@ -26,7 +26,7 @@ passport.deserializeUser((sessionUser, done) => {
 passport.use(new GitHubStrategy({
   clientID,
   clientSecret,
-  callbackURL: 'http://127.0.0.1:3000/login/github/callback',
+  callbackURL: 'http://127.0.0.1:3001/login/github/callback',
 },
   (accessToken, refreshToken, profile, done) => {
     const { _json: { login: loginName, id: loginId, avatar_url: avatarUrl, name: nickName } }
