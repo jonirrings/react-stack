@@ -10,12 +10,35 @@ import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import Html from './components/Html';
 
-const GRAPHQL_URL = 'http://localhost:3000/graphql';
+const GRAPHQL_URL = 'http://localhost:3001/graphql';
 
-const networkLayer = new Relay.DefaultNetworkLayer(GRAPHQL_URL);
 
 export default (req, res, next) => {
+  const networkLayer =
+    new Relay.DefaultNetworkLayer(GRAPHQL_URL, {
+      headers: { cookie: req.headers.cookie },
+    });
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    const context = {
+      insertCss: (...styles) => {
+        const css = new Set();
+        // eslint-disable-next-line no-underscore-dangle
+        styles.forEach(style => css.add(style._getCss()));
+      },
+    };
+
+    function render({ data, props }) {
+      const propsWithContext = { ...props, context };
+      const children = ReactDOMServer.renderToString(IsomorphicRouter.render(propsWithContext));
+      const title = 'Jonir Rings';
+      const description = 'Jonir Tings\' blog';
+      const html = ReactDOMServer
+        .renderToStaticMarkup(
+          <Html {...{ title, description, script: assets.main.js, data, children }} />
+        );
+      res.status(200).send(`<!doctype html>${html}`);
+    }
+
     if (error) {
       next(error);
     } else if (redirectLocation) {
@@ -24,14 +47,6 @@ export default (req, res, next) => {
       IsomorphicRouter.prepareData(renderProps, networkLayer).then(render).catch(next);
     } else {
       res.status(404).send('Not Found');
-    }
-
-    function render({ data, props }) {
-      const children = ReactDOMServer.renderToString(IsomorphicRouter.render(props));
-      const title = 'Jonir Rings';
-      const description = 'Jonir Tings\' blog';
-      const html = ReactDOMServer.renderToStaticMarkup(<Html {...{ title, description, script: assets.main.js, data, children }} />);
-      res.status(200).send(`<!doctype html>${html}`);
     }
   });
 };

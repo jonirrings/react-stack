@@ -1,17 +1,27 @@
 /**
  * Created by JonirRings on 2016/10/29.
  */
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Welcome.css';
 
 class Welcome extends Component {
+  static propTypes={
+    viewer: PropTypes.shape(),
+  };
+
+  static contextType ={
+    insertCss: PropTypes.func.isRequired,
+  };
+
   render() {
+    const viewer = this.props.viewer;
     return (
       <div className={s.panelCover}>
         <div>
           <div><Link to="/" className="">Jonir Rings</Link></div>
+          <p>{ viewer ? viewer.name : 'Visitor' }</p>
           <div className="navWrapper">
             <nav>
               <ul>
