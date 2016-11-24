@@ -50,7 +50,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: auth.jwt,
+  secret: auth.jwt.secret,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
   },
