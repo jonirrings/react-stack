@@ -183,7 +183,7 @@ const config = {
 //-----------------------
 
 const clientConfig = extend(true, {}, config, {
-  entry: './client.js',
+  entry: './client.jsx',
   output: {
     filename: isDebug ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
     chunkFilename: isDebug ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
