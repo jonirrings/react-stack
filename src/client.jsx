@@ -31,14 +31,24 @@ const context = {
     return () => { removeCss.forEach(f => f()); };
   },
 };
-const preloadedData = JSON.parse(document.getElementById('preloadedData').textContent);
+const data = JSON.parse(document.getElementById('preloadData').textContent);
 
-IsomorphicRelay.injectPreparedData(environment, preloadedData);
+IsomorphicRelay.injectPreparedData(environment, data);
 
 const rootElement = document.getElementById('root');
+function initialRenderComplete() {
+  const elem = document.getElementById('css');
+  if (elem) elem.parentNode.removeChild(elem);
+}
 
 match({ routes, history: browserHistory }, (error, redirectLocation, renderProps) => {
   IsomorphicRouter.prepareInitialRender(environment, renderProps).then((props) => {
-    ReactDOM.render(<ContextHolder context={context}><Router {...props} /></ContextHolder>, rootElement);
+    ReactDOM.render(
+      <ContextHolder context={context}>
+        <Router {...props} />
+      </ContextHolder>,
+      rootElement,
+      () => initialRenderComplete()
+    );
   });
 });

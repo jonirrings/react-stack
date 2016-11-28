@@ -28,7 +28,7 @@ export default (req, res, next) => {
       },
     };
 
-    function render({ preloadedData, props }) {
+    function render({ data, props }) {
       const children = ReactDOMServer.renderToString(
         <ContextHolder context={context}>{IsomorphicRouter.render(props)}</ContextHolder>
       );
@@ -36,7 +36,7 @@ export default (req, res, next) => {
       const description = 'Jonir Tings\' blog';
       const html = ReactDOMServer
         .renderToStaticMarkup(
-          <Html {...{ title, description, script: assets.main.js, style: [...css].join(''), preloadedData, children }} />
+          <Html {...{ title, description, script: assets.main.js, style: [...css].join(''), data, children }} />
         );
       res.status(200).send(`<!doctype html>${html}`);
     }
