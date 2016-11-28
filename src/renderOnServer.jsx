@@ -9,6 +9,7 @@ import Relay from 'react-relay';
 import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import Html from './components/Html';
+import ContextHolder from './components/ContextHolder';
 
 const GRAPHQL_URL = 'http://localhost:3001/graphql';
 
@@ -19,22 +20,23 @@ export default (req, res, next) => {
       headers: { cookie: req.headers.cookie },
     });
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    const css = new Set();
     const context = {
       insertCss: (...styles) => {
-        const css = new Set();
         // eslint-disable-next-line no-underscore-dangle
         styles.forEach(style => css.add(style._getCss()));
       },
     };
 
-    function render({ data, props }) {
-      const propsWithContext = { ...props, context };
-      const children = ReactDOMServer.renderToString(IsomorphicRouter.render(propsWithContext));
+    function render({ preloadedData, props }) {
+      const children = ReactDOMServer.renderToString(
+        <ContextHolder context={context}>{IsomorphicRouter.render(props)}</ContextHolder>
+      );
       const title = 'Jonir Rings';
       const description = 'Jonir Tings\' blog';
       const html = ReactDOMServer
         .renderToStaticMarkup(
-          <Html {...{ title, description, script: assets.main.js, data, children }} />
+          <Html {...{ title, description, script: assets.main.js, style: [...css].join(''), preloadedData, children }} />
         );
       res.status(200).send(`<!doctype html>${html}`);
     }

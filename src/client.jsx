@@ -15,6 +15,8 @@ import ReactDOM from 'react-dom';
 import { browserHistory, match, Router } from 'react-router';
 import Relay from 'react-relay';
 import routes from './routes';
+import ContextHolder from './components/ContextHolder';
+
 
 const environment = new Relay.Environment();
 
@@ -23,22 +25,20 @@ environment.injectNetworkLayer(
     credentials: 'same-origin',
   }));
 const context = {
-  // Enables critical path CSS rendering
-  // https://github.com/kriasoft/isomorphic-style-loader
   insertCss: (...styles) => {
     // eslint-disable-next-line no-underscore-dangle
     const removeCss = styles.map(x => x._insertCss());
     return () => { removeCss.forEach(f => f()); };
   },
 };
-const data = JSON.parse(document.getElementById('preloadedData').textContent);
+const preloadedData = JSON.parse(document.getElementById('preloadedData').textContent);
 
-IsomorphicRelay.injectPreparedData(environment, data);
+IsomorphicRelay.injectPreparedData(environment, preloadedData);
 
 const rootElement = document.getElementById('root');
 
 match({ routes, history: browserHistory }, (error, redirectLocation, renderProps) => {
   IsomorphicRouter.prepareInitialRender(environment, renderProps).then((props) => {
-    ReactDOM.render(<Router {...props} context={context} />, rootElement);
+    ReactDOM.render(<ContextHolder context={context}><Router {...props} /></ContextHolder>, rootElement);
   });
 });
