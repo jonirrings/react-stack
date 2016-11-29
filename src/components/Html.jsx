@@ -19,6 +19,7 @@ function Html({ title, description, style, scripts, data, children }) {
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        <link href="//fonts.useso.com/css?family=Architects+Daughter" rel="stylesheet" />
         {style && <style id="css" dangerouslySetInnerHTML={{ __html: style }} />}
       </head>
       <body>
@@ -37,7 +38,7 @@ Html.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   style: PropTypes.string,
-  script: PropTypes.string,
+  scripts: PropTypes.array,
   data: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,

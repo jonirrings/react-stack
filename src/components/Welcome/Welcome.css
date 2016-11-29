@@ -31,3 +31,13 @@
   border: white 1px solid;
   padding: .2em 1em;
 }
+.welcome{
+  padding: 1em;
+  text-align: center;
+}
+.welcome a{
+  font-family: 'Courgette', cursive;
+  font-size: 10em;
+  text-decoration: none;
+  color: white;
+}
