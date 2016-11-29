@@ -17,27 +17,36 @@
   bottom: 0;
   z-index: 100;
 }
-.navWrapper{
+
+.navWrapper {
   position: relative;
   z-index: 101;
 }
-.navs{
+
+.navs {
   color: white;
 }
-.navs a{
+
+.navs a {
   color: white;
   text-decoration: none;
   border-radius: 1em;
   border: white 1px solid;
   padding: .2em 1em;
 }
-.welcome{
+
+.home {
   padding: 1em;
   text-align: center;
 }
-.welcome a{
-  font-family: 'Courgette', cursive;
+
+.home a {
+  font-family: 'Josefin Sans', 'Nixie One', 'Noto Sans', 'Open Sans', 'Poiret One', 'Rajdhani', 'Rokkitt', 'Titillium Web', sans-serif, cursive, serif;
   font-size: 10em;
   text-decoration: none;
+  color: white;
+}
+.welcome{
+  text-align: center;
   color: white;
 }

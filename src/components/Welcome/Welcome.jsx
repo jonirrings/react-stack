@@ -20,8 +20,8 @@ class Welcome extends Component {
     return (
       <div className={s.panelCover}>
         <div className={s.navWrapper}>
-          <div className={s.welcome}><Link to="/" className="">Jonir Rings</Link></div>
-          <p>{ viewer ? viewer.name : 'Visitor' }</p>
+          <div className={s.home}><Link to="/" className="">Jonir Rings</Link></div>
+          <p className={s.welcome}>Welcome, { viewer ? viewer.name : 'Visitor' }</p>
           <div>
             <nav className={s.navs}>
               <ul>
