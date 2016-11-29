@@ -1,4 +1,9 @@
+@import '../../../node_modules/normalize.css/normalize.css';
+
 .panelCover {
+  position: fixed;
+  height: 100%;
+  width: 100%;
   background: url(https://congm.in/bing.php) center center no-repeat #666;
   background-size: cover;
 }

@@ -25,6 +25,7 @@ const config = {
     path: path.resolve(__dirname, '../build/public/assets'),
     publicPath: '/assets/',
     sourcePrefix: '  ',
+    pathinfo: isVerbose,
   },
   module: {
     loaders: [
@@ -38,22 +39,22 @@ const config = {
           cacheDirectory: isDebug,
           babelrc: false,
           presets: [
-            'react',
             'latest',
             'stage-0',
+            'react',
+            ...isDebug ? [] : [
+              'react-optimize',
+            ],
           ],
           plugins: [
             'transform-runtime',
-            ...isDebug ? ['babel-relay-plugin-loader','transform-react-jsx-source', 'transform-react-jsx-self'] : [
-              'transform-react-remove-prop-types',
-              'transform-react-constant-elements',
-              'transform-react-inline-elements',
-            ],
+            'babel-relay-plugin-loader',
+            ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [],
           ],
         },
       },
       {
-        test: /\.css$/,
+        test: /\.css/,
         loaders: [
           'isomorphic-style-loader',
           `css-loader?${JSON.stringify({
@@ -62,17 +63,9 @@ const config = {
             modules: true,
             localIdentName: isDebug ? '[name]-[local]-[hash:base64:5]' : '[hash:base64:5]',
             minimize: !isDebug,
+            discardComments: { removeAll: true },
           })}`,
           'postcss-loader?pack=default',
-        ],
-      },
-      {
-        test: /\.scss$/,
-        loaders: [
-          'isomorphic-style-loader',
-          `css-loader?${JSON.stringify({ sourceMap: isDebug, minimize: !isDebug })}`,
-          'postcss-loader?pack=sass',
-          'sass-loader',
         ],
       },
       {
@@ -84,18 +77,18 @@ const config = {
         loader: 'raw-loader',
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-        loader: 'url-loader',
+        test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
+        loader: 'file-loader',
         query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
-          limit: 10000,
+          name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
         },
       },
       {
-        test: /\.(eot|ttf|wav|mp3)$/,
-        loader: 'file-loader',
+        test: /\.(mp4|webm|wav|mp3|m4a|aac|oga)(\?.*)?$/,
+        loader: 'url-loader',
         query: {
-          name: isDebug ? '[path][name].[ext]?[hash]' : '[hash].[ext]',
+          name: isDebug ? '[path][name].[ext]?[hash:8]' : '[hash:8].[ext]',
+          limit: 10000,
         },
       },
     ],
@@ -105,6 +98,10 @@ const config = {
     modulesDirectories: ['node_modules'],
     extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx', '.json'],
   },
+
+  // Don't attempt to continue if there are any errors.
+  bail: !isDebug,
+
   cache: isDebug,
   debug: isDebug,
 
@@ -169,10 +166,14 @@ const config = {
         require('postcss-flexbugs-fixes')(),
         // Add vendor prefixes to CSS rules using values from caniuse.com
         // https://github.com/postcss/autoprefixer
-        require('autoprefixer')(),
-      ],
-      sass: [
-        require('autoprefixer')(),
+        require('autoprefixer')({
+          browsers: [
+            '>1%',
+            'last 4 versions',
+            'Firefox ESR',
+            'not ie < 9', // React doesn't support IE8 anyway
+          ],
+        }),
       ],
     };
   },
@@ -183,10 +184,12 @@ const config = {
 //-----------------------
 
 const clientConfig = extend(true, {}, config, {
-  entry: './client.jsx',
+  entry: {
+    client: './client.jsx',
+  },
   output: {
-    filename: isDebug ? '[name].js?[chunkhash]' : '[name].[chunkhash].js',
-    chunkFilename: isDebug ? '[name].[id].js?[chunkhash]' : '[name].[id].[chunkhash].js',
+    filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
+    chunkFilename: isDebug ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
   },
   target: 'web',
   plugins: [
@@ -198,20 +201,38 @@ const clientConfig = extend(true, {}, config, {
     new AssetsPlugin({
       path: path.resolve(__dirname, '../build'),
       filename: 'assets.js',
-      processOutput: x => `module.exports = ${JSON.stringify(x)};`,
+      processOutput: x => `module.exports = ${JSON.stringify(x, null, 2)};`,
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(true),
+
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => /node_modules/.test(module.resource),
+    }),
+
     ...isDebug ? [] : [
+      new webpack.optimize.OccurrenceOrderPlugin(true),
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           screw_ie8: true,
           warnings: isVerbose,
         },
+        mangle: {
+          screw_ie8: true,
+        },
+        output: {
+          comments: false,
+          screw_ie8: true,
+        },
       }),
     ],
   ],
-  devtool: isDebug ? 'source-map' : false,
+  devtool: isDebug ? 'cheap-module-source-map' : false,
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
 });
 
 //
@@ -219,7 +240,9 @@ const clientConfig = extend(true, {}, config, {
 //-----------------------
 
 const serverConfig = extend(true, {}, config, {
-  entry: './server.js',
+  entry: {
+    server: './server.js',
+  },
   output: {
     filename: '../../server.js',
     libraryTarget: 'commonjs2',
@@ -240,10 +263,11 @@ const serverConfig = extend(true, {}, config, {
       'process.env.BROWSER': false,
       __DEV__: isDebug,
     }),
+    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
     new webpack.BannerPlugin('require("source-map-support").install();',
       { raw: true, entryOnly: false }),
-    new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 }),
   ],
+
   node: {
     console: false,
     global: false,
@@ -252,7 +276,8 @@ const serverConfig = extend(true, {}, config, {
     __filename: false,
     __dirname: false,
   },
-  devtool: 'source-map',
+
+  devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
 });
 
 export default [clientConfig, serverConfig];

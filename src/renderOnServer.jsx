@@ -34,9 +34,10 @@ export default (req, res, next) => {
       );
       const title = 'Jonir Rings';
       const description = 'Jonir Tings\' blog';
+      const scripts = [assets.vendor.js, assets.client.js];
       const html = ReactDOMServer
         .renderToStaticMarkup(
-          <Html {...{ title, description, script: assets.main.js, style: [...css].join(''), data, children }} />
+          <Html {...{ title, description, scripts, style: [...css].join(''), data, children }} />
         );
       res.status(200).send(`<!doctype html>${html}`);
     }

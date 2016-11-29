@@ -9,7 +9,7 @@
 
 import React, { PropTypes } from 'react';
 
-function Html({ title, description, style, script, data, children }) {
+function Html({ title, description, style, scripts, data, children }) {
   return (
     <html className="no-js" lang="en">
       <head>
@@ -27,7 +27,7 @@ function Html({ title, description, style, script, data, children }) {
           data &&
           <script id="preloadData" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
         }
-        {script && <script src={script} />}
+        {scripts && scripts.map(script => <script key={script} src={script} />)}
       </body>
     </html>
   );

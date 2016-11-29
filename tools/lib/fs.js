@@ -39,9 +39,11 @@ export const copyFile = (source, target) => new Promise((resolve, reject) => {
   wr.on('close', err => done(err));
   rd.pipe(wr);
 });
-export const readDir = (pattern, options) => new Promise((resolve, reject) => {
-  glob(pattern, options, (err, result) => (err ? reject(err) : resolve(result)));
-});
+
+export const readDir = (pattern, options) => new Promise((resolve, reject) =>
+  glob(pattern, options, (err, result) => (err ? reject(err) : resolve(result))),
+);
+
 export const makeDir = (name) => new Promise((resolve, reject) => {
   mkdirp(name, err => (err ? reject(err) : resolve()));
 });
@@ -51,8 +53,7 @@ export const copyDir = async (source, target) => {
     nosort: true,
     dot: true,
   });
-  await Promise.all(dirs.map(async
-  dir => {
+  await Promise.all(dirs.map(async dir => {
     const from = path.resolve(source, dir);
     const to = path.resolve(target, dir);
     await makeDir(path.dirname(to));
@@ -60,5 +61,5 @@ export const copyDir = async (source, target) => {
   }));
 };
 export const cleanDir = (pattern, options) => new Promise((resolve, reject) =>
-  rimraf(pattern, { glob: options }, (err, result) => (err ? reject(err) : resolve(result)))
+  rimraf(pattern, { glob: options }, (err, result) => (err ? reject(err) : resolve(result))),
 );

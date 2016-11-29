@@ -27,17 +27,19 @@ async function start() {
   await run(updateSchema);
   await new Promise(resolve => {
     if (config.debug) {
-      config.entry = ['react-hot-loader/patch', 'webpack-hot-middleware/client', config.entry];
-      config.output.filename = config.output.filename.replace('[chunkhash]', '[hash]');
-      config.output.chunkFilename = config.output.chunkFilename.replace('[chunkhash]', '[hash]');
-      config.module.loaders.find(x => x.loader === 'babel-loader').query.plugins.unshift('react-hot-loader/babel');
+      config.entry.client = ['react-hot-loader/patch', 'webpack-hot-middleware/client']
+        .concat(config.entry.client);
+      config.output.filename = config.output.filename.replace('[chunkhash', '[hash');
+      config.output.chunkFilename = config.output.chunkFilename.replace('[chunkhash', '[hash');
+      config.module.loaders.find(x => x.loader === 'babel-loader')
+        .query.plugins.unshift('react-hot-loader/babel');
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
       config.plugins.push(new webpack.NoErrorsPlugin());
     }
     const bundler = webpack(webpackConfig);
     const wpMiddleWare = webpackMiddleWare(bundler, {
       publicPath: config.output.publicPath,
-      state: config.stats,
+      stats: config.stats,
     });
     const hotMiddleWare = webpackHotMiddleWare(bundler.compilers[0]);
     let handleBundleComplete = async () => {
@@ -50,6 +52,9 @@ async function start() {
         proxy: {
           target: server.host,
           middleware: [wpMiddleWare, hotMiddleWare],
+          proxyOptions: {
+            xfwd: true,
+          },
         },
       }, resolve);
     };
