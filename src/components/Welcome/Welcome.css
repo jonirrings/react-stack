@@ -10,4 +10,19 @@
   right: 0;
   left: 0;
   bottom: 0;
+  z-index: 100;
+}
+.navWrapper{
+  position: relative;
+  z-index: 101;
+}
+.navs{
+  color: white;
+}
+.navs a{
+  color: white;
+  text-decoration: none;
+  border-radius: 1em;
+  border: white 1px solid;
+  padding: .2em 1em;
 }

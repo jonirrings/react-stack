@@ -19,11 +19,11 @@ class Welcome extends Component {
     const viewer = this.props.viewer;
     return (
       <div className={s.panelCover}>
-        <div>
+        <div className={s.navWrapper}>
           <div><Link to="/" className="">Jonir Rings</Link></div>
           <p>{ viewer ? viewer.name : 'Visitor' }</p>
-          <div className="navWrapper">
-            <nav>
+          <div>
+            <nav className={s.navs}>
               <ul>
                 <li><Link to="/">主页</Link></li>
                 <li><Link to="/posts">博客</Link></li>
@@ -31,7 +31,7 @@ class Welcome extends Component {
                 <li><Link to="/about">关于</Link></li>
               </ul>
             </nav>
-            <div>
+            <div className={s.social}>
               <ul>
                 <li>
                   <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
