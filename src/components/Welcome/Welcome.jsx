@@ -40,25 +40,25 @@ class Welcome extends Component {
                 <div className={s.social}>
                   <ul>
                     <li>
-                      <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
+                      <a href="https://github.com/jonirrings/" title="交♂友" rel="noopener noreferrer" target="_blank">
                         <i className="fa fa-github" />
                         <span className={s.label}>Github</span>
                       </a>
                     </li>
                     <li>
-                      <a href="weibo" title="微博" rel="noopener noreferrer" target="_blank">
+                      <a href="http://weibo.com/jonirrings/" title="微博" rel="noopener noreferrer" target="_blank">
                         <i className="fa fa-weibo" />
                         <span className={s.label}>Weibo</span>
                       </a>
                     </li>
                     <li>
-                      <a href="qq" title="QQ" rel="noopener noreferrer" target="_blank">
+                      <a href="http://wpa.qq.com/msgrd?v=3&uin=312604054&site=qq&menu=yes" title="QQ" rel="noopener noreferrer" target="_blank">
                         <i className="fa fa-qq" />
                         <span className={s.label}>QQ</span>
                       </a>
                     </li>
                     <li>
-                      <a href="mail" title="邮箱" rel="noopener noreferrer" target="_blank">
+                      <a href="mailto://i@jonirrings.com" title="邮箱" rel="noopener noreferrer" target="_blank">
                         <i className="fa fa-envelope" />
                         <span className={s.label}>Email</span>
                       </a>
