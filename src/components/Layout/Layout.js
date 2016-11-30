@@ -9,7 +9,8 @@
 
 import React, { PropTypes, Component } from 'react';
 import Relay from 'react-relay';
-
+import withStyle from 'isomorphic-style-loader/lib/withStyles';
+import s from './Layout.css';
 
 class Layout extends Component {
 
@@ -28,4 +29,4 @@ class Layout extends Component {
 
 }
 
-export default Layout;
+export default withStyle(s)(Layout);
