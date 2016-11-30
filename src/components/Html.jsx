@@ -39,7 +39,7 @@ Html.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   style: PropTypes.string,
-  scripts: PropTypes.array,
+  scripts: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
