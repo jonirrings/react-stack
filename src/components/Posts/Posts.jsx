@@ -8,23 +8,21 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import Glance from '../Glance';
+import s from './Posts.css';
 
 class Posts extends Component {
   render() {
     const { edges } = this.props.posts;
     return (
-      <div>
-        <Link to="/">HOME</Link>
-        <ul>
-          {
-            edges.map(edge => <li key={edge.cursor}><Glance post={edge.node} /></li>)
-          }
-        </ul>
-      </div>
+      <ul className={s.posts}>
+        {
+          edges.map(edge => <li key={edge.cursor}><Glance post={edge.node} /></li>)
+        }
+      </ul>
     );
   }
 }
 
-export default Posts;
+export default withStyle(s)(Posts);

@@ -1,26 +1,17 @@
-@import '../../../node_modules/normalize.css/normalize.css';
 @import '../variables.css';
 
 .panelCover {
-  display: block;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-}
-
-.panelContainer {
-  display: table;
-  height: 100%;
-  width: 100%;
+  flex: 3;
   background: url(https://congm.in/bing.php) center center no-repeat #666;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .panelMain {
-  display: table-cell;
-  vertical-align: middle;
-  font-family: var(--font-family-base);
   position: relative;
+  z-index: 101;
 }
 
 .panelCoverOverlay {
@@ -33,18 +24,12 @@
   z-index: 100;
 }
 
-.navWrapper {
-  position: relative;
-  z-index: 101;
-}
-
 .home {
-  padding: 1em;
   text-align: center;
 }
 
 .home a {
-  font-size: 10em;
+  font-size: 6em;
   text-decoration: none;
   color: white;
 }
@@ -59,7 +44,9 @@
   color: white;
   text-decoration: none;
 }
-
+.navContainer{
+  font-size: .725em;
+}
 .navs {
   color: white;
 }

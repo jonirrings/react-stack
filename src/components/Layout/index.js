@@ -8,17 +8,5 @@
  */
 // import Relay from 'react-relay;';
 import Layout from './Layout';
-/* class LayoutRoute extends Relay.Route {
-  static queries = {
-    posts: () => Relay.QL`query { posts(first:$num) }`,
-  };
-  static routeName = 'LayoutRoute';
-}
-const RootContainer =
-  (<Relay.RootContainer
-    Component={Layout}
-    route={new LayoutRoute({ num: 10 })}
-  />);
-export default RootContainer;*/
 
 export default Layout;

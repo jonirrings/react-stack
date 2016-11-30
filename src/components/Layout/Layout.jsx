@@ -21,10 +21,10 @@ class Layout extends Component {
   render() {
     // TODO add layout detail like nav,header,footer
     return (
-      <div>
+      <div className={s.root}>
         {React.Children.only(this.props.children)}
       </div>
-      );
+    );
   }
 
 }
