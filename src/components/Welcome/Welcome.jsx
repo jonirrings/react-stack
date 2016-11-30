@@ -7,68 +7,70 @@ import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Welcome.css';
 
 class Welcome extends Component {
-  static propTypes={
+  static propTypes = {
     viewer: PropTypes.shape(),
   };
 
-  static contextType ={
+  static contextType = {
     insertCss: PropTypes.func.isRequired,
   };
 
   render() {
     const viewer = this.props.viewer;
     return (
-      <div className={s.panelCover}>
-        <div className={s.navWrapper}>
-          <div className={s.home}><Link to="/" className="">Jonir Rings</Link></div>
-          <p className={s.welcome}>Welcome, { viewer ? viewer.name : 'Visitor' }</p>
-          <div>
-            <nav className={s.navs}>
-              <ul>
-                <li><Link to="/">主页</Link></li>
-                <li><Link to="/posts">博客</Link></li>
-                <li><a href="http://resume.jonirrings.com">简历</a></li>
-                <li><Link to="/about">关于</Link></li>
-              </ul>
-            </nav>
-            <div className={s.social}>
-              <ul>
-                <li>
-                  <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
-                    <i>X</i>
-                    <span className="label">Github</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="weibo" title="微博" rel="noopener noreferrer" target="_blank">
-                    <i>X</i>
-                    <span className="label">Weibo</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="qq" title="QQ" rel="noopener noreferrer" target="_blank">
-                    <i>X</i>
-                    <span className="label">QQ</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="mail" title="邮箱" rel="noopener noreferrer" target="_blank">
-                    <i>X</i>
-                    <span className="label">Email</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="zhihu" title="知乎" rel="noopener noreferrer" target="_blank">
-                    <i>X</i>
-                    <span className="label">Zhihu</span>
-                  </a>
-                </li>
-              </ul>
+      <header className={s.panelCover}>
+        <div className={s.panelContainer}>
+          <div className={s.panelMain}>
+            <div className={s.navWrapper}>
+              <div className={s.home}><Link to="/" className="">Jonir Rings</Link></div>
+              <p className={s.welcome}>Welcome, { viewer ? viewer.name :
+              <a
+                href="/login/github" title="login through github" rel="noopener noreferrer"
+                target="_blank"
+              >Visitor</a> }</p>
+              <div>
+                <nav className={s.navs}>
+                  <ul>
+                    <li><Link to="/">主页</Link></li>
+                    <li><Link to="/posts">博客</Link></li>
+                    <li><a href="http://resume.jonirrings.com">简历</a></li>
+                    <li><Link to="/about">关于</Link></li>
+                  </ul>
+                </nav>
+                <div className={s.social}>
+                  <ul>
+                    <li>
+                      <a href="github" title="交♂友" rel="noopener noreferrer" target="_blank">
+                        <i className="fa fa-github" />
+                        <span className={s.label}>Github</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="weibo" title="微博" rel="noopener noreferrer" target="_blank">
+                        <i className="fa fa-weibo" />
+                        <span className={s.label}>Weibo</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="qq" title="QQ" rel="noopener noreferrer" target="_blank">
+                        <i className="fa fa-qq" />
+                        <span className={s.label}>QQ</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="mail" title="邮箱" rel="noopener noreferrer" target="_blank">
+                        <i className="fa fa-envelope" />
+                        <span className={s.label}>Email</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
+            <div className={s.panelCoverOverlay} />
           </div>
         </div>
-        <div className={s.panelCoverOverlay} />
-      </div>
+      </header>
     );
   }
 }

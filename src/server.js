@@ -68,13 +68,24 @@ if (isDebug) {
   app.enable('trust proxy');
 }
 app.get('/login/github',
-  passport.authenticate('github', { scope: ['user:email'], session: true })
+  passport.authenticate('github', { scope: ['user:email'], session: true }),
 );
 app.get('/login/github/callback',
   passport.authenticate('github', { failureRedirect: '/', session: true }),
   (req, res) => {
-    res.redirect('/');
-  }
+    res.send(
+      '<html>' +
+      '<head>' +
+      '<script>' +
+      'window.opener=null;' +
+      'window.open("","_self");' +
+      'window.close();' +
+      '</script>' +
+      '</head>' +
+      '<body></body>' +
+      '</html>',
+    );
+  },
 );
 app.get('/logout', (req, res) => {
   req.logout();

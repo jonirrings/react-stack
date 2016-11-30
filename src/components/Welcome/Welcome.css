@@ -1,11 +1,26 @@
 @import '../../../node_modules/normalize.css/normalize.css';
+@import '../variables.css';
 
 .panelCover {
+  display: block;
   position: fixed;
+  height: 100%;
+  width: 100%;
+}
+
+.panelContainer {
+  display: table;
   height: 100%;
   width: 100%;
   background: url(https://congm.in/bing.php) center center no-repeat #666;
   background-size: cover;
+}
+
+.panelMain {
+  display: table-cell;
+  vertical-align: middle;
+  font-family: var(--font-family-base);
+  position: relative;
 }
 
 .panelCoverOverlay {
@@ -23,30 +38,77 @@
   z-index: 101;
 }
 
-.navs {
-  color: white;
-}
-
-.navs a {
-  color: white;
-  text-decoration: none;
-  border-radius: 1em;
-  border: white 1px solid;
-  padding: .2em 1em;
-}
-
 .home {
   padding: 1em;
   text-align: center;
 }
 
 .home a {
-  font-family: 'Josefin Sans', 'Nixie One', 'Noto Sans', 'Open Sans', 'Poiret One', 'Rajdhani', 'Rokkitt', 'Titillium Web', sans-serif, cursive, serif;
   font-size: 10em;
   text-decoration: none;
   color: white;
 }
-.welcome{
+
+.welcome {
+  font-size: 2em;
   text-align: center;
   color: white;
+}
+
+.welcome a {
+  color: white;
+  text-decoration: none;
+}
+
+.navs {
+  color: white;
+}
+
+.navs ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navs li {
+  display: inline-block;
+  list-style: none;
+  margin: auto 1em;
+}
+
+.navs a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  border-radius: 1.5em;
+  border: white 1px solid;
+  padding: 0.8em 1.6em;
+}
+
+.social ul {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.social li {
+  list-style: none;
+  display: inline-block;
+  margin: auto 1em;
+}
+
+.social a {
+  display: block;
+  color: white;
+  font-size: 2em;
+  text-decoration: none;
+}
+
+.social a .label {
+  display: none;
+}
+
+.navs,
+.social {
+  margin: 1.5em;
 }
