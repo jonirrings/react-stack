@@ -14,14 +14,42 @@ import s from './Posts.css';
 
 class Posts extends Component {
   static propTypes={
-    route: PropTypes.object,
+    route: PropTypes.shape(),
   };
   render() {
-    const ulClass = this.props.route.path === 'posts' ? s.posts : cx(s.posts, s.init);
+    const postClass = this.props.route.path === 'posts' ? s.posts : cx(s.posts, s.init);
     return (
-      <ul className={ulClass}>
-        <li>TDB</li>
-      </ul>
+      <div className={postClass}>
+        <div className={s.postsContainer}>
+          <ul className={s.postList}>
+            <li className={s.listItem}>
+              <article className={s.article}>
+                <h4>Jonir Rings&apos; Introduction to GraphQL </h4>
+                <p>Content to be filled in Content to be
+              filled in Content to be filled in Content t
+              o be filled in Content to be filled in Conten
+              t to be filled in Content to be filled in C
+              onten
+              t to be filled in Content to be filled in Con
+              tent to b
+              e filled in Content to be filled in Content to
+               be filled in
+              Content to be filled in Content to be filled in
+              Content to be
+              filled in Content to be filled in Content to be fi
+              lled in Content
+              to be filled in Content to be filled in </p>
+                <div className={s.metaContainer}>
+                  <time className={s.time}>2016/12/1</time>
+                  <span className={s.meta}><i className="fa fa-eye" />18</span>
+                  <span className={s.meta}><i className="fa fa-comments" />12</span>
+                  <span className={s.readContainer}><a className={s.read} href="/post/this">Read</a></span>
+                </div>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </div>
     );
   }
 }
