@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: width 0.6s ease;
+  transition: all 0.6s ease;
 }
 
 .panelMain {
