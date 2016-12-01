@@ -9,12 +9,17 @@
 
 import React, { Component, PropTypes } from 'react';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
+import cx from 'classnames';
 import s from './Posts.css';
 
 class Posts extends Component {
+  static propTypes={
+    route: PropTypes.object,
+  };
   render() {
+    const ulClass = this.props.route.path === 'posts' ? s.posts : cx(s.posts, s.init);
     return (
-      <ul className={s.posts}>
+      <ul className={ulClass}>
         <li>TDB</li>
       </ul>
     );

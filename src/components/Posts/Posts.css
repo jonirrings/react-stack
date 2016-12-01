@@ -1,4 +1,10 @@
-.posts{
+.posts.init {
+  flex: 0;
+}
+
+.posts {
   flex: 7;
-  transition: all 0.6s ease;
+  transition: all 0.6s ease-in-out;
+  overflow: hidden;
+  padding: 0;
 }
