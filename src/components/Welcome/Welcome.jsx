@@ -8,15 +8,20 @@ import s from './Welcome.css';
 
 class Welcome extends Component {
   static propTypes = {
-    viewer: PropTypes.shape(),
+    viewer: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+    }),
   };
 
-  static contextType = {
+  static contextTypes = {
     insertCss: PropTypes.func.isRequired,
+    setTitle: PropTypes.func.isRequired,
   };
 
   render() {
     const viewer = this.props.viewer;
+    if (viewer) this.context.setTitle(`Welcome,${viewer.name}--Jonir Rings`);
     return (
       <header className={s.panelCover}>
         <div className={s.panelMain}>

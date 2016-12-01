@@ -21,23 +21,34 @@ export default (req, res, next) => {
     });
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     const css = new Set();
+    const d = {
+      title: 'Jonir Rings',
+      description: 'Jonir Tings\' blog',
+      scripts: [assets.vendor.js, assets.client.js],
+      children: '',
+      style: '',
+      data: '',
+    };
     const context = {
       insertCss: (...styles) => {
         // eslint-disable-next-line no-underscore-dangle
         styles.forEach(style => css.add(style._getCss()));
       },
+      setTitle: (title) => {
+        d.title = title;
+        return d.title;
+      },
     };
 
     function render({ data, props }) {
-      const children = ReactDOMServer.renderToString(
-        <ContextHolder context={context}>{IsomorphicRouter.render(props)}</ContextHolder>
+      d.data = data;
+      d.children = ReactDOMServer.renderToString(
+        <ContextHolder context={context}>{IsomorphicRouter.render(props)}</ContextHolder>,
       );
-      const title = 'Jonir Rings';
-      const description = 'Jonir Tings\' blog';
-      const scripts = [assets.vendor.js, assets.client.js];
+      d.style = [...css].join('');
       const html = ReactDOMServer
         .renderToStaticMarkup(
-          <Html {...{ title, description, scripts, style: [...css].join(''), data, children }} />
+          <Html {...d} />,
         );
       res.status(200).send(`<!doctype html>${html}`);
     }

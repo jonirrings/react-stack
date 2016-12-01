@@ -5,6 +5,7 @@ import React, { Component, PropTypes } from 'react';
 
 const ContextType = {
   insertCss: PropTypes.func.isRequired,
+  setTitle: PropTypes.func.isRequired,
 };
 
 class ContextHolder extends Component {

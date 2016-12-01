@@ -30,6 +30,10 @@ const context = {
     const removeCss = styles.map(x => x._insertCss());
     return () => { removeCss.forEach(f => f()); };
   },
+  setTitle: (title) => {
+    document.title = title;
+    return document.title;
+  },
 };
 const data = JSON.parse(document.getElementById('preloadData').textContent);
 
@@ -48,7 +52,7 @@ match({ routes, history: browserHistory }, (error, redirectLocation, renderProps
         <Router {...props} />
       </ContextHolder>,
       rootElement,
-      () => initialRenderComplete()
+      () => initialRenderComplete(),
     );
   });
 });
