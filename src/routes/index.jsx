@@ -19,7 +19,7 @@ import About from '../components/About';
 const routes = (
   <Route path="/" component={Layout}>
     <IndexRoute component={Welcome} queries={WelcomeQueries} />
-    <Route path="posts" components={{ nav: Welcome, main: Posts }} queries={WelcomeQueries} />
+    <Route path="posts" components={{ nav: Welcome, main: Posts }} queries={{ nav: WelcomeQueries }} />
     <Route path="post" component={Post} />
     <Route path="publish(/:id)" component={Publish} />
     <Route path="about" component={About} />

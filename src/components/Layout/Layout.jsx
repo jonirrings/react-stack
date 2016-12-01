@@ -8,20 +8,23 @@
  */
 
 import React, { PropTypes, Component } from 'react';
-import Relay from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Layout.css';
 
 class Layout extends Component {
 
   static propTypes = {
-    children: PropTypes.element.isRequired,
+    children: PropTypes.element,
+    nav: PropTypes.element,
+    main: PropTypes.element,
   };
 
   render() {
     return (
       <div className={s.root}>
-        {React.Children.only(this.props.children)}
+        {this.props.children}
+        {this.props.nav}
+        {this.props.main}
       </div>
     );
   }
