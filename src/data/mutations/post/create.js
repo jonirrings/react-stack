@@ -16,7 +16,7 @@ import {
   mutationWithClientMutationId,
   cursorForObjectInConnection,
 } from 'graphql-relay';
-import { PostEdge } from '../../types/Post';
+import { PostEdge } from '../../types';
 import { getPosts, addPost } from '../../models';
 
 const mutation = mutationWithClientMutationId({
@@ -27,7 +27,7 @@ const mutation = mutationWithClientMutationId({
     content: { type: new NonNull(StringType) },
   },
   outputFields: {
-    userEdge: {
+    postEdge: {
       type: PostEdge,
       resolve: post => ({
         cursor: cursorForObjectInConnection(getPosts(), post),

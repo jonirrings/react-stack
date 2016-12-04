@@ -27,7 +27,7 @@ const mutation = mutationWithClientMutationId({
     avatar: { type: new NonNull(StringType) },
   },
   outputFields: {
-    user: {
+    post: {
       type: PostType,
       resolve: post => post,
     },

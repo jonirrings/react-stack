@@ -25,7 +25,7 @@ const mutation = mutationWithClientMutationId({
     content: { type: new NonNull(StringType) },
   },
   outputFields: {
-    user: {
+    comment: {
       type: CommentType,
       resolve: comment => comment,
     },

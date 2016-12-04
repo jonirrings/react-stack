@@ -16,7 +16,7 @@ import {
   mutationWithClientMutationId,
   cursorForObjectInConnection,
 } from 'graphql-relay';
-import { CommentEdge } from '../../types/Comment';
+import { CommentEdge } from '../../types';
 import { getCommentsByPostId, addComment } from '../../models';
 
 const mutation = mutationWithClientMutationId({
@@ -28,7 +28,7 @@ const mutation = mutationWithClientMutationId({
     replyToId: { type: IDType },
   },
   outputFields: {
-    userEdge: {
+    commentEdge: {
       type: CommentEdge,
       resolve: comment => ({
         cursor: cursorForObjectInConnection(

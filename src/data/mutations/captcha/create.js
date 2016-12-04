@@ -23,7 +23,7 @@ const mutation = mutationWithClientMutationId({
     userId: { type: new NonNull(IDType) },
   },
   outputFields: {
-    userEdge: {
+    captchaEdge: {
       type: CaptchaType,
       resolve: captcha => captcha,
     },

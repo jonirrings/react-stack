@@ -14,7 +14,7 @@ import WelcomeQueries from './WelcomeQueries';
 export default Relay.createContainer(Welcome, {
   fragments: {
     viewer: () => Relay.QL`
-      fragment on User{
+      fragment on Viewer{
         id
         name
       }

@@ -20,17 +20,15 @@ class Welcome extends Component {
   };
 
   render() {
-    const viewer = this.props.viewer;
-    if (viewer) this.context.setTitle(`Welcome,${viewer.name}--Jonir Rings`);
+    const { name = 'Visitor' } = this.props.viewer;
+    if (name) this.context.setTitle(`Welcome,${name}--Jonir Rings`);
     return (
       <header className={s.panelCover}>
         <div className={s.panelMain}>
           <div className={s.home}><Link to="/" >Jonir Rings</Link></div>
-          <p className={s.welcome}>Welcome, { viewer ? viewer.name :
-          <a
-            href="/login/github" title="login through github" rel="noopener noreferrer"
-            target="_blank"
-          >Visitor</a> }</p>
+          <p className={s.welcome}>Welcome,
+            <a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >{name}</a>
+          </p>
           <div className={s.navContainer}>
             <nav className={s.navs}>
               <ul>
@@ -43,7 +41,7 @@ class Welcome extends Component {
             <div className={s.social}>
               <ul>
                 <li>
-                  <a href="https://github.com/jonirrings" title="交♂友" rel="noopener noreferrer" target="_blank">
+                  <a href="https://jonirrings.github.io/" title="交♂友" rel="noopener noreferrer" target="_blank">
                     <i className="fa fa-github" />
                     <span className={s.label}>Github</span>
                   </a>

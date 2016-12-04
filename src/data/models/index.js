@@ -9,7 +9,6 @@
 
 export Captcha from './Captcha';
 export Chat from './Chat';
-export Cookie from './Cookie';
 export Post from './Post';
 export Comment from './Comment';
 export Stat from './Stat';

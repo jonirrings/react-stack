@@ -11,13 +11,13 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Layout from '../components/Layout';
 import Welcome, { WelcomeQueries } from '../components/Welcome';
-import Posts, { PostsQuery } from '../components/Posts';
+import Posts from '../components/Posts';
 import Post from '../components/Post';
 import Publish from '../components/Publish';
 import About from '../components/About';
 
 const routes = (
-  <Route path="/" component={Layout}>
+  <Route path="/" component={Layout} >
     <IndexRoute components={{ nav: Welcome, main: Posts }} queries={{ nav: WelcomeQueries }} />
     <Route path="posts" components={{ nav: Welcome, main: Posts }} queries={{ nav: WelcomeQueries }} />
     <Route path="post" component={Post} />

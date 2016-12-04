@@ -12,6 +12,11 @@ import mongoose, { Schema } from 'mongoose';
 const CaptchaSchema = new Schema({
   value: String,
   base64: String,
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User',
+    required: true,
+  },
   created: {
     type: Date,
     required: true,

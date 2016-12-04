@@ -23,7 +23,7 @@ const mutation = mutationWithClientMutationId({
     id: { type: new NonNull(IDType) },
   },
   outputFields: {
-    user: {
+    post: {
       type: IDType,
       resolve: ({ id }) => id,
     },

@@ -18,6 +18,7 @@ class PublishEditor extends Component {
     return (
       <div>
         <div>Publish page should provide an editor</div>
+        <label>title:<input type="text" /></label>
         <div className={s.editorContainer}>
           <Editor editorState={editorState} onChange={this.onChange} />
         </div>
