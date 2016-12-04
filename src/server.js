@@ -45,7 +45,6 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
 app.use(express.static(path.join(__dirname, 'public')));
-app.get('/favicon.ico', (req, res) => res.send(''));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

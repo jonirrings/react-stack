@@ -17,12 +17,12 @@ import {
   cursorForObjectInConnection,
 } from 'graphql-relay';
 import { PostEdge } from '../../types';
+import ViewerType from '../../types/Viewer';
 import { getPosts, addPost } from '../../models';
 
 const mutation = mutationWithClientMutationId({
   name: 'AddPost',
   inputFields: {
-    author: { type: new NonNull(IDType) },
     title: { type: new NonNull(StringType) },
     content: { type: new NonNull(StringType) },
   },
@@ -34,8 +34,13 @@ const mutation = mutationWithClientMutationId({
         node: post,
       }),
     },
+    viewer:{
+      type: ViewerType,
+      resolve(post, { user }) { return { ...user, posts: getPosts() }; },
+    }
   },
-  mutateAndGetPayload: ({ author, title, content }) => addPost({ author, title, content }),
+  mutateAndGetPayload: ({ title, content }, { user }) =>
+    addPost({ author: user.id, title, content }),
 });
 
 export default mutation;

@@ -21,7 +21,7 @@ const routes = (
     <IndexRoute components={{ nav: Welcome, main: Posts }} queries={{ nav: ViewerQueries }} />
     <Route path="posts" components={{ nav: Welcome, main: Posts }} queries={{ nav: ViewerQueries }} />
     <Route path="post" component={Post} />
-    <Route path="publish(/:id)" component={Publish} />
+    <Route path="publish(/:id)" components={{ nav: Welcome, main: Publish }} queries={{ nav: ViewerQueries, main: ViewerQueries }} />
     <Route path="about" component={About} />
   </Route>
 );

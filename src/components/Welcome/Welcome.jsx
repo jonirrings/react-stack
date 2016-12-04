@@ -27,7 +27,7 @@ class Welcome extends Component {
         <div className={s.panelMain}>
           <div className={s.home}><Link to="/" >Jonir Rings</Link></div>
           <p className={s.welcome}>Welcome,
-            <a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >{name}</a>
+            <a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >{ name || 'Visitor' }</a>
           </p>
           <div className={s.navContainer}>
             <nav className={s.navs}>
