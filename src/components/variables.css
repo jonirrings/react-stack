@@ -12,7 +12,8 @@
    * Typography
    * ======================================================================== */
 
-  --font-family-base: 'Josefin Sans', 'Nixie One', 'Noto Sans', 'Open Sans', 'Poiret One', 'Rajdhani', 'Rokkitt', 'Titillium Web', 'Hiragino Sans GB','Hiragino Sans GB W3','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif, cursive, serif;
+  /* --font-family-base: 'Josefin Sans', 'Nixie One', 'Noto Sans', 'Open Sans', 'Poiret One', 'Rajdhani', 'Rokkitt', 'Titillium Web', 'Hiragino Sans GB','Hiragino Sans GB W3','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif, cursive, serif; */
+  --font-family-base: 'Josefin Sans', 'Hiragino Sans GB', 'Hiragino Sans GB W3', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif, cursive, serif;
 
   /*
    * Layout

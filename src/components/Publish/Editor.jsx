@@ -14,30 +14,30 @@ class PublishEditor extends Component {
   };
   constructor(props) {
     super(props);
-    this.onContentChange = this.onContentChange.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  onContentChange(event) {
-    this.setState({ content: event.target.value });
-  }
-  onTitleChange(event) {
-    this.setState({ title: event.target.value });
-  }
-  addPost() {
+  handleSubmit(event) {
     this.props.relay.commitUpdate(
-      new AddPostMutation({ ...this.state, viewer:this.props.viewer }),
+      new AddPostMutation({
+        title: this.input.value,
+        content: this.textArea.value,
+        viewer: this.props.viewer
+      }),
     );
+    event.preventDefault();
   }
   render() {
     return (
       <div className={s.publish}>
-        viewer:{this.props.viewer.name}
         <div>Publish page should provide an editor</div>
-        <label>title:<input type="text" onChange={this.onTitleChange} /></label>
-        <div className={s.editorContainer}>
-          <textarea onChange={this.onContentChange} />
-        </div>
-        <button onClick={this.addPost.bind(this)}>Add Post</button>
+        viewer:{this.props.viewer.name}
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="title">title:<input id="title" type="text" ref={input => this.input = input} /></label>
+          <div className={s.editorContainer}>
+            <textarea ref={textArea => this.textArea = textArea} />
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
