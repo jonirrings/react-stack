@@ -16,5 +16,6 @@ export const auth = {
   github: {
     clientID: process.env.GITHUB_CLIENT_ID || 'Your Client ID',
     clientSecret: process.env.GITHUB_CLIENT_SECRET || 'Your Client Secret',
+    callbackURL: process.env.GITHUB_CALLBACK || 'Your Callback URL',
   },
 };

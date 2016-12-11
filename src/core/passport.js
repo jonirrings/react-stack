@@ -14,7 +14,7 @@ import { auth as config } from '../config';
 import { User } from '../data/models';
 import { Github } from '../data/models/OAuth';
 
-const { github: { clientID, clientSecret } } = config;
+const { github: { clientID, clientSecret, callbackURL } } = config;
 passport.serializeUser((user, done) => {
   const sessionUser = { id: user.id, name: user.name };
   done(null, sessionUser);
@@ -26,7 +26,7 @@ passport.deserializeUser((sessionUser, done) => {
 passport.use(new GitHubStrategy({
   clientID,
   clientSecret,
-  callbackURL: 'http://127.0.0.1:3001/login/github/callback',
+  callbackURL,
 },
   (accessToken, refreshToken, profile, done) => {
     const { _json: { login: loginName, id: loginId, avatar_url: avatarUrl, name: nickName } }
