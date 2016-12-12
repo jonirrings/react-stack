@@ -11,7 +11,7 @@ import assets from './assets'; // eslint-disable-line import/no-unresolved
 import Html from './components/Html';
 import ContextHolder from './components/ContextHolder';
 
-const GRAPHQL_URL = 'http://localhost:3001/graphql';
+const GRAPHQL_URL = 'http://localhost:3000/graphql';
 
 
 export default (req, res, next) => {
