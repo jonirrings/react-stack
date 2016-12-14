@@ -47,7 +47,7 @@ export function signInGithubUser({ loginName, loginId, avatarUrl, nickName, acce
     if (!github) {
       const user = new User({ name: nickName || loginName, avatar: avatarUrl });
       const newGitHub = new Github(
-        { loginName, loginId, avatarUrl, nickName, accessToken, user: user.id }
+        { loginName, loginId, avatarUrl, nickName, accessToken, user: user.id },
         );
       user.set('github', github.id);
       user.save();

@@ -15,14 +15,14 @@ import { getPosts, writePost } from './Post';
 
 describe('CRUD Test Against mongoose', () => {
   describe('Write Glance', () => {
-    it('should return the post', async() => {
+    it('should return the post', async () => {
       const user = await findOne();
       const post = writePost({ authorId: user.id, title: 'Test Title', content: 'Test Content' });
       expect(post).to.have.property('id');
     });
   });
   describe('Get Posts', () => {
-    it('should return an array', async() => {
+    it('should return an array', async () => {
       const posts = await getPosts();
       expect(posts[0]).to.have.property('id');
     });

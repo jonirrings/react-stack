@@ -32,7 +32,7 @@ const mutation = mutationWithClientMutationId({
       type: CommentEdge,
       resolve: comment => ({
         cursor: cursorForObjectInConnection(
-          getCommentsByPostId(comment.commentOn.id), comment
+          getCommentsByPostId(comment.commentOn.id), comment,
         ),
         node: comment,
       }),

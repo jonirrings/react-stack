@@ -12,14 +12,16 @@ import { Post } from '../data/models';
 
 export async function getPosts() {
   const posts = await Post.find().exec();
-  if (posts.length > 0)
-    { return posts.map(extendId); }
+  if (posts.length > 0) {
+    return posts.map(extendId);
+  }
   return posts;
 }
 export async function getPostsByAuthorId(id) {
   const posts = await Post.find({ author: id }).exec();
-  if (posts.length > 0)
-    { return posts.map(extendId); }
+  if (posts.length > 0) {
+    return posts.map(extendId);
+  }
   return posts;
 }
 export async function getPostById(id) {

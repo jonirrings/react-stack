@@ -48,7 +48,7 @@ passport.use(new GitHubStrategy({
         return done(null, savedUser);
       });
     });
-  }
+  },
 ));
 
 export default passport;

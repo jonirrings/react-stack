@@ -34,10 +34,10 @@ const mutation = mutationWithClientMutationId({
         node: post,
       }),
     },
-    viewer:{
+    viewer: {
       type: ViewerType,
       resolve(post, { user }) { return { ...user, posts: getPosts() }; },
-    }
+    },
   },
   mutateAndGetPayload: ({ title, content }, { user }) =>
     addPost({ author: user.id, title, content }),
