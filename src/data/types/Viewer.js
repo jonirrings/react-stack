@@ -27,7 +27,7 @@ const ViewerType = new ObjectType({
       type: PostConnection,
       description: 'the posts the viewer can see',
       args: connectionArgs,
-      resolve: (_, args) => connectionFromPromisedArray(Post.find(), args),
+      resolve: (_, args, ctx, { fieldNodes }) => connectionFromPromisedArray(Post.find(), args),
       //TODO make the filter method for viewer
     },
     captcha: {

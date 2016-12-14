@@ -71,7 +71,7 @@ export const UserType = new ObjectType({
   name: 'User',
   description: 'A user is who bond its social account',
   fields: () => ({
-    id: globalIdField('User'),
+    id: globalIdField('User', user => user._id), // eslint-disable-line no-underscore-dangle
     qq: {
       type: StringType,
       description: 'QQ',
@@ -141,7 +141,7 @@ export const PostType = new ObjectType({
   name: 'Post',
   description: 'A Glance is an article with comments',
   fields: () => ({
-    id: globalIdField('Post'),
+    id: globalIdField('Post', post => post._id), // eslint-disable-line no-underscore-dangle
     author: {
       type: new NonNull(UserType),
       description: 'who wrote the post',
@@ -187,7 +187,7 @@ export const CaptchaType = new ObjectType({
   name: 'Captcha',
   description: 'A CaptchaType is what verify the client whether is a human',
   fields: {
-    id: globalIdField('Captcha'),
+    id: globalIdField('Captcha', captcha => captcha._id), // eslint-disable-line no-underscore-dangle
     base64: {
       type: new NonNull(StringType),
       description: 'the base64 image of a captcha',
@@ -203,7 +203,7 @@ export const CommentType = new ObjectType({
   name: 'Comment',
   description: 'Comment on a post and reply to other comment',
   fields: () => ({
-    id: globalIdField('Comment'),
+    id: globalIdField('Comment', comment => comment._id), // eslint-disable-line no-underscore-dangle
     author: {
       type: new NonNull(UserType),
       description: 'who wrote the comment',
@@ -243,7 +243,7 @@ export const StatType = new ObjectType({
   name: 'Stat',
   description: 'A stat is the statics on how long one stays on one page',
   fields: () => ({
-    id: globalIdField('Stat'),
+    id: globalIdField('Stat', stat => stat._id), // eslint-disable-line no-underscore-dangle
     user: { type: new NonNull(UserType) },
     post: { type: new NonNull(PostType) },
     long: { type: new NonNull(IntType) },
