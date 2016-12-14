@@ -198,7 +198,7 @@
   },
   "metadata": {
     "graphql": {
-      "schema": "./data/schema.json"
+      "schema": "cache/schema.json"
     }
   },
   "scripts": {

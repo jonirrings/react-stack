@@ -53,15 +53,15 @@ export const { nodeInterface, nodeField } = nodeDefinitions(
   },
   (obj) => {
     if (obj instanceof CaptchaClass) {
-      return CaptchaType;
+      return CaptchaType; // eslint-disable-line no-use-before-define
     } else if (obj instanceof CommentClass) {
-      return CommentType;
+      return CommentType; // eslint-disable-line no-use-before-define
     } else if (obj instanceof PostClass) {
-      return PostType;
+      return PostType; // eslint-disable-line no-use-before-define
     } else if (obj instanceof UserClass) {
-      return UserType;
+      return UserType; // eslint-disable-line no-use-before-define
     } else if (obj instanceof StatClass) {
-      return StatType;
+      return StatType; // eslint-disable-line no-use-before-define
     }
     return null;
   },
@@ -105,14 +105,14 @@ export const UserType = new ObjectType({
       description: 'a user\'s nickname chosen from social networks above',
     },
     posts: {
-      type: PostConnection,
+      type: PostConnection, // eslint-disable-line no-use-before-define
       description: 'posts the user has wrote',
       args: connectionArgs,
       resolve: (user, args) =>
         connectionFromPromisedArray(getPostsByAuthorId(user.id), args),
     },
     comments: {
-      type: CommentConnection,
+      type: CommentConnection, // eslint-disable-line no-use-before-define
       description: 'comments the user has wrote',
       args: connectionArgs,
       resolve: (user, args) =>
@@ -156,7 +156,7 @@ export const PostType = new ObjectType({
       description: 'the content of post',
     },
     comments: {
-      type: CommentConnection,
+      type: CommentConnection, // eslint-disable-line no-use-before-define
       args: connectionArgs,
       resolve: (post, args) =>
         connectionFromPromisedArray(getCommentsByPostId(post.id), args),

@@ -25,12 +25,12 @@ function updateSchema() {
     } else {
       await makeDir('data');
       writeFile(
-        'data/schema.json',
+        'cache/schema.json',
         JSON.stringify(result, null, 2),
       );
 // Save user readable type system shorthand of schema
       writeFile(
-        'data/schema.graphqls',
+        'cache/schema.graphqls',
         printSchema(schema),
       );
       resolve();
