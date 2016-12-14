@@ -23,7 +23,7 @@ function updateSchema() {
       );
       reject(result.errors);
     } else {
-      await makeDir('data');
+      await makeDir('cache');
       writeFile(
         'cache/schema.json',
         JSON.stringify(result, null, 2),

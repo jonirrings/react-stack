@@ -21,6 +21,10 @@ function clean() {
       dot: true,
       ignore: ['build/public/.git'],
     }),
+    cleanDir('cache/*', {
+      nosort: true,
+      dot: true,
+    }),
   ]);
 }
 export default clean;
