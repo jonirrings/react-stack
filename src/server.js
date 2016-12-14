@@ -25,7 +25,7 @@ import renderOnServer from './renderOnServer';
 import schema from './data/schema';
 
 const isDebug = process.env.NODE_ENV !== 'production';
-mongoose.Promise = Promise;
+mongoose.Promise = global.Promise = Promise;
 mongoose.connect(databaseUrl);
 const store = new (mongoDBStore(session))({
   uri: databaseUrl,
