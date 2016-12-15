@@ -4,6 +4,14 @@
 import Relay from 'react-relay';
 
 export default class AddPostMutation extends Relay.Mutation {
+  static fragments = {
+    story: () => Relay.QL`
+      fragment on Viewer {
+        id
+      }
+    `,
+  };
+
   getMutation() {
     return Relay.QL`mutation{createPost}`;
   }

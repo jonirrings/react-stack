@@ -9,14 +9,14 @@
 
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
+import { toGlobalId } from 'graphql-relay';
 import { auth as config } from '../config';
-
 import { User } from '../data/models';
 import { Github } from '../data/models/OAuth';
 
 const { github: { clientID, clientSecret, callbackURL } } = config;
 passport.serializeUser((user, done) => {
-  const sessionUser = { id: user.id, name: user.name };
+  const sessionUser = { id: toGlobalId('User', user.id), name: user.name };
   done(null, sessionUser);
 });
 

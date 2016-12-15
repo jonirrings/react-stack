@@ -7,9 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export Captcha from './Captcha';
-export Chat from './Chat';
-export Post from './Post';
-export Comment from './Comment';
-export Stat from './Stat';
-export User from './User';
+export CaptchaModel from './Captcha';
+export ChatModel from './Chat';
+export PostModel from './Post';
+export CommentModel from './Comment';
+export StatModel from './Stat';
+export UserModel from './User';

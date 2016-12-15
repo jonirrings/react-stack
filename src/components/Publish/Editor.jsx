@@ -2,26 +2,28 @@
  * Created by JonirRings on 2016/10/29.
  */
 import React, { Component, PropTypes } from 'react';
-import { Editor, EditorState } from 'draft-js';
+import Relay from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Editor.css';
 import AddPostMutation from './AddPostMutation';
 
 class PublishEditor extends Component {
   static propTypes={
-    relay: PropTypes.any,
     viewer: PropTypes.any.isRequired,
+  };
+  static contextTypes = {
+    relay: Relay.PropTypes.Environment,
   };
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(event) {
-    this.props.relay.commitUpdate(
+    this.context.relay.commitUpdate(
       new AddPostMutation({
         title: this.input.value,
         content: this.textArea.value,
-        viewer: this.props.viewer
+        viewer: this.props.viewer,
       }),
     );
     event.preventDefault();

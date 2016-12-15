@@ -17,23 +17,20 @@ import {
 import {
   connectionArgs,
   connectionDefinitions,
-  connectionFromArray,
   connectionFromPromisedArray,
-  cursorForObjectInConnection,
   fromGlobalId,
   globalIdField,
-  mutationWithClientMutationId,
   nodeDefinitions,
-  toGlobalId,
 } from 'graphql-relay';
 import DateType from './custom/Date';
-import { getCaptchaById, getUserById, getPostById, getStatById } from '../models';
+import { getCaptchaById, getPostById, getStatById } from '../models';
+import { getUserById } from '../../biz/User';
 
-class CaptchaClass {}
-class CommentClass {}
-class PostClass {}
-class StatClass {}
-class UserClass {}
+export class CaptchaClass {}
+export class CommentClass {}
+export class PostClass {}
+export class StatClass {}
+export class UserClass {}
 
 export const { nodeInterface, nodeField } = nodeDefinitions(
   (globalId) => {
