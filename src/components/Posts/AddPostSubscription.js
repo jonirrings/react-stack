@@ -4,6 +4,13 @@ import { Subscription } from 'relay-subscriptions';
 import Post from '../Post';
 
 export default class AddTodoSubscription extends Subscription {
+  static fragments = {
+    viewer: () => Relay.QL`
+      fragment on Viewer {
+        id
+      }
+    `,
+  };
 
   getVariables() {
     return {};
