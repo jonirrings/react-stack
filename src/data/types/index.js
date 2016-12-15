@@ -23,13 +23,16 @@ import {
   nodeDefinitions,
 } from 'graphql-relay';
 import DateType from './custom/Date';
-import { getCaptchaById, getPostById, getStatById } from '../models';
 import { getUserById } from '../../biz/User';
+import { getPostById, getPostsByAuthorId } from '../../biz/Post';
+import { getCommentById, getCommentsByAuthorId, getCommentsByPostId } from '../../biz/Comment';
+import { getStaticById } from '../../biz/Static';
+import { getCaptchaById } from '../../biz/Captcha';
 
 export class CaptchaClass {}
 export class CommentClass {}
 export class PostClass {}
-export class StatClass {}
+export class StaticClass {}
 export class UserClass {}
 
 export const { nodeInterface, nodeField } = nodeDefinitions(
@@ -38,13 +41,13 @@ export const { nodeInterface, nodeField } = nodeDefinitions(
     if (type === 'Captcha') {
       return getCaptchaById(id);
     } else if (type === 'Comment') {
-      return getPostById(id);
+      return getCommentById(id);
     } else if (type === 'Post') {
       return getPostById(id);
     } else if (type === 'User') {
       return getUserById(id);
-    } else if (type === 'Stat') {
-      return getStatById(id);
+    } else if (type === 'Static') {
+      return getStaticById(id);
     }
     return null;
   },
@@ -57,8 +60,8 @@ export const { nodeInterface, nodeField } = nodeDefinitions(
       return PostType; // eslint-disable-line no-use-before-define
     } else if (obj instanceof UserClass) {
       return UserType; // eslint-disable-line no-use-before-define
-    } else if (obj instanceof StatClass) {
-      return StatType; // eslint-disable-line no-use-before-define
+    } else if (obj instanceof StaticClass) {
+      return StaticType; // eslint-disable-line no-use-before-define
     }
     return null;
   },
@@ -142,7 +145,7 @@ export const PostType = new ObjectType({
     author: {
       type: new NonNull(UserType),
       description: 'who wrote the post',
-      resolve: post => findUserById(post.author),
+      resolve: post => getUserById(post.author),
     },
     title: {
       type: new NonNull(StringType),
@@ -236,18 +239,18 @@ export const { connectionType: CommentConnection, edgeType: CommentEdge } = conn
   name: 'Comment',
   nodeType: CommentType,
 });
-export const StatType = new ObjectType({
-  name: 'Stat',
+export const StaticType = new ObjectType({
+  name: 'Static',
   description: 'A stat is the statics on how long one stays on one page',
   fields: () => ({
-    id: globalIdField('Stat', stat => stat._id), // eslint-disable-line no-underscore-dangle
+    id: globalIdField('Static', stat => stat._id), // eslint-disable-line no-underscore-dangle
     user: { type: new NonNull(UserType) },
     post: { type: new NonNull(PostType) },
     long: { type: new NonNull(IntType) },
   }),
   interfaces: [nodeInterface],
 });
-export const { connectionType: StatConnection, edgeType: StatEdge } = connectionDefinitions({
-  name: 'Stat',
-  nodeType: StatType,
+export const { connectionType: StaticConnection, edgeType: StaticEdge } = connectionDefinitions({
+  name: 'Static',
+  nodeType: StaticType,
 });

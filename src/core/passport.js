@@ -11,7 +11,7 @@ import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github2';
 import { toGlobalId } from 'graphql-relay';
 import { auth as config } from '../config';
-import { User } from '../data/models';
+import { UserModel } from '../data/models';
 import { Github } from '../data/models/OAuth';
 
 const { github: { clientID, clientSecret, callbackURL } } = config;
@@ -36,7 +36,7 @@ passport.use(new GitHubStrategy({
       if (github) {
         return github.populate('user', (githubErr, { user }) => done(null, user));
       }
-      const user = new User({ name: nickName || loginName, avatar: avatarUrl });
+      const user = new UserModel({ name: nickName || loginName, avatar: avatarUrl });
       new Github({ loginName, loginId, avatarUrl, nickName, accessToken, user: user.id })
         .save((githubErr, savedGithub) => {
           user.set('github', savedGithub.id);

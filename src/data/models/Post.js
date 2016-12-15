@@ -17,7 +17,6 @@ const PostSchema = new Schema({
   },
   title: {
     type: String,
-    set: v => v.trim().replace(/\s/g, '_'),
   },
   content: {
     type: String,

@@ -1,0 +1,71 @@
+
+.listItem {
+  margin-bottom: 2em;
+  line-height: 1.6em;
+  list-style: none;
+  min-width: 60em;
+}
+
+.article {
+  position: relative;
+}
+
+.article::after {
+  position: absolute;
+  left: 0;
+  content: ' ';
+  display: block;
+  height: 0;
+  width: 20em;
+  border: solid 1px #ddd;
+}
+
+.metaContainer {
+  vertical-align: baseline;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.time,
+.meta {
+  display: inline-block;
+}
+
+.time {
+  width: 10em;
+  flex-shrink: 2;
+}
+
+.meta {
+  flex-shrink: 1;
+  width: 5em;
+  text-align: right;
+}
+
+.meta > i {
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+.readContainer {
+  display: inline-block;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.read {
+  border: 1px solid #bf1827;
+  color: #bf1827;
+  display: inline-block;
+  text-decoration: none;
+  transition: 0.5s;
+  padding: 0.2em 1em;
+  border-radius: 2em;
+  align-self: flex-end;
+}
+
+.read:hover {
+  color: #7b0f19;
+  border-color: #7b0f19;
+}

@@ -9,7 +9,8 @@ import {
 } from 'graphql';
 import { connectionArgs, connectionFromPromisedArray } from 'graphql-relay';
 import { PostConnection, CaptchaType } from './';
-import { Post, Captcha } from '../models';
+import { getPosts } from '../../biz/Post';
+import { getCaptchaByUserId } from '../../biz/Captcha';
 
 const ViewerType = new ObjectType({
   name: 'Viewer',
@@ -27,13 +28,13 @@ const ViewerType = new ObjectType({
       type: PostConnection,
       description: 'the posts the viewer can see',
       args: connectionArgs,
-      resolve: (_, args, ctx, { fieldNodes }) => connectionFromPromisedArray(Post.find(), args),
+      resolve: (_, args, ctx, { fieldNodes }) => connectionFromPromisedArray(getPosts(), args),
       //TODO make the filter method for viewer
     },
     captcha: {
       type: CaptchaType,
       description: 'the captcha for current viewer',
-      resolve: (root, args, { user }) => Captcha.findOne({ userId: user.id }),
+      resolve: (root, args, { user }) => getCaptchaByUserId(user.id),
     },
   }),
 });

@@ -10,18 +10,29 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import Layout from '../components/Layout';
-import Welcome, { ViewerQueries } from '../components/Welcome';
+import Welcome from '../components/Welcome';
+import ViewerQueries from '../components/ViewerQueries';
 import Posts from '../components/Posts';
 import Post from '../components/Post';
 import Publish from '../components/Publish';
 import About from '../components/About';
 
 const routes = (
-  <Route path="/" component={Layout} >
-    <IndexRoute components={{ nav: Welcome, main: Posts }} queries={{ nav: ViewerQueries }} />
-    <Route path="posts" components={{ nav: Welcome, main: Posts }} queries={{ nav: ViewerQueries }} />
+  <Route path="/" component={Layout}>
+    <IndexRoute
+      components={{ nav: Welcome, main: Posts }}
+      queries={{ nav: ViewerQueries, main: ViewerQueries }}
+    />
+    <Route
+      path="posts"
+      components={{ nav: Welcome, main: Posts }}
+      queries={{ nav: ViewerQueries, main: ViewerQueries }}
+    />
     <Route path="post" component={Post} />
-    <Route path="publish(/:id)" components={{ nav: Welcome, main: Publish }} queries={{ nav: ViewerQueries, main: ViewerQueries }} />
+    <Route
+      path="publish(/:id)" components={{ nav: Welcome, main: Publish }}
+      queries={{ nav: ViewerQueries, main: ViewerQueries }}
+    />
     <Route path="about" component={About} />
   </Route>
 );

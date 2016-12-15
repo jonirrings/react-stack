@@ -9,7 +9,7 @@
 
 import mongoose, { Schema } from 'mongoose';
 
-const StatSchema = new Schema({
+const StaticSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     required: true,
@@ -26,5 +26,5 @@ const StatSchema = new Schema({
     default: 0,
   },
 }, { capped: 1024 * 1024 * 512 });
-const StatModel = mongoose.model('Stat', StatSchema);
-export default StatModel;
+const StaticModel = mongoose.model('Static', StaticSchema);
+export default StaticModel;

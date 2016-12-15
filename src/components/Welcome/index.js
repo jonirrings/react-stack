@@ -9,7 +9,7 @@
 
 import Relay from 'react-relay';
 import Welcome from './Welcome';
-import ViewerQueries from './ViewerQueries';
+import ViewerQueries from '../ViewerQueries';
 
 export default Relay.createContainer(Welcome, {
   fragments: {
@@ -21,4 +21,3 @@ export default Relay.createContainer(Welcome, {
     `,
   },
 });
-export { ViewerQueries };

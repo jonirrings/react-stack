@@ -11,5 +11,5 @@ export CaptchaModel from './Captcha';
 export ChatModel from './Chat';
 export PostModel from './Post';
 export CommentModel from './Comment';
-export StatModel from './Stat';
+export StaticModel from './Static';
 export UserModel from './User';

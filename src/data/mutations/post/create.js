@@ -10,15 +10,15 @@
 import {
   GraphQLNonNull as NonNull,
   GraphQLString as StringType,
-  GraphQLID as IDType,
 } from 'graphql';
 import {
   mutationWithClientMutationId,
   cursorForObjectInConnection,
+  fromGlobalId,
 } from 'graphql-relay';
 import { PostEdge } from '../../types';
 import ViewerType from '../../types/Viewer';
-import { getPosts, addPost } from '../../models';
+import { getPosts, addPost } from '../../../biz/Post';
 
 const mutation = mutationWithClientMutationId({
   name: 'AddPost',
@@ -40,7 +40,7 @@ const mutation = mutationWithClientMutationId({
     },
   },
   mutateAndGetPayload: ({ title, content }, { user }) =>
-    addPost({ author: user.id, title, content }),
+    addPost({ author: fromGlobalId(user.id).id, title, content }),
 });
 
 export default mutation;

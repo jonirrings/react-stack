@@ -15,6 +15,7 @@ export default Relay.createContainer(Glance, {
         fragment on Post{
             title
             content
+            created
         }
     `,
   },

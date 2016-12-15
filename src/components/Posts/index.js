@@ -6,7 +6,24 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import PostsQuery from './PostsQueries';
+import Relay from 'react-relay';
+import Glance from '../Glance';
+import Posts from './Posts';
 
-export { default } from './Posts';
-export { PostsQuery };
+export default Relay.createContainer(Posts, {
+  initialVariables: { first: 10 },
+  fragments: {
+    viewer: () => Relay.QL`
+      fragment on Viewer{
+        posts(first:$first){
+          edges{
+            node{
+              ${Glance.getFragment('post')}
+            }
+            cursor
+          }
+        }
+      }
+    `,
+  },
+});
