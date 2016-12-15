@@ -19,6 +19,7 @@ import {
 import { PostEdge } from '../../types';
 import ViewerType from '../../types/Viewer';
 import { getPosts, addPost } from '../../../biz/Post';
+import { notifyChange } from '../notifiers';
 
 const mutation = mutationWithClientMutationId({
   name: 'AddPost',
@@ -39,8 +40,11 @@ const mutation = mutationWithClientMutationId({
       resolve(post, { user }) { return { ...user, posts: getPosts() }; },
     },
   },
-  mutateAndGetPayload: ({ title, content }, { user }) =>
-    addPost({ author: fromGlobalId(user.id).id, title, content }),
+  mutateAndGetPayload: ({ title, content }, { user }) => {
+    const post = addPost({ author: fromGlobalId(user.id).id, title, content });
+    notifyChange('add_post', post);
+    return post;
+  },
 });
 
 export default mutation;

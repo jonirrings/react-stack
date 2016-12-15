@@ -16,12 +16,12 @@ import { browserHistory, match, Router } from 'react-router';
 import Relay from 'react-relay';
 import routes from './routes';
 import ContextHolder from './components/ContextHolder';
-
+import NetworkLayer from './NetworkLayer';
 
 const environment = new Relay.Environment();
 
 environment.injectNetworkLayer(
-  new Relay.DefaultNetworkLayer('/graphql', {
+  new NetworkLayer('/graphql', {
     credentials: 'same-origin',
   }));
 const context = {

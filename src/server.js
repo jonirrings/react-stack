@@ -19,10 +19,13 @@ import session from 'express-session';
 import mongoDBStore from 'connect-mongodb-session';
 import bodyParser from 'body-parser';
 import PrettyError from 'pretty-error';
+import { graphql } from 'graphql';
+import { graphqlSubscribe } from 'graphql-relay-subscription';
 import passport from './core/passport';
 import { port, auth, databaseUrl } from './config';
 import renderOnServer from './renderOnServer';
 import schema from './data/schema';
+import { addNotifier } from './data/mutations/notifiers';
 
 const isDebug = process.env.NODE_ENV !== 'production';
 mongoose.Promise = global.Promise = Promise;
@@ -119,6 +122,89 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.send(`<!doctype html>${html}`);
 });
 
-app.listen(port, () => {
+const appServer = app.listen(port, () => {
   console.log(`The server is running at http://localhost:${port}/`);// eslint-disable-line no-console
+});
+
+const io = require('socket.io')(appServer, {
+  serveClient: false,
+});
+
+io.on('connection', (socket) => {
+  const topics = Object.create(null);
+  const unsubscribeMap = Object.create(null);
+
+  const removeNotifier = addNotifier(({ topic, data }) => {
+    const topicListeners = topics[topic];
+    if (!topicListeners) return;
+
+    topicListeners.forEach(({ id, query, variables }) => {
+      graphql(
+        schema,
+        query,
+        data,
+        null,
+        variables,
+      ).then((result) => {
+        socket.emit('subscription update', { id, ...result });
+      });
+    });
+  });
+
+  socket.on('subscribe', ({ id, query, variables }) => {
+    function unsubscribe(topic, subscription) {
+      const index = topics[topic].indexOf(subscription);
+      if (index === -1) return;
+
+      topics[topic].splice(index);
+
+      console.log(
+        'Removed subscription for topic %s. Total subscriptions for topic: %d',
+        topic,
+        topics[topic].length,
+      );
+    }
+
+    function subscribe(topic) {
+      topics[topic] = topics[topic] || [];
+      const subscription = { id, query, variables };
+
+      topics[topic].push(subscription);
+
+      unsubscribeMap[id] = () => {
+        unsubscribe(topic, subscription);
+      };
+
+      console.log(
+        'New subscription for topic %s. Total subscriptions for topic: %d',
+        topic,
+        topics[topic].length,
+      );
+    }
+
+    graphqlSubscribe({
+      schema,
+      query,
+      variables,
+      context: { subscribe },
+    }).then((result) => {
+      if (result.errors) {
+        console.error('Subscribe failed', result.errors);
+      }
+    });
+  });
+
+  socket.on('unsubscribe', (id) => {
+    const unsubscribe = unsubscribeMap[id];
+    if (!unsubscribe) return;
+
+    unsubscribe();
+    delete unsubscribeMap[id];
+    socket.emit('subscription closed', id);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Socket disconnect');
+    removeNotifier();
+  });
 });

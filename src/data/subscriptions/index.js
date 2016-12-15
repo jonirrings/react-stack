@@ -3,12 +3,17 @@
  */
 
 import { GraphQLObjectType as ObjectType } from 'graphql';
+import GraphQLAddPostSubscription from './post/create';
+import GraphQLRemovePostSubscription from './post/delete';
+import GraphQLUpdatePostSubscription from './post/update';
 
-const subscriptionType = new ObjectType({
+const Subscription = new ObjectType({
   name: 'Subscription',
   fields: {
-    // TODO add subscription
+    addPostSubscription: GraphQLAddPostSubscription,
+    removePostSubscription: GraphQLRemovePostSubscription,
+    updatePostSubscription: GraphQLUpdatePostSubscription,
   },
 });
 
-export default subscriptionType;
+export default Subscription;

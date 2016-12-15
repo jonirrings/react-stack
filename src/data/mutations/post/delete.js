@@ -16,6 +16,7 @@ import {
   mutationWithClientMutationId,
 } from 'graphql-relay';
 import { removePost } from '../../models';
+import { notifyChange } from '../notifiers';
 
 const mutation = mutationWithClientMutationId({
   name: 'DeletePost',
@@ -23,12 +24,15 @@ const mutation = mutationWithClientMutationId({
     id: { type: new NonNull(IDType) },
   },
   outputFields: {
-    post: {
+    deletedPostId: {
       type: IDType,
       resolve: ({ id }) => id,
     },
   },
-  mutateAndGetPayload: ({ id }) => removePost({ id }),
+  mutateAndGetPayload: ({ id }) => {
+    removePost({ id });
+    notifyChange('delete_post', { id });
+  },
 });
 
 export default mutation;
