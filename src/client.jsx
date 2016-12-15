@@ -13,12 +13,12 @@ import IsomorphicRouter from 'isomorphic-relay-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, match, Router } from 'react-router';
-import Relay from 'react-relay';
+import RelaySubscriptions from 'relay-subscriptions';
 import routes from './routes';
 import ContextHolder from './components/ContextHolder';
 import NetworkLayer from './NetworkLayer';
 
-const environment = new Relay.Environment();
+const environment = new RelaySubscriptions.Environment();
 
 environment.injectNetworkLayer(
   new NetworkLayer('/graphql', {

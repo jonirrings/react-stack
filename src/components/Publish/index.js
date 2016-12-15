@@ -7,9 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 import Relay from 'react-relay';
+import RelaySubscriptions from 'relay-subscriptions';
 import Publish from './Editor';
 
-export default Relay.createContainer(Publish, {
+export default RelaySubscriptions.createContainer(Publish, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer{
