@@ -9,6 +9,7 @@
 import Relay from 'react-relay';
 import RelaySubscriptions from 'relay-subscriptions';
 import Publish from './Editor';
+import AddTodoMutation from './AddPostMutation';
 
 export default RelaySubscriptions.createContainer(Publish, {
   fragments: {
@@ -16,6 +17,7 @@ export default RelaySubscriptions.createContainer(Publish, {
       fragment on Viewer{
         id
         name
+        ${AddTodoMutation.getFragment('viewer')}
       }
     `,
   },

@@ -3,16 +3,16 @@
  */
 
 import { GraphQLObjectType as ObjectType } from 'graphql';
-import GraphQLAddPostSubscription from './post/create';
-import GraphQLRemovePostSubscription from './post/delete';
-import GraphQLUpdatePostSubscription from './post/update';
+import AddPostSubscription from './post/create';
+import RemovePostSubscription from './post/delete';
+import UpdatePostSubscription from './post/update';
 
 const Subscription = new ObjectType({
   name: 'Subscription',
   fields: {
-    addPostSubscription: GraphQLAddPostSubscription,
-    removePostSubscription: GraphQLRemovePostSubscription,
-    updatePostSubscription: GraphQLUpdatePostSubscription,
+    addPostSubscription: AddPostSubscription,
+    removePostSubscription: RemovePostSubscription,
+    updatePostSubscription: UpdatePostSubscription,
   },
 });
 

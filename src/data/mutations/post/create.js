@@ -42,7 +42,7 @@ const mutation = mutationWithClientMutationId({
   },
   mutateAndGetPayload: ({ title, content }, { user }) => {
     const post = addPost({ author: fromGlobalId(user.id).id, title, content });
-    post.then(p => notifyChange('add_post', p));
+    post.then(p => notifyChange('add_post', p.toObject()));
     return post;
   },
 });

@@ -22,14 +22,26 @@ const subscription = subscriptionWithClientId({
     },
     postEdge: {
       type: PostEdge,
-      resolve: post => ({
-        cursor: cursorForObjectInConnection(getPosts(), post),
-        node: post,
-      }),
+      resolve: async (post) => {
+        const posts = await getPosts();
+        const postInArray = posts.find((e) => {
+          console.log(e._id, post._id);
+          return String(e._id) == String(post._id);
+        });
+        console.log(postInArray);
+        return {
+          cursor: cursorForObjectInConnection(posts, postInArray),
+          node: postInArray,
+        };
+      },
     },
     viewer: {
       type: ViewerType,
-      resolve(post, { user }) { return { ...user, posts: getPosts() }; },
+      resolve: () => ({
+        id: 'VXNlcjo1ODUyNTE0NmMxNmQyZjEzY2NlMTU5Mzk=',
+        name: 'Jonir Rings',
+        posts: getPosts(),
+      }),
     },
   },
   subscribe: (input, context) => {

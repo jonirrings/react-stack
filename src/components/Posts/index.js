@@ -25,6 +25,7 @@ export default RelaySubscriptions.createContainer(Posts, {
             cursor
           }
         }
+        ${AddPostSubscription.getFragment('viewer')}
       }
     `,
   },
