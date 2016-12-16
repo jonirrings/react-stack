@@ -24,15 +24,11 @@ const subscription = subscriptionWithClientId({
       type: PostEdge,
       resolve: async (post) => {
         const posts = await getPosts();
-        const postInArray = posts.find((e) => {
-          console.log(e._id, post._id);
-          return String(e._id) == String(post._id);
+        const sPost = posts.find(e => String(e._id) == String(post._id));
+        return ({
+          cursor: cursorForObjectInConnection(posts, sPost),
+          node: post,
         });
-        console.log(postInArray);
-        return {
-          cursor: cursorForObjectInConnection(posts, postInArray),
-          node: postInArray,
-        };
       },
     },
     viewer: {

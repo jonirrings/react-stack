@@ -1,10 +1,7 @@
 /**
  * Created by peterf on 2016/12/15.
  */
-import extend from 'extend';
 import { PostModel } from '../data/models';
-import { PostClass } from '../data/types';
-
 
 export function getPosts() {
   return PostModel
@@ -15,8 +12,7 @@ export function getPosts() {
 export function getPostById(id) {
   return PostModel
     .findById(id)
-    .exec()
-    .then(user => extend(new PostClass(), user.toObject()));
+    .exec();
 }
 
 export function getPostsByAuthorId(id) {

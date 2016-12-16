@@ -22,6 +22,7 @@ import {
   globalIdField,
   nodeDefinitions,
 } from 'graphql-relay';
+import extend from 'extend';
 import DateType from './custom/Date';
 import { getUserById } from '../../biz/User';
 import { getPostById, getPostsByAuthorId } from '../../biz/Post';
@@ -39,15 +40,20 @@ export const { nodeInterface, nodeField } = nodeDefinitions(
   (globalId) => {
     const { type, id } = fromGlobalId(globalId);
     if (type === 'Captcha') {
-      return getCaptchaById(id);
+      return getCaptchaById(id)
+        .then(captcha => extend(new CaptchaClass(), captcha.toObject()));
     } else if (type === 'Comment') {
-      return getCommentById(id);
+      return getCommentById(id)
+        .then(comment => extend(new CommentClass(), comment.toObject()));
     } else if (type === 'Post') {
-      return getPostById(id);
+      return getPostById(id)
+        .then(post => extend(new PostClass(), post.toObject()));
     } else if (type === 'User') {
-      return getUserById(id);
+      return getUserById(id)
+        .then(user => extend(new UserClass(), user.toObject()));
     } else if (type === 'Static') {
-      return getStaticById(id);
+      return getStaticById(id)
+        .then(statics => extend(new StaticClass(), statics.toObject()));
     }
     return null;
   },
