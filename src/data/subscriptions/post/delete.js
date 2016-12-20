@@ -11,7 +11,7 @@
 import { GraphQLID as IDType } from 'graphql';
 import { subscriptionWithClientId } from 'graphql-relay-subscription';
 import ViewerType from '../../types/Viewer';
-import { getPosts } from '../../../biz/Post';
+import getViewer from '../../../biz/Viewer';
 
 const subscription = subscriptionWithClientId({
   name: 'DeletePostSubscription',
@@ -22,7 +22,7 @@ const subscription = subscriptionWithClientId({
     },
     viewer: {
       type: ViewerType,
-      resolve(post, { user }) { return { ...user, posts: getPosts() }; },
+      resolve: getViewer,
     },
   },
   subscribe: (input, context) => {

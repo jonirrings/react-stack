@@ -17,7 +17,7 @@ import { fromGlobalId } from 'graphql-relay';
 import { subscriptionWithClientId } from 'graphql-relay-subscription';
 import { PostType } from '../../types';
 import ViewerType from '../../types/Viewer';
-import { getPosts } from '../../../biz/Post';
+import getViewer from '../../../biz/Viewer';
 
 const subscription = subscriptionWithClientId({
   name: 'UpdatePostSubscription',
@@ -33,7 +33,7 @@ const subscription = subscriptionWithClientId({
     },
     viewer: {
       type: ViewerType,
-      resolve(post, { user }) { return { ...user, posts: getPosts() }; },
+      resolve: getViewer,
     },
   },
   subscribe: ({ id }, context) => {

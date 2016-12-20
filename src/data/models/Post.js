@@ -39,5 +39,13 @@ const PostSchema = new Schema({
     default: Date.now,
   },
 });
+PostSchema.post('save', post => post
+  .populate('author')
+  .execPopulate()
+  .then((populatedPost) => {
+    const author = populatedPost.author;
+    author.posts.push(populatedPost.id);
+    author.update({ $set: { posts: author.posts } }).exec();
+  }));
 const PostModel = mongoose.model('Post', PostSchema);
 export default PostModel;

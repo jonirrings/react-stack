@@ -12,6 +12,7 @@ import { subscriptionWithClientId } from 'graphql-relay-subscription';
 import { PostEdge, PostType } from '../../types';
 import ViewerType from '../../types/Viewer';
 import { getPosts } from '../../../biz/Post';
+import getViewer from '../../../biz/Viewer';
 
 const subscription = subscriptionWithClientId({
   name: 'AddPostSubscription',
@@ -33,11 +34,7 @@ const subscription = subscriptionWithClientId({
     },
     viewer: {
       type: ViewerType,
-      resolve: () => ({
-        id: 'VXNlcjo1ODUyNTE0NmMxNmQyZjEzY2NlMTU5Mzk=',
-        name: 'Jonir Rings',
-        posts: getPosts(),
-      }),
+      resolve: getViewer,
     },
   },
   subscribe: (input, context) => {

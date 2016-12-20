@@ -10,14 +10,15 @@
 import { GraphQLObjectType as ObjectType, GraphQLNonNull as NonNull } from 'graphql';
 import ViewerType from '../types/Viewer';
 import { nodeField } from '../types';
+import getViewer from '../../biz/Viewer';
 
 const queryType = new ObjectType({
   name: 'Query',
   fields: {
     viewer: {
-      type: ViewerType,
+      type: new NonNull(ViewerType),
       description: 'the viewer\'s information',
-      resolve: () => ({ id: 'me' }),
+      resolve: getViewer,
     },
     node: nodeField,
   },

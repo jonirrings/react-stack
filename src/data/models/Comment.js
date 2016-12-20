@@ -37,5 +37,17 @@ const CommentSchema = new Schema({
     default: Date.now,
   },
 });
+CommentSchema.post('save', comment => comment
+  .populate('author', 'commentOn')
+  .execPopulate()
+  .then((populatedComment) => {
+    const author = populatedComment.author;
+    const post = populatedComment.commentOn;
+    author.comments.push(populatedComment.id);
+    post.comments.push(populatedComment.id);
+    author.update({ $set: { comments: author.comments } }).exec();
+    post.update({ $set: { comments: post.comments } }).exec();
+  }),
+);
 const CommentModel = mongoose.model('Comment', CommentSchema);
 export default CommentModel;
