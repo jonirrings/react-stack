@@ -9,7 +9,7 @@ import AddPostMutation from './AddPostMutation';
 
 class PublishEditor extends Component {
   static propTypes={
-    viewer: PropTypes.any.isRequired,
+    viewer: PropTypes.shape().isRequired,
   };
   static contextTypes = {
     relay: Relay.PropTypes.Environment,
@@ -32,7 +32,6 @@ class PublishEditor extends Component {
     return (
       <div className={s.publish}>
         <div>Publish page should provide an editor</div>
-        viewer:{this.props.viewer.name}
         <form onSubmit={this.handleSubmit}>
           <label htmlFor="title">title:<input id="title" type="text" ref={input => this.input = input} /></label>
           <div className={s.editorContainer}>

@@ -15,14 +15,9 @@ const queryType = new ObjectType({
   name: 'Query',
   fields: {
     viewer: {
-      type: new NonNull(ViewerType),
+      type: ViewerType,
       description: 'the viewer\'s information',
-      resolve: (root, args, { user }) => {
-        if (user) {
-          return { id: user.id, name: user.name };
-        }
-        return { id: null, name: null };
-      },
+      resolve: () => ({ id: 'me' }),
     },
     node: nodeField,
   },

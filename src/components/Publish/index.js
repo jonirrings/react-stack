@@ -15,8 +15,10 @@ export default RelaySubscriptions.createContainer(Publish, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer{
-        id
-        name
+        user{
+          id
+          name          
+        }
         ${AddTodoMutation.getFragment('viewer')}
       }
     `,
