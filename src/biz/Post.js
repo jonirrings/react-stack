@@ -15,12 +15,6 @@ export function getPostById(id) {
     .exec();
 }
 
-export function getPostsByAuthorId(id) {
-  return PostModel
-    .find({ author: id })
-    .exec();
-}
-
 export function addPost(args) {
   return new PostModel({ ...args }).save();
 }

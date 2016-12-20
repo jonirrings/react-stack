@@ -55,7 +55,6 @@ app.use(session({
   secret: auth.jwt.secret,
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-    //TODO add your domain in production env
   },
   store,
   resave: true,

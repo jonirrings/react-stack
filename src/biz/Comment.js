@@ -8,13 +8,3 @@ export function getCommentById(id) {
     .findById(id)
     .exec();
 }
-export function getCommentsByAuthorId(id) {
-  return CommentModel
-    .find({ author: id })
-    .exec();
-}
-export function getCommentsByPostId(id) {
-  return CommentModel
-    .find({ commentOn: id })
-    .exec();
-}

@@ -115,14 +115,14 @@ export const UserType = new ObjectType({
       description: 'posts the user has wrote',
       args: connectionArgs,
       resolve: (user, args) =>
-        connectionFromPromisedArray(getPostsByAuthorId(user.id), args),
+        connectionFromPromisedArray(Promise.all(user.posts.map(id => getPostById(id))), args),
     },
     comments: {
       type: CommentConnection, // eslint-disable-line no-use-before-define
       description: 'comments the user has wrote',
       args: connectionArgs,
       resolve: (user, args) =>
-        connectionFromPromisedArray(getCommentsByAuthorId(user.id), args),
+        connectionFromPromisedArray(Promise.all(user.comments.map(id => getPostById(id))), args),
     },
     publisher: {
       type: new NonNull(BooleanType),
@@ -165,8 +165,7 @@ export const PostType = new ObjectType({
       type: CommentConnection, // eslint-disable-line no-use-before-define
       args: connectionArgs,
       resolve: (post, args) =>
-        connectionFromPromisedArray(getCommentsByPostId(post.id), args),
-      // TODO modify to meet mongoose promise
+        connectionFromPromisedArray(Promise.all(post.comments.map(id => getPostById(id))), args),
       description: 'the comments on the posts',
     },
     visit: {
