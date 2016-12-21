@@ -47,6 +47,7 @@ const config = {
             ],
           ],
           plugins: [
+            'transform-flow-strip-types',
             'transform-runtime',
             'babel-relay-plugin-loader',
             ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [],
