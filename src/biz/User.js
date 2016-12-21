@@ -8,8 +8,11 @@
  */
 import { UserModel } from '../data/models';
 
-export function getUserById(id) {
+export function getUserById(id:string) {
   return UserModel
     .findById(id)
     .exec();
+}
+export function updateUserById(id) {
+  return id;
 }
