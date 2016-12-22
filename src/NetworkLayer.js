@@ -62,7 +62,7 @@ export default class NetworkLayer extends Relay.DefaultNetworkLayer {
   disconnect() {
     this._socket.disconnect();
 
-    this._requests.forEach(request => {
+    this._requests.forEach((request) => {
       request.onCompleted();
     });
   }
