@@ -1,7 +1,4 @@
 {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "plugins": [
-  "flowtype"
-  ]
+  "extends": ["airbnb", "airbnb-flow"],
+  "parser": "babel-eslint"
 }
