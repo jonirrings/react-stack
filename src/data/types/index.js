@@ -25,8 +25,8 @@ import {
 import extend from 'extend';
 import DateType from './custom/Date';
 import { getUserById } from '../../biz/User';
-import { getPostById, getPostsByAuthorId } from '../../biz/Post';
-import { getCommentById, getCommentsByAuthorId, getCommentsByPostId } from '../../biz/Comment';
+import { getPostById } from '../../biz/Post';
+import { getCommentById } from '../../biz/Comment';
 import { getStaticById } from '../../biz/Static';
 import { getCaptchaById } from '../../biz/Captcha';
 
