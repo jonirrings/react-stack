@@ -17,14 +17,19 @@ class Welcome extends Component {
   };
 
   render() {
-    const { name = 'Visitor' } = this.props.viewer.user || {};
+    const { user } = this.props.viewer;
+    const { name = 'Visitor' } = user || {};
     this.context.setTitle(`Welcome,${name}--Jonir Rings`);
     return (
       <header className={s.panelCover}>
         <div className={s.panelMain}>
           <div className={s.home}><Link to="/" >Jonir Rings</Link></div>
           <p className={s.welcome}>Welcome,
-            <a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >{name}</a>
+            {
+              user
+                ?user.name
+                :<a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >{name}</a>
+            }
           </p>
           <div className={s.navContainer}>
             <nav className={s.navs}>
