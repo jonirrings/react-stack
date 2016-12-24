@@ -17,7 +17,7 @@ class Welcome extends Component {
   };
 
   render() {
-    const { name = 'Visitor' } = this.props.viewer.user;
+    const { name = 'Visitor' } = this.props.viewer.user || {};
     this.context.setTitle(`Welcome,${name}--Jonir Rings`);
     return (
       <header className={s.panelCover}>
