@@ -35,10 +35,8 @@
     "express-graphql": "^0.6.1",
     "express-jwt": "^5.1.0",
     "express-session": "^1.14.1",
-    "extend": "^3.0.0",
     "fastclick": "1.0.6",
     "fbjs": "^0.8.8",
-    "front-matter": "2.1.1",
     "graphiql": "^0.8.0",
     "graphql": "^0.8.2",
     "graphql-relay": "^0.4.3",
@@ -48,7 +46,6 @@
     "isomorphic-relay-router": "^0.8.4",
     "isomorphic-style-loader": "^1.1.0",
     "jsonwebtoken": "^7.1.9",
-    "markdown-it": "^8.1.0",
     "mongoose": "^4.6.4",
     "node-fetch": "^1.6.3",
     "node-uuid": "^1.4.7",
@@ -89,20 +86,24 @@
     "babel-types": "^6.19.0",
     "browser-sync": "^2.18.0",
     "chai": "^3.5.0",
+    "chokidar": "^1.6.1",
     "css-loader": "^0.26.0",
     "enzyme": "^2.6.0",
     "eslint": "^3.10.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-airbnb-flow": "^1.0.2",
     "eslint-loader": "^1.6.1",
+    "eslint-plugin-css-modules": "^1.0.9",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
+    "extend": "^3.0.0",
     "file-loader": "^0.9.0",
-    "gaze": "^1.1.2",
+    "front-matter": "^2.1.0",
     "git-repository": "^0.1.4",
     "glob": "^7.1.1",
     "json-loader": "^0.5.4",
+    "markdown-it": "^8.2.2",
     "mkdirp": "^0.5.1",
     "mocha": "^3.1.2",
     "pixrem": "^3.0.2",
@@ -124,7 +125,7 @@
     "postcss-selector-not": "^2.0.0",
     "postcss-url": "^5.1.2",
     "raw-loader": "^0.5.1",
-    "react-addons-test-utils": "^15.4.0",
+    "react-addons-test-utils": "15.4.1",
     "react-deep-force-update": "^2.0.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "redbox-react": "^1.3.3",
@@ -143,6 +144,7 @@
       "stage-0"
     ],
     "plugins": [
+      "transform-flow-strip-types",
       "syntax-trailing-function-commas",
       "transform-async-to-generator",
       "transform-es2015-destructuring",
@@ -150,7 +152,6 @@
       "transform-es2015-duplicate-keys",
       "transform-es2015-modules-commonjs",
       "transform-exponentiation-operator",
-      "transform-flow-strip-types",
       "transform-runtime"
     ],
     "env": {
@@ -163,7 +164,13 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": [
+      "airbnb",
+      "plugin:css-modules/recommended"
+    ],
+    "plugins": [
+      "css-modules"
+    ],
     "globals": {
       "__DEV__": true
     },
