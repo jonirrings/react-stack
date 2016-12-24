@@ -27,7 +27,7 @@ class Welcome extends Component {
           <p className={s.welcome}>Welcome,
             {
               user
-                ?user.name
+                ?name
                 :<a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >{name}</a>
             }
           </p>
