@@ -3,19 +3,17 @@
  */
 import React, { Component, PropTypes } from 'react';
 
-const ContextType = {
+const contextType = {
   insertCss: PropTypes.func.isRequired,
   setTitle: PropTypes.func.isRequired,
 };
 
+const propTypes = {
+  context: PropTypes.shape(contextType).isRequired,
+  children: PropTypes.element.isRequired,
+};
+
 class ContextHolder extends Component {
-  static propTypes = {
-    context: PropTypes.shape(ContextType).isRequired,
-    children: PropTypes.element.isRequired,
-  };
-
-  static childContextTypes = ContextType;
-
   getChildContext() {
     return this.props.context;
   }
@@ -24,5 +22,8 @@ class ContextHolder extends Component {
     return React.Children.only(this.props.children);
   }
 }
+
+ContextHolder.propTypes = propTypes;
+ContextHolder.childContextTypes = contextType;
 
 export default ContextHolder;

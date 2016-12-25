@@ -7,18 +7,25 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-class User extends Component {
-  render() {
-    const { name, avatar } = this.props.author;
-    return (
-      <div>
-        <img alt={`the avatar of ${name}`} src={avatar} />
-        <strong>{name}</strong>
-      </div>
-    );
-  }
+const propTypes={
+  author: PropTypes.shape({
+    name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+    avatar: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  }),
+};
+
+function Author(props) {
+  const { name, avatar } = props.author;
+  return (
+    <div>
+      <img alt={`the avatar of ${name}`} src={avatar} />
+      <strong>{name}</strong>
+    </div>
+  );
 }
 
-export default User;
+Author.propTypes=propTypes;
+
+export default Author;

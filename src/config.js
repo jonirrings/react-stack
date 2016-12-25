@@ -19,3 +19,11 @@ export const auth = {
     callbackURL: process.env.GITHUB_CALLBACK || 'Your Callback URL',
   },
 };
+export const analytics = {
+
+  // https://analytics.google.com/
+  google: {
+    trackingId: process.env.GOOGLE_TRACKING_ID, // UA-XXXXX-X
+  },
+
+};

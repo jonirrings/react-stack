@@ -6,7 +6,6 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { match } from 'react-router';
 import Relay from 'react-relay';
-import routes from './routes';
 import assets from './assets'; // eslint-disable-line import/no-unresolved
 import Html from './components/Html';
 import ContextHolder from './components/ContextHolder';
@@ -14,14 +13,14 @@ import ContextHolder from './components/ContextHolder';
 const GRAPHQL_URL = 'http://localhost:3000/graphql';
 
 
-export default (req, res, next) => {
+export default routes => (req, res, next) => {
   const networkLayer =
     new Relay.DefaultNetworkLayer(GRAPHQL_URL, {
       headers: { cookie: req.headers.cookie },
     });
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     const css = new Set();
-    const d = {
+    const initData = {
       title: 'Jonir Rings',
       description: 'Jonir Tings\' blog',
       scripts: [assets.vendor.js, assets.client.js],
@@ -35,20 +34,20 @@ export default (req, res, next) => {
         styles.forEach(style => css.add(style._getCss()));
       },
       setTitle: (title) => {
-        d.title = title;
-        return d.title;
+        initData.title = title;
+        return initData.title;
       },
     };
 
     function render({ data, props }) {
-      d.data = data;
-      d.children = ReactDOMServer.renderToString(
+      initData.data = data;
+      initData.children = ReactDOMServer.renderToString(
         <ContextHolder context={context}>{IsomorphicRouter.render(props)}</ContextHolder>,
       );
-      d.style = [...css].join('');
+      initData.style = [...css].join('');
       const html = ReactDOMServer
         .renderToStaticMarkup(
-          <Html {...d} />,
+          <Html {...initData} />,
         );
       res.status(200).send(`<!doctype html>${html}`);
     }
