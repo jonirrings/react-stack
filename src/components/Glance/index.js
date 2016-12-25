@@ -15,6 +15,7 @@ export default RelaySubscriptions.createContainer(Glance, {
     post: () => Relay.QL`
         fragment on Post{
             title
+            url
             content
             created
         }

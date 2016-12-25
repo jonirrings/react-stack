@@ -157,6 +157,10 @@ export const PostType = new ObjectType({
       type: new NonNull(StringType),
       description: 'the title of post',
     },
+    url: {
+      type: new NonNull(StringType),
+      description: 'the url of post',
+    },
     content: {
       type: new NonNull(StringType),
       description: 'the content of post',
