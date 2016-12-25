@@ -14,7 +14,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, match, Router } from 'react-router';
 import RelaySubscriptions from 'relay-subscriptions';
-import routes from './routes';
+import { client } from './routes';
 import ContextHolder from './components/ContextHolder';
 import NetworkLayer from './NetworkLayer';
 
@@ -45,7 +45,7 @@ function initialRenderComplete() {
   if (elem) elem.parentNode.removeChild(elem);
 }
 
-match({ routes, history: browserHistory }, (error, redirectLocation, renderProps) => {
+match({ routes: client, history: browserHistory }, (error, redirectLocation, renderProps) => {
   IsomorphicRouter.prepareInitialRender(environment, renderProps).then((props) => {
     ReactDOM.render(
       <ContextHolder context={context}>

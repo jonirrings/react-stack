@@ -14,7 +14,6 @@ import Welcome from '../components/Welcome';
 import ViewerQueries from '../components/ViewerQueries';
 import Posts from '../components/Posts';
 import Post from '../components/Post';
-import Publish from '../components/Publish';
 import About from '../components/About';
 
 const routes = (
@@ -29,10 +28,6 @@ const routes = (
       queries={{ nav: ViewerQueries, main: ViewerQueries }}
     />
     <Route path="post" component={Post} />
-    <Route
-      path="publish(/:id)" components={{ nav: Welcome, main: Publish }}
-      queries={{ nav: ViewerQueries, main: ViewerQueries }}
-    />
     <Route path="about" component={About} />
   </Route>
 );

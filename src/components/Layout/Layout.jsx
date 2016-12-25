@@ -7,28 +7,31 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Layout.css';
 
-class Layout extends Component {
+const propTypes = {
+  children: PropTypes.oneOfType(
+    [
+      PropTypes.element,
+      PropTypes.array,
+    ]
+  ),
+  nav: PropTypes.element,
+  main: PropTypes.element,
+};
 
-  static propTypes = {
-    children: PropTypes.element,
-    nav: PropTypes.element,
-    main: PropTypes.element,
-  };
-
-  render() {
-    return (
-      <div className={s.root}>
-        {this.props.children}
-        {this.props.nav}
-        {this.props.main}
-      </div>
-    );
-  }
-
+function Layout(props) {
+  return (
+    <div className={s.root}>
+      {props.children}
+      {props.nav}
+      {props.main}
+    </div>
+  );
 }
+
+Layout.propTypes=propTypes;
 
 export default withStyle(s)(Layout);

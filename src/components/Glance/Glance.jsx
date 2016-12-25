@@ -8,15 +8,15 @@ import s from './Glance.css';
 
 function Glance(props) {
   const { title, content, created } = props.post;
-  const creatdTime = new Date(created);
+  const createdAt = new Date(created);
   return (
     <li className={s.listItem}>
       <article className={s.article}>
-        <h4>{title}</h4>
+        <h4><a>{title}</a></h4>
         <p>{content}</p>
         <div className={s.metaContainer}>
           <time className={s.time}>
-            {`${creatdTime.getFullYear()}/${creatdTime.getMonth() + 1}/${creatdTime.getDate()}`}
+            {`${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`}
           </time>
           <span className={s.meta}><i className="fa fa-eye" />18</span>
           <span className={s.meta}><i className="fa fa-comments" />12</span>

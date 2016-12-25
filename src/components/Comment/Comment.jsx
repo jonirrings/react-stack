@@ -7,29 +7,35 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import Author from '../Author';
 
-class Comment extends Component {
-  render() {
-    const {author, content, replyTo, created, updated} = this.props.comment;
-    return (
-      <div>
-        <div>
-          <Author author={author} />
-        </div>
-        <div>
-          <div>
-            <strong>
-              {replyTo ? `replyTo:${replyTo.author.name}` : ''}
-            </strong>{content}
-          </div>
-          <span>created:{new Date(created).toISOString().split('T')[0]}&nbsp;|&nbsp;
-            updated:{new Date(updated).toISOString().split('T')[0]}</span>
-        </div>
-      </div>
-    );
-  }
-}
+const propTypes={
+  content: PropTypes.string,
+  author: PropTypes.shape(),
+  created: PropTypes.number,
+  updated: PropTypes.number,
+};
 
+function Comment(props) {
+  const { author, content, created, updated } = props;
+  const createdAt = new Date(created);
+  const updatedAt = new Date(updated);
+  return (
+    <div>
+      <div>
+        <Author author={author} />
+      </div>
+      <div>
+        <div>{content}</div>
+        <span>
+            回复:{`${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`}
+            &nbsp;|&nbsp;
+            更新:{`${updatedAt.getFullYear()}/${updatedAt.getMonth() + 1}/${updatedAt.getDate()}`}
+        </span>
+      </div>
+    </div>
+  );
+}
+Comment.propTypes=propTypes;
 export default Comment;

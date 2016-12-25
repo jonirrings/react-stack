@@ -23,6 +23,7 @@ import { graphql } from 'graphql';
 import { graphqlSubscribe } from 'graphql-relay-subscription';
 import passport from './core/passport';
 import { port, auth, databaseUrl } from './config';
+import {client,admin} from './routes';
 import renderOnServer from './renderOnServer';
 import schema from './data/schema';
 import { addNotifier } from './data/mutations/notifiers';
@@ -102,10 +103,14 @@ app.use('/graphql', expressGraphQL(req => ({
   pretty: isDebug,
 })));
 //
+// Register admin-only server-side rendering middleware
+// -----------------------------------------------------------------------------
+app.get('/admin', renderOnServer(admin));
+
+//
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-
-app.get('*', renderOnServer);
+app.get('*', renderOnServer(client));
 
 //
 // Error handling
