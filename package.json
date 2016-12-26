@@ -108,7 +108,7 @@
     "mocha": "^3.1.2",
     "pixrem": "^3.0.2",
     "pleeease-filters": "^3.0.0",
-    "postcss": "^5.2.5",
+    "postcss": "^5.2.8",
     "postcss-calc": "^5.3.1",
     "postcss-color-function": "^2.0.1",
     "postcss-custom-media": "^5.0.1",
