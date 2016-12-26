@@ -3,6 +3,7 @@
  */
 
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Glance.css';
 
@@ -12,7 +13,7 @@ function Glance(props) {
   return (
     <li className={s.listItem}>
       <article className={s.article}>
-        <h2 className={s.title}><a href={`/post/${url}`}>{title}</a></h2>
+        <h2 className={s.title}><Link to={`/post/${url}`}>{title}</Link></h2>
         <p className={s.excerpt}>{content.substr(0, 140)}</p>
         <div className={s.metaContainer}>
           <time className={s.time}>
@@ -20,7 +21,7 @@ function Glance(props) {
           </time>
           <span className={s.meta}><i className="fa fa-eye" />18</span>
           <span className={s.meta}><i className="fa fa-comments" />12</span>
-          <span className={s.readContainer}><a className={s.read} href={`/post/${url}`}>Read</a></span>
+          <span className={s.readContainer}><Link className={s.read} to={`/post/${url}`}>Read</Link></span>
         </div>
       </article>
     </li>

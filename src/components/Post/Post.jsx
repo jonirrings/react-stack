@@ -9,7 +9,9 @@
 
 import React, { Component, PropTypes } from 'react';
 import Relay from 'react-relay';
+import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import Comment from '../Comment';
+import s from './Post.css';
 
 const contextTypes = {
   relay: Relay.PropTypes.Environment,
@@ -26,9 +28,9 @@ const propTypes = {
 class Post extends Component {
   render() {
     const { title, content, comments, created, updated }
-      = this.props.viewer.post;
+      = this.props.post;
     return (
-      <div>
+      <div className={s.contentWrapper}>
         <div>
           <title>{title}</title>
           <span>
@@ -102,4 +104,4 @@ class Post2 extends Component {
 Post2.propTypes=propTypes;
 Post2.contextTypes=contextTypes;
 
-export default Post;
+export default withStyle(s)(Post);

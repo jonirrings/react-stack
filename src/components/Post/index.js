@@ -13,31 +13,26 @@ import Comment from '../Comment';
 import Post from './Post';
 
 export default RelaySubscriptions.createContainer(Post, {
-  initialVariables: {
-    url: null,
-  },
   fragments: {
-    viewer: () => Relay.QL`
-            fragment on Viewer{
-              post(url:$url){
+    post: () => Relay.QL`
+            fragment on Post{
+              id
+              author{
                 id
-                author{
-                  id
-                  name
-                  avatar
-                }
-                title
-                content
-                comments(first:1){
-                  edges{
-                    node{
-                      ${Comment.getFragment('comment')}
-                    }
+                name
+                avatar
+              }
+              title
+              content
+              comments(first:1){
+                edges{
+                  node{
+                    ${Comment.getFragment('comment')}
                   }
                 }
-                created
-                updated
               }
+              created
+              updated
             }
         `,
   },
