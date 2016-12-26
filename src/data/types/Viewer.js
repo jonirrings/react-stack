@@ -2,12 +2,21 @@
  * Created by JonirRings on 2016/12/4.
  */
 
-import { GraphQLObjectType as ObjectType } from 'graphql';
-import { connectionArgs, connectionFromPromisedArray, fromGlobalId, globalIdField } from 'graphql-relay';
-import { PostConnection, CaptchaType, UserType } from './';
-import { getPosts } from '../../biz/Post';
+import {
+  GraphQLObjectType as ObjectType,
+  GraphQLString as StringType,
+  GraphQLNonNull as NonNull,
+} from 'graphql';
+import {
+  connectionArgs,
+  connectionFromPromisedArray,
+  fromGlobalId,
+  globalIdField,
+} from 'graphql-relay';
+import { PostConnection, CaptchaType, UserType, PostType } from './';
 import { getCaptchaByUserId } from '../../biz/Captcha';
 import { getUserById } from '../../biz/User';
+import { getPosts, getPostByUrl } from '../../biz/Post';
 
 const ViewerType = new ObjectType({
   name: 'Viewer',
@@ -18,6 +27,18 @@ const ViewerType = new ObjectType({
       type: UserType,
       description: 'the logged user',
       resolve: (root, args, { user }) => (!user ? null : getUserById(fromGlobalId(user.id).id)),
+    },
+    post: {
+      type: PostType,
+      description: 'to query a post by its *url*',
+      args: {
+        url: {
+          name: 'url',
+          description: 'the url of specific post',
+          type: new NonNull(StringType),
+        },
+      },
+      resolve: getPostByUrl,
     },
     posts: {
       type: PostConnection,

@@ -12,11 +12,11 @@ function Glance(props) {
   return (
     <li className={s.listItem}>
       <article className={s.article}>
-        <h4><a href={`/post/${url}`}>{title}</a></h4>
-        <p>{content.substr(0, 140)}</p>
+        <h2 className={s.title}><a href={`/post/${url}`}>{title}</a></h2>
+        <p className={s.excerpt}>{content.substr(0, 140)}</p>
         <div className={s.metaContainer}>
           <time className={s.time}>
-            {`${createdAt.getFullYear()}/${createdAt.getMonth() + 1}/${createdAt.getDate()}`}
+            {`${createdAt.getFullYear()}年${createdAt.getMonth() + 1}月${createdAt.getDate()}日`}
           </time>
           <span className={s.meta}><i className="fa fa-eye" />18</span>
           <span className={s.meta}><i className="fa fa-comments" />12</span>
