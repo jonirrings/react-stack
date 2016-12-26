@@ -1,0 +1,6 @@
+.contentWrapper {
+  flex: 7;
+  transition: all 0.6s ease-in-out;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
