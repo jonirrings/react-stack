@@ -13,7 +13,7 @@ import Layout from '../components/Layout';
 import Welcome from '../components/Welcome';
 import ViewerQueries from '../components/ViewerQueries';
 import Posts from '../components/Posts';
-import Post from '../components/Post';
+import Post, { PostNotFound } from '../components/Post';
 import About from '../components/About';
 
 const routes = (
@@ -27,7 +27,19 @@ const routes = (
       components={{ nav: Welcome, main: Posts }}
       queries={{ nav: ViewerQueries, main: ViewerQueries }}
     />
-    <Route path="post" component={Post} />
+    <Route path="post">
+      <Route
+        path=":url"
+        components={{ nav: Welcome, main: Post }}
+        queries={{ nav: ViewerQueries, main: ViewerQueries }}
+        prepareParams={(params, { location }) => ({ url: location.pathname.split('/')[1] })}
+      />
+      <Route
+        path="*"
+        components={{ nav: Welcome, main: PostNotFound }}
+        queries={{ nav: ViewerQueries }}
+      />
+    </Route>
     <Route path="about" component={About} />
   </Route>
 );

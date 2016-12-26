@@ -15,6 +15,12 @@ export function getPostById(id) {
     .exec();
 }
 
+export function getPostByUrl(_, { url }) {
+  return PostModel
+    .findOne({ url })
+    .exec();
+}
+
 export function addPost(args) {
   return new PostModel({ ...args }).save();
 }
