@@ -8,9 +8,11 @@
  */
 
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import Relay from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
-import Comment from '../Comment';
+import cx from 'classnames';
+// import Comment from '../Comment';
 import s from './Post.css';
 
 const contextTypes = {
@@ -18,90 +20,85 @@ const contextTypes = {
 };
 
 const propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  comments: PropTypes.array.isRequired,
-  created: PropTypes.number.isRequired,
-  updated: PropTypes.number.isRequired,
+  post: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 class Post extends Component {
-  render() {
-    const { title, content, comments, created, updated }
-      = this.props.post;
-    return (
-      <div className={s.contentWrapper}>
-        <div>
-          <title>{title}</title>
-          <span>
-            created:{new Date(created).toISOString().split('T')[0]}
-            &nbsp;|&nbsp;
-            updated:{new Date(updated).toISOString().split('T')[0]}
-          </span>
-        </div>
-        <div>{content}</div>
-        <div>
-          <ul>
-            {comments.edges.map(edge => <li key={edge.cursor}><Comment comment={edge.node} /></li>)}
-          </ul>
-        </div>
-      </div>
-    );
-  }
-}
-
-class Post2 extends Component {
 
   handleComment({ replyTo, content }) {
 
   }
 
   render() {
-    const { title, content, comments, created, updated }
-      = this.props;
+    const { title, content, created }
+      = this.props.post;
     const createdAt = new Date(created);
     const createdString = `${createdAt.getFullYear()}年${createdAt.getMonth() + 1}月${createdAt.getDate()}日`;
     return (
-      <div className="content-wrapper">
-        <article>
-          <header>
-            <div className="post-meta">
-              <time dateTime={createdString} className="post-meta__date date">{createdString}</time>
-              <span className="post-meta__tags tags">On</span>
+      <div className={s.contentWrapper}>
+        <Link to="/posts" className={s.goBack} >
+          <i className="fa fa-home" />
+        </Link>
+        <div className={s.postContainer}>
+          <article>
+            <header>
+              <div className={s.postMeta}>
+                <time
+                  dateTime={createdString}
+                  className={s.postDate}
+                >
+                  {createdString}
+                </time>
+                <span className={s.postTag}>Tag here</span>
+              </div>
+              <h1 className={s.postTitle}>{title}</h1>
+            </header>
+            <main>
+              {content}
+            </main>
+          </article>
+          <div className={s.readMore}>
+            <div className={cx(s.readMoreItem, s.readMoreItemLeft)}>
+              <span className={s.readMoreItemDim}>上一篇文章</span>
+              <h2 className={s.postListTitle}>
+                <a href="/bing-wallpaper/" title="link to Node.js/PHP获取Bing每日壁纸">Node.js/PHP获取Bing每日壁纸</a>
+              </h2>
             </div>
-            <h1 className="post-title">webpack-init : 一款自用的webpack脚手架</h1>
-          </header>
-          <main>
-            here is be the content of page
-          </main>
-        </article>
-        <div className="read-more">
-          <div className="read-more-item read-more-item-left">
-            <span className="read-more-item-dim">上一篇文章</span>
-            <h2 className="post-list__post-title post-title"><a href="/bing-wallpaper/" title="link to Node.js/PHP获取Bing每日壁纸">Node.js/PHP获取Bing每日壁纸</a></h2>
-          </div>
 
-          <div className="read-more-item read-more-item-right">
-            <span className="read-more-item-dim">下一篇文章</span>
-            <h2 className="post-list__post-title post-title"><a href="/jetbrains-license-server/" title="link to JetBrains License Server">JetBrains License Server</a></h2>
+            <div className={cx(s.readMoreItem, s.readMoreItemRight)}>
+              <span className={s.readMoreItemDim}>下一篇文章</span>
+              <h2 className={s.postListTitle}>
+                <a href="/jetbrains-license-server/" title="link to JetBrains License Server">JetBrains License Server</a>
+              </h2>
+            </div>
           </div>
-        </div>
-        <section className="post-comment">
-          here to be the comments on this article
-        </section>
-        <footer className="footer">
-          <span className="footer__copyright">&copy; 2017  All rights reserved.</span>
-          <span className="footer__copyright">
-            <a href="https://github.com/mcc108/mcno" target="_blank" rel="noopener noreferrer">Mcno</a>
-            theme by &copy;
+          <section className={s.postComments}>
+            here to be the comments on this article
+          </section>
+          <footer className={s.footer}>
+            <span className={s.copyRight}>&copy; 2017  All rights reserved.</span>
+            <span className={s.copyRight}>
+              <a
+                href="https://github.com/mcc108/mcno"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Mcno
+              </a>
+            &nbsp;theme by &#64;&nbsp;
             <a href="https://congm.in" target="_blank" rel="noopener noreferrer">Cong Min</a></span>
-        </footer>
+          </footer>
+        </div>
       </div>
     );
   }
 }
 
-Post2.propTypes=propTypes;
-Post2.contextTypes=contextTypes;
+Post.propTypes=propTypes;
+Post.contextTypes=contextTypes;
 
 export default withStyle(s)(Post);
