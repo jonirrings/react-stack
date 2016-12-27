@@ -22,6 +22,7 @@ const PostSchema = new Schema({
   url: {
     type: String,
     required: true,
+    index: true,
   },
   content: {
     type: String,
