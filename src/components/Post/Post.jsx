@@ -14,6 +14,7 @@ import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 // import Comment from '../Comment';
 import s from './Post.css';
+import Footer from '../Footer';
 
 const contextTypes = {
   relay: Relay.PropTypes.Environment,
@@ -79,19 +80,7 @@ class Post extends Component {
           <section className={s.postComments}>
             here to be the comments on this article
           </section>
-          <footer className={s.footer}>
-            <span className={s.copyRight}>&copy; 2017  All rights reserved.</span>
-            <span className={s.copyRight}>
-              <a
-                href="https://github.com/mcc108/mcno"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Mcno
-              </a>
-            &nbsp;theme by &#64;&nbsp;
-            <a href="https://congm.in" target="_blank" rel="noopener noreferrer">Cong Min</a></span>
-          </footer>
+          <Footer />
         </div>
       </div>
     );

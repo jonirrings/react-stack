@@ -12,6 +12,7 @@ import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import Glance from '../Glance';
 import s from './Posts.css';
+import Footer from '../Footer';
 
 const propTypes={
   route: PropTypes.shape(),
@@ -31,6 +32,7 @@ function Posts(props) {
             viewer.posts.edges.map(edge => <Glance post={edge.node} key={edge.cursor} />)
           }
         </ul>
+        <Footer />
       </div>
     </div>
   );
