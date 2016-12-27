@@ -63,7 +63,7 @@ function Welcome(props, context) {
                 </a>
               </li>
               <li>
-                <a href="mailto://i@jonirrings.com" title="邮箱" rel="noopener noreferrer" target="_blank">
+                <a href="mailto:i@jonirrings.com" title="邮箱" rel="noopener noreferrer" target="_blank">
                   <i className="fa fa-envelope" />
                   <span className={s.label}>Email</span>
                 </a>
