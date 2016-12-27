@@ -30,7 +30,7 @@ import { addNotifier } from './data/mutations/notifiers';
 
 const isDebug = process.env.NODE_ENV !== 'production';
 mongoose.Promise = global.Promise = Promise;
-mongoose.connect(databaseUrl);
+mongoose.connect(databaseUrl, { config: { autoIndex: false } });
 const store = new (mongoDBStore(session))({
   uri: databaseUrl,
   collection: 'sessions',
