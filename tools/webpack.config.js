@@ -221,6 +221,8 @@ const clientConfig = extend(true, {}, config, {
         compress: {
           screw_ie8: true,
           warnings: isVerbose,
+          unused: true,
+          dead_code: true,
         },
         mangle: {
           screw_ie8: true,
