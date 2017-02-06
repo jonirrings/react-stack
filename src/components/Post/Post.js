@@ -87,7 +87,7 @@ class Post extends Component {
   }
 }
 
-Post.propTypes=propTypes;
-Post.contextTypes=contextTypes;
+Post.propTypes = propTypes;
+Post.contextTypes = contextTypes;
 
 export default withStyle(s)(Post);

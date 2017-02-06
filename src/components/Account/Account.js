@@ -3,7 +3,7 @@
  */
 import React, { PropTypes } from 'react';
 
-const propTypes={
+const propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
   }),
@@ -15,13 +15,13 @@ function Account(props) {
     <div>
       {
         user
-          ?user.name
-          :<a href="/login/github">GitHub Login</a>
+          ? user.name
+          : <a href="/login/github">GitHub Login</a>
       }
     </div>
   );
 }
 
-Account.propTypes=propTypes;
+Account.propTypes = propTypes;
 
 export default Account;

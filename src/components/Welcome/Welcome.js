@@ -12,13 +12,13 @@ const propTypes = {
   }).isRequired,
 };
 
-const contextTypes={
+const contextTypes = {
   setTitle: PropTypes.func.isRequired,
 };
 
 function Welcome(props, context) {
   const { user } = props.viewer;
-  context.setTitle(`Welcome${user?`,${user.name}`:''}--Jonir Rings`);
+  context.setTitle(`Welcome${user ? `,${user.name}` : ''}--Jonir Rings`);
   return (
     <header className={s.panelCover}>
       <div className={s.panelMain}>
@@ -26,8 +26,8 @@ function Welcome(props, context) {
         <p className={s.welcome}>Welcome,
           {
             user
-              ?user.name
-              :<a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >Visitor</a>
+              ? user.name
+              : <a href="/login/github" title="login through github" rel="noopener noreferrer" target="_blank" >Visitor</a>
           }
         </p>
         <div className={s.navContainer}>
@@ -77,8 +77,8 @@ function Welcome(props, context) {
   );
 }
 
-Welcome.propTypes=propTypes;
-Welcome.contextTypes=contextTypes;
+Welcome.propTypes = propTypes;
+Welcome.contextTypes = contextTypes;
 
 export default withStyle(s)(Welcome);
 

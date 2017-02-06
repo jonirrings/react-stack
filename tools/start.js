@@ -9,8 +9,9 @@
 
 import browserSync from 'browser-sync';
 import webpack from 'webpack';
-import webpackMiddleWare from 'webpack-middleware';
-import webpackHotMiddleWare from 'webpack-hot-middleware';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import WriteFilePlugin from 'write-file-webpack-plugin';
 import run from './run';
 import runServer from './runServer';
 import webpackConfig from './webpack.config';
@@ -20,39 +21,48 @@ import updateSchema from './updateSchema';
 
 process.argv.push('--watch');
 const [config] = webpackConfig;
+const isDebug = !process.argv.includes('--release');
 
 async function start() {
   await run(clean);
   await run(copy);
   await run(updateSchema);
   await new Promise(resolve => {
-    if (config.debug) {
+    // Save the server-side bundle files to the file system after compilation
+    // https://github.com/webpack/webpack-dev-server/issues/62
+    webpackConfig.find(x => x.target === 'node').plugins.push(
+      new WriteFilePlugin({ log: false }),
+    );
+
+    // Hot Module Replacement (HMR) + React Hot Reload
+    if (isDebug) {
       config.entry.client = ['react-hot-loader/patch', 'webpack-hot-middleware/client']
         .concat(config.entry.client);
       config.output.filename = config.output.filename.replace('[chunkhash', '[hash');
       config.output.chunkFilename = config.output.chunkFilename.replace('[chunkhash', '[hash');
-      config.module.loaders.find(x => x.loader === 'babel-loader')
+      config.module.rules.find(x => x.loader === 'babel-loader')
         .query.plugins.unshift('react-hot-loader/babel');
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
-      config.plugins.push(new webpack.NoErrorsPlugin());
+      config.plugins.push(new webpack.NoEmitOnErrorsPlugin());
     }
     const bundler = webpack(webpackConfig);
-    const wpMiddleWare = webpackMiddleWare(bundler, {
+    const wpMiddleware = webpackDevMiddleware(bundler, {
       publicPath: config.output.publicPath,
       stats: config.stats,
     });
-    const hotMiddleWare = webpackHotMiddleWare(bundler.compilers[0]);
+    const hotMiddleware = webpackHotMiddleware(bundler.compilers[0]);
+
     let handleBundleComplete = async () => {
       handleBundleComplete = stats => !stats.stats[1].compilation.errors.length && runServer();
 
       const server = await runServer();
       const bs = browserSync.create();
       bs.init({
-        ...(config.debug ? {} : { notify: false, ui: false }),
+        ...isDebug ? {} : { notify: false, ui: false },
+
         proxy: {
           target: server.host,
-          middleware: [wpMiddleWare, hotMiddleWare],
-          ws: true,
+          middleware: [wpMiddleware, hotMiddleware],
           proxyOptions: {
             xfwd: true,
           },

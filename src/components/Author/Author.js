@@ -9,7 +9,7 @@
 
 import React, { PropTypes } from 'react';
 
-const propTypes={
+const propTypes = {
   author: PropTypes.shape({
     name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
     avatar: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
@@ -26,6 +26,6 @@ function Author(props) {
   );
 }
 
-Author.propTypes=propTypes;
+Author.propTypes = propTypes;
 
 export default Author;

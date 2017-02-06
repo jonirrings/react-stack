@@ -16,7 +16,7 @@ const propTypes = {
     [
       PropTypes.element,
       PropTypes.array,
-    ]
+    ],
   ),
   nav: PropTypes.element,
   main: PropTypes.element,
@@ -32,6 +32,6 @@ function Layout(props) {
   );
 }
 
-Layout.propTypes=propTypes;
+Layout.propTypes = propTypes;
 
 export default withStyle(s)(Layout);

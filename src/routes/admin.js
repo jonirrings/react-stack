@@ -13,9 +13,9 @@ import Layout from '../components/Layout';
 import Welcome from '../components/Welcome';
 import ViewerQueries from '../components/ViewerQueries';
 import Posts from '../components/Posts';
-import Post from '../components/Post';
-import Publish from '../components/Publish';
-import About from '../components/About';
+// import Post from '../components/Post';
+// import Publish from '../components/Publish';
+// import About from '../components/About';
 
 const routes = (
   <Route path="/" component={Layout}>
