@@ -14,7 +14,7 @@ import Glance from '../Glance';
 import s from './Posts.css';
 import Footer from '../Footer';
 
-const propTypes={
+const propTypes = {
   route: PropTypes.shape(),
   viewer: PropTypes.shape({
     user: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
@@ -38,6 +38,6 @@ function Posts(props) {
   );
 }
 
-Posts.propTypes=propTypes;
+Posts.propTypes = propTypes;
 
 export default withStyle(s)(Posts);

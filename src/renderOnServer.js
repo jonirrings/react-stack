@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { match } from 'react-router';
 import Relay from 'react-relay';
-import assets from './assets'; // eslint-disable-line import/no-unresolved
+import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import Html from './components/Html';
 import ContextHolder from './components/ContextHolder';
 

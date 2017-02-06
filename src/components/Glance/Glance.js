@@ -27,7 +27,7 @@ function Glance(props) {
     </li>
   );
 }
-Glance.propTypes={
+Glance.propTypes = {
   post: PropTypes.shape().isRequired,
 };
 

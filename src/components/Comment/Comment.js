@@ -10,7 +10,7 @@
 import React, { Component, PropTypes } from 'react';
 import Author from '../Author';
 
-const propTypes={
+const propTypes = {
   content: PropTypes.string,
   author: PropTypes.shape(),
   created: PropTypes.number,
@@ -37,5 +37,5 @@ function Comment(props) {
     </div>
   );
 }
-Comment.propTypes=propTypes;
+Comment.propTypes = propTypes;
 export default Comment;
