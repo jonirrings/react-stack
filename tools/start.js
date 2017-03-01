@@ -19,36 +19,49 @@ import clean from './clean';
 import copy from './copy';
 import updateSchema from './updateSchema';
 
-process.argv.push('--watch');
-const [config] = webpackConfig;
 const isDebug = !process.argv.includes('--release');
+process.argv.push('--watch');
 
+const [clientConfig, serverConfig] = webpackConfig;
+
+/**
+ * Launches a development web server with "live reload" functionality -
+ * synchronizing URLs, interactions and code changes across multiple devices.
+ */
 async function start() {
   await run(clean);
   await run(copy);
   await run(updateSchema);
-  await new Promise(resolve => {
+  await new Promise((resolve) => {
     // Save the server-side bundle files to the file system after compilation
     // https://github.com/webpack/webpack-dev-server/issues/62
-    webpackConfig.find(x => x.target === 'node').plugins.push(
-      new WriteFilePlugin({ log: false }),
-    );
+    serverConfig.plugins.push(new WriteFilePlugin({ log: false }));
 
     // Hot Module Replacement (HMR) + React Hot Reload
     if (isDebug) {
-      config.entry.client = ['react-hot-loader/patch', 'webpack-hot-middleware/client']
-        .concat(config.entry.client);
-      config.output.filename = config.output.filename.replace('[chunkhash', '[hash');
-      config.output.chunkFilename = config.output.chunkFilename.replace('[chunkhash', '[hash');
-      config.module.rules.find(x => x.loader === 'babel-loader')
-        .query.plugins.unshift('react-hot-loader/babel');
-      config.plugins.push(new webpack.HotModuleReplacementPlugin());
-      config.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+      clientConfig.entry.client = [...new Set([
+        'babel-polyfill',
+        'react-hot-loader/patch',
+        'webpack-hot-middleware/client',
+      ].concat(clientConfig.entry.client))];
+      clientConfig.output.filename = clientConfig.output.filename.replace('[chunkhash', '[hash');
+      clientConfig.output.chunkFilename = clientConfig.output.chunkFilename.replace('[chunkhash', '[hash');
+      const { query } = clientConfig.module.rules.find(x => x.loader === 'babel-loader');
+      query.plugins = ['react-hot-loader/babel'].concat(query.plugins || []);
+      clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+      clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
     }
     const bundler = webpack(webpackConfig);
     const wpMiddleware = webpackDevMiddleware(bundler, {
-      publicPath: config.output.publicPath,
-      stats: config.stats,
+      // IMPORTANT: webpack middleware can't access config,
+      // so we should provide publicPath by ourselves
+      publicPath: clientConfig.output.publicPath,
+
+      // Pretty colored output
+      stats: clientConfig.stats,
+
+      // For other settings see
+      // https://webpack.github.io/docs/webpack-dev-middleware
     });
     const hotMiddleware = webpackHotMiddleware(bundler.compilers[0]);
 
