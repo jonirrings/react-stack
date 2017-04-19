@@ -7,9 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-export CaptchaModel from './Captcha';
-export ChatModel from './Chat';
-export PostModel from './Post';
-export CommentModel from './Comment';
-export StaticModel from './Static';
-export UserModel from './User';
+export { default as CaptchaModel } from './Captcha';
+export { default as ChatModel } from './Chat';
+export { default as PostModel } from './Post';
+export { default as CommentModel } from './Comment';
+export { default as StaticModel } from './Static';
+export { default as UserModel } from './User';

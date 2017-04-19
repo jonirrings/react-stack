@@ -8,3 +8,6 @@ export function getCommentById(id) {
     .findById(id)
     .exec();
 }
+export function addComment() {
+  throw new Error('not implemented');
+}

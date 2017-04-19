@@ -7,12 +7,10 @@
  * LICENSE file in the root directory of this source tree.
  */
 import Relay from 'react-relay';
-import RelaySubscriptions from 'relay-subscriptions';
 import Glance from '../Glance';
 import Posts from './Posts';
-import AddPostSubscription from './AddPostSubscription';
 
-export default RelaySubscriptions.createContainer(Posts, {
+export default Relay.createContainer(Posts, {
   initialVariables: { first: 10 },
   fragments: {
     viewer: () => Relay.QL`
@@ -25,11 +23,7 @@ export default RelaySubscriptions.createContainer(Posts, {
             cursor
           }
         }
-        ${AddPostSubscription.getFragment('viewer')}
       }
     `,
   },
-  subscriptions: [
-    ({ viewer }) => new AddPostSubscription({ viewer }),
-  ],
 });

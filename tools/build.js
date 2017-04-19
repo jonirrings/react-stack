@@ -12,17 +12,12 @@ import clean from './clean';
 import copy from './copy';
 import updateSchema from './updateSchema';
 import bundle from './bundle';
-import render from './render';
 
 async function build() {
   await run(clean);
   await run(copy);
   await run(updateSchema);
   await run(bundle);
-
-  if (process.argv.includes('--static')) {
-    await run(render);
-  }
 }
 
 export default build;

@@ -1,5 +1,5 @@
 @import '../../../node_modules/normalize.css/normalize.css';
-@import "../variables.css";
+@import '../variables.css';
 
 html {
   font-weight: 100;
@@ -7,7 +7,7 @@ html {
   font-family: var(--font-family-base);
 }
 
-.root{
+.root {
   display: flex;
   position: fixed;
   height: 100%;

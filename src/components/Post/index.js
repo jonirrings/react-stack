@@ -8,11 +8,10 @@
  */
 
 import Relay from 'react-relay';
-import RelaySubscriptions from 'relay-subscriptions';
 import Comment from '../Comment';
 import Post from './Post';
 
-export default RelaySubscriptions.createContainer(Post, {
+export default Relay.createContainer(Post, {
   fragments: {
     post: () => Relay.QL`
             fragment on Post{

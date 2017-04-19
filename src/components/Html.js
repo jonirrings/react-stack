@@ -7,7 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+/* eslint-disable react/no-danger */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { analytics } from '../config';
 
 function Html({ title, description, style, scripts, data, children }) {
@@ -49,13 +51,13 @@ function Html({ title, description, style, scripts, data, children }) {
 Html.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  style: PropTypes.string,
-  scripts: PropTypes.arrayOf(PropTypes.string),
+  style: PropTypes.string.isRequired,
+  scripts: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.array,
-  ]),
-  children: PropTypes.string,
+  ]).isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default Html;

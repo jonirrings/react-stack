@@ -1,12 +1,13 @@
 /**
  * Created by JonirRings on 2016/11/23.
  */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  }),
+  }).isRequired,
 };
 
 function Account(props) {

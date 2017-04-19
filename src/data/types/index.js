@@ -22,7 +22,6 @@ import {
   globalIdField,
   nodeDefinitions,
 } from 'graphql-relay';
-import extend from 'extend';
 import DateType from './custom/Date';
 import { getUserById } from '../../biz/User';
 import { getPostById } from '../../biz/Post';
@@ -41,19 +40,19 @@ export const { nodeInterface, nodeField } = nodeDefinitions(
     const { type, id } = fromGlobalId(globalId);
     if (type === 'Captcha') {
       return getCaptchaById(id)
-        .then(captcha => extend(new CaptchaClass(), captcha.toObject()));
+        .then(captcha => Object.assign(new CaptchaClass(), captcha.toObject()));
     } else if (type === 'Comment') {
       return getCommentById(id)
-        .then(comment => extend(new CommentClass(), comment.toObject()));
+        .then(comment => Object.assign(new CommentClass(), comment.toObject()));
     } else if (type === 'Post') {
       return getPostById(id)
-        .then(post => extend(new PostClass(), post.toObject()));
+        .then(post => Object.assign(new PostClass(), post.toObject()));
     } else if (type === 'User') {
       return getUserById(id)
-        .then(user => extend(new UserClass(), user.toObject()));
+        .then(user => Object.assign(new UserClass(), user.toObject()));
     } else if (type === 'Static') {
       return getStaticById(id)
-        .then(statics => extend(new StaticClass(), statics.toObject()));
+        .then(statics => Object.assign(new StaticClass(), statics.toObject()));
     }
     return null;
   },

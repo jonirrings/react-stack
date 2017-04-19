@@ -8,10 +8,9 @@
  */
 
 import Relay from 'react-relay';
-import RelaySubscriptions from 'relay-subscriptions';
 import Welcome from './Welcome';
 
-export default RelaySubscriptions.createContainer(Welcome, {
+export default Relay.createContainer(Welcome, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer{

@@ -10,7 +10,6 @@
 import { GraphQLSchema } from 'graphql';
 import query from './queries';
 import mutation from './mutations';
-import subscription from './subscriptions';
 
-const schema = new GraphQLSchema({ query, mutation, subscription });
+const schema = new GraphQLSchema({ query, mutation });
 export default schema;

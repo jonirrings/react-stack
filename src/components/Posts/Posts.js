@@ -7,7 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import Glance from '../Glance';
@@ -15,10 +16,10 @@ import s from './Posts.css';
 import Footer from '../Footer';
 
 const propTypes = {
-  route: PropTypes.shape(),
+  route: PropTypes.shape().isRequired,
   viewer: PropTypes.shape({
     user: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
-  }),
+  }).isRequired,
 };
 
 function Posts(props) {

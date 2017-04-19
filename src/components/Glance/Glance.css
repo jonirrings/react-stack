@@ -21,13 +21,15 @@
 
 .title {
   margin-top: 0;
-  margin-bottom: .3em;
+  margin-bottom: 0.3em;
   font-size: 1.5em;
   line-height: 1.3em;
 }
-.excerpt{
+
+.excerpt {
   color: #999;
 }
+
 .title a {
   color: #333;
   text-decoration: none;

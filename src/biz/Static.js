@@ -8,3 +8,7 @@ export function getStaticById(id) {
     .findById(id)
     .exec();
 }
+
+export function addOne() {
+  throw new Error('not implemented');
+}

@@ -11,7 +11,7 @@ export default class AddPostMutation extends Relay.Mutation {
       }
     `,
   };
-
+  // eslint-disable-next-line class-methods-use-this
   getMutation() {
     return Relay.QL`mutation{createPost}`;
   }
@@ -21,6 +21,7 @@ export default class AddPostMutation extends Relay.Mutation {
       content: this.props.content,
     };
   }
+  // eslint-disable-next-line class-methods-use-this
   getFatQuery() {
     return Relay.QL`
       fragment on AddPostPayload{

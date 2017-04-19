@@ -31,4 +31,4 @@ Glance.propTypes = {
   post: PropTypes.shape().isRequired,
 };
 
-export default withStyle(s)(Glance) ;
+export default withStyle(s)(Glance);
