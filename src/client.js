@@ -11,17 +11,16 @@ import 'babel-polyfill';
 import IsomorphicRelay from 'isomorphic-relay';
 import IsomorphicRouter from 'isomorphic-relay-router';
 import React from 'react';
+import Relay from 'react-relay';
 import ReactDOM from 'react-dom';
 import { browserHistory, match, Router } from 'react-router';
-import RelaySubscriptions from 'relay-subscriptions';
 import { client } from './routes';
 import ContextHolder from './components/ContextHolder';
-import NetworkLayer from './NetworkLayer';
 
-const environment = new RelaySubscriptions.Environment();
+const environment = new Relay.Environment();
 
 environment.injectNetworkLayer(
-  new NetworkLayer('/graphql', {
+  new Relay.DefaultNetworkLayer('/graphql', {
     credentials: 'same-origin',
   }));
 const context = {

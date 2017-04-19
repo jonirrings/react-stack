@@ -34,7 +34,7 @@
 }
 
 .postMeta {
-  margin: 0 0 0.4em 0;
+  margin: 0 0 0.4em;
   color: #c7c7c7;
   font-size: 0.8em;
 }
@@ -44,7 +44,7 @@
 }
 
 .postTag {
-  margin-left: 0.4em
+  margin-left: 0.4em;
 }
 
 .postTitle {

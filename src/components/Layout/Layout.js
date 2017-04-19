@@ -7,7 +7,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Layout.css';
 
@@ -17,9 +18,9 @@ const propTypes = {
       PropTypes.element,
       PropTypes.array,
     ],
-  ),
-  nav: PropTypes.element,
-  main: PropTypes.element,
+  ).isRequired,
+  nav: PropTypes.element.isRequired,
+  main: PropTypes.element.isRequired,
 };
 
 function Layout(props) {

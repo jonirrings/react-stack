@@ -7,14 +7,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Author from '../Author';
 
 const propTypes = {
-  content: PropTypes.string,
-  author: PropTypes.shape(),
-  created: PropTypes.number,
-  updated: PropTypes.number,
+  content: PropTypes.string.isRequired,
+  author: PropTypes.shape().isRequired,
+  created: PropTypes.number.isRequired,
+  updated: PropTypes.number.isRequired,
 };
 
 function Comment(props) {

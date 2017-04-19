@@ -33,9 +33,9 @@ class PublishEditor extends Component {
       <div className={s.publish}>
         <div>Publish page should provide an editor</div>
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="title">title:<input id="title" type="text" ref={input => this.input = input} /></label>
+          <label htmlFor="title">title:<input id="title" type="text" ref={(input) => { this.input = input; return null; }} /></label>
           <div className={s.editorContainer}>
-            <textarea ref={textArea => this.textArea = textArea} />
+            <textarea ref={(textArea) => { this.textArea = textArea; return null; }} />
           </div>
           <input type="submit" value="Submit" />
         </form>

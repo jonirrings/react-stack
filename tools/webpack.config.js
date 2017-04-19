@@ -9,11 +9,13 @@
 
 import path from 'path';
 import webpack from 'webpack';
-import extend from 'extend';
 import AssetsPlugin from 'assets-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import pkg from '../package.json';
 
 const isDebug = !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose');
+const isAnalyze = process.argv.includes('--analyze') || process.argv.includes('--analyse');
 
 //
 // Common config for both client and server bundles
@@ -38,16 +40,22 @@ const config = {
           cacheDirectory: isDebug,
           babelrc: false,
           presets: [
-            ['latest', { es2015: { modules: false } }],
-            'stage-0',
+            ['env', {
+              targets: {
+                browsers: pkg.browserslist,
+              },
+              modules: false,
+              useBuiltIns: false,
+              debug: false,
+            }],
+            'flow',
+            'stage-2',
             'react',
             ...isDebug ? [] : [
               'react-optimize',
             ],
           ],
           plugins: [
-            'transform-flow-strip-types',
-            'transform-runtime',
             'babel-relay-plugin-loader',
             ...isDebug ? ['transform-react-jsx-source', 'transform-react-jsx-self'] : [],
           ],
@@ -110,9 +118,6 @@ const config = {
       },
     ],
   },
-  resolve: {
-    modules: [path.resolve(__dirname, '../src'), 'node_modules'],
-  },
 
   // Don't attempt to continue if there are any errors.
   bail: !isDebug,
@@ -136,20 +141,22 @@ const config = {
 // Config for client side
 //-----------------------
 
-const clientConfig = extend(true, {}, config, {
+const clientConfig = {
+  ...config,
+
+  name: 'client',
+  target: 'web',
+
   entry: {
-    client: './client.js',
+    client: ['babel-polyfill', './src/client.js'],
   },
   output: {
+    ...config.output,
     filename: isDebug ? '[name].js' : '[name].[chunkhash:8].js',
     chunkFilename: isDebug ? '[name].chunk.js' : '[name].[chunkhash:8].chunk.js',
   },
-  target: 'web',
+
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      minimize: !isDebug,
-      debug: isDebug,
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': isDebug ? '"development"' : '"production"',
       'process.env.BROWSER': true,
@@ -186,6 +193,7 @@ const clientConfig = extend(true, {}, config, {
         },
       }),
     ],
+    ...isAnalyze ? [new BundleAnalyzerPlugin()] : [],
   ],
   devtool: isDebug ? 'cheap-module-source-map' : false,
   node: {
@@ -193,21 +201,47 @@ const clientConfig = extend(true, {}, config, {
     net: 'empty',
     tls: 'empty',
   },
-});
+};
 
 //
 // Config for server side
 //-----------------------
 
-const serverConfig = extend(true, {}, config, {
+const serverConfig = {
+  ...config,
+
+  name: 'server',
+  target: 'node',
+
   entry: {
-    server: './server.js',
+    server: ['babel-polyfill', './src/server.js'],
   },
   output: {
+    ...config.output,
     filename: '../../server.js',
     libraryTarget: 'commonjs2',
   },
-  target: 'node',
+
+  module: {
+    ...config.module,
+
+    // Override babel-preset-env configuration for Node.js
+    rules: config.module.rules.map(rule => (rule.loader !== 'babel-loader' ? rule : {
+      ...rule,
+      query: {
+        ...rule.query,
+        presets: rule.query.presets.map(preset => (preset[0] !== 'env' ? preset : ['env', {
+          targets: {
+            node: parseFloat(pkg.engines.node.replace(/^\D+/g, '')),
+          },
+          modules: false,
+          useBuiltIns: false,
+          debug: false,
+        }])),
+      },
+    })),
+  },
+
   externals: [
     /^\.\/assets\.json$/,
     (context, request, callback) => {
@@ -241,6 +275,6 @@ const serverConfig = extend(true, {}, config, {
   },
 
   devtool: isDebug ? 'cheap-module-source-map' : 'source-map',
-});
+};
 
 export default [clientConfig, serverConfig];

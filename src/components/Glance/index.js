@@ -7,10 +7,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 import Relay from 'react-relay';
-import RelaySubscriptions from 'relay-subscriptions';
 import Glance from './Glance';
 
-export default RelaySubscriptions.createContainer(Glance, {
+export default Relay.createContainer(Glance, {
   fragments: {
     post: () => Relay.QL`
         fragment on Post{
