@@ -22,6 +22,13 @@ export type Meta = {
   updated: Date,
 }
 
+export type Post = {
+  title: string,
+  url: string,
+  content: string,
+  meta: Meta,
+}
+
 export type Blogger = {
   resume: string,
   qq: string,

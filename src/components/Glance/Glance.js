@@ -5,22 +5,14 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import { Link } from 'found/lib/Link';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Glance.css';
-import type { Meta } from '../../data/FlowTypes';
+import type { Post } from '../../data/FlowTypes';
 
 type Props = {
-  post: {
-    title: string,
-    url: string,
-    content: string,
-    meta: Meta,
-  }
+  post: Post
 }
 
 function Glance(props: Props) {
-  const title = props.post.title;
-  const url = props.post.url;
-  const content = props.post.content;
-  const created = props.post.meta.created;
+  const { title, url, content, created } = props.post;
   const createdAt = new Date(created);
   return (
     <li className={s.listItem}>
