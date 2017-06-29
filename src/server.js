@@ -103,14 +103,12 @@ app.get('*', async (req, res) => {
     },
   };
   data.children = ReactDOM.renderToString(<App context={context}>{element}</App>);
-  console.info(data.children);
   data.styles = [
     { id: 'css', cssText: [...css].join('') },
   ];
   data.scripts = [assets.vendor.js, assets.client.js];
   data.fetcher = fetcher;
   const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
-  console.info(html);
   res.status(status).send(html);
 });
 

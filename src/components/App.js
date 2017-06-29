@@ -9,13 +9,14 @@ const contextType = {
 };
 
 type Props = {
+  context: any,
   children: React$Element<any>,
 };
 
 class App extends PureComponent {
   static childContextTypes = contextType;
   getChildContext() {
-    return this.context;
+    return this.props.context;
   }
   props: Props;
   render() {

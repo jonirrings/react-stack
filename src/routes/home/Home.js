@@ -7,12 +7,12 @@ import s from './Home.css';
 import type { Author, Blogger } from '../../data/FlowTypes';
 
 type Props = {
-  user: ?Author,
+  viewer: {user: ?Author},
   blogger: Blogger,
 };
 
 function Home(props: Props) {
-  const user = props.user;
+  const user = props.viewer.user;
   const { resume, github, qq, weibo, email } = props.blogger;
   return (
     <header className={s.panelCover}>
@@ -70,9 +70,11 @@ function Home(props: Props) {
 }
 
 export default createFragmentContainer(withStyle(s)(Home), {
-  user: graphql`
-    fragment Home_user on User{
-      ...Author_author
+  viewer: graphql`
+    fragment Home_viewer on Viewer{
+      user{
+        name
+      }
     }
   `,
   blogger: graphql`

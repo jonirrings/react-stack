@@ -30,20 +30,14 @@ export function createResolver(fetcher) {
 const BloggerQuery = graphql`
   query routes_Blogger_Query{
     blogger{
-      resume
-      github
-      qq
-      weibo
-      email
+      ...Home_blogger
     }
     viewer{
-      user{
-        name
-      }
+      ...Home_viewer
     }
   }
 `;
-
+// ugly, refactor needed
 const PostsQuery = graphql`
   query routes_Posts_Query{
     viewer{
