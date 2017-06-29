@@ -7,14 +7,14 @@ import React from 'react';
 import { graphql } from 'react-relay';
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
-import App from './components/App';
+import App from '../components/App';
 
-import About from './routes/about';
-import Admin from './routes/admin';
-import Home from './routes/home';
-import Login from './routes/login';
-import Post from './routes/post';
-import Posts from './routes/posts';
+const About = import(/* webpackChunkName: 'about' */'./about').then(module => module.default);
+const Admin = import(/* webpackChunkName: 'admin' */'./admin').then(module => module.default);
+const Home = import(/* webpackChunkName: 'home' */'./home').then(module => module.default);
+const Login = import(/* webpackChunkName: 'login' */'./login').then(module => module.default);
+const Post = import(/* webpackChunkName: 'post' */'./post').then(module => module.default);
+const Posts = import(/* webpackChunkName: 'posts' */'./posts').then(module => module.default);
 
 export const historyMiddlewares = [queryMiddleware];
 

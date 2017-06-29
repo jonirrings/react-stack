@@ -7,7 +7,7 @@ import App from './components/App';
 import { updateMeta } from './core/DOMUtils';
 import { ClientFetcher } from './core/fetcher';
 import { createResolver, historyMiddlewares, render, routeConfig }
-  from './router';
+  from './routes';
 
 /* eslint-disable global-require */
 

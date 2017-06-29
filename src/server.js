@@ -16,7 +16,7 @@ import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import App from './components/App';
 import Html from './components/Html';
 import { ServerFetcher } from './core/fetcher';
-import { createResolver, historyMiddlewares, render, routeConfig } from './router';
+import { createResolver, historyMiddlewares, render, routeConfig } from './routes';
 import { port, auth, databaseUrl, description } from './core/config';
 import schema from './data/schema';
 
