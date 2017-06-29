@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import { createRefetchContainer, graphql } from 'react-relay';
-import { Link } from 'react-router';
+import { Link } from 'found/lib/Link';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import cx from 'classnames';
 import s from './Post.css';
-import Footer from '../Footer';
-import type { Meta } from '../SharedType';
+import Footer from '../../components/Footer/index';
+import type { Meta } from '../../data/FlowTypes';
 
 type Props = {
   post: {

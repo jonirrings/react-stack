@@ -18,7 +18,7 @@ import {
 } from 'graphql-relay';
 import { PostEdge } from '../../types';
 import ViewerType from '../../types/Viewer';
-import { getPosts, addPost } from '../../../biz/Post';
+import { getPosts, addPost } from '../../biz/Post';
 
 const mutation = mutationWithClientMutationId({
   name: 'AddPost',

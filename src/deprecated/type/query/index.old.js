@@ -12,8 +12,8 @@ import {
   GraphQLNonNull as NonNull,
   GraphQLString as StringType,
 } from 'graphql';
-import ViewerType from '../types/Viewer';
-import { nodeField, PostType } from '../types';
+import ViewerType from '../../../data/types/Viewer';
+import { nodeField, PostType } from '../../../data/types/index';
 import getViewer from '../../biz/Viewer';
 import { getPostByUrl } from '../../biz/Post';
 

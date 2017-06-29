@@ -1,4 +1,4 @@
-@import '../variables.css';
+@import '../../components/variables.css';
 
 .panelCover {
   flex: 3;

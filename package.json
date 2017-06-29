@@ -41,6 +41,7 @@
     "express-graphql": "^0.6.6",
     "express-jwt": "^5.3.0",
     "express-session": "^1.14.1",
+    "farce": "^0.2.1",
     "fastclick": "^1.0.6",
     "found": "^0.3.1",
     "found-relay": "^v0.3.0-alpha.3",

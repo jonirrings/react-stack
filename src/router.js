@@ -14,7 +14,7 @@ import Admin from './routes/admin';
 import Home from './routes/home';
 import Login from './routes/login';
 import Post from './routes/post';
-import Posts from './routes/Posts';
+import Posts from './routes/posts';
 
 export const historyMiddlewares = [queryMiddleware];
 
@@ -36,13 +36,18 @@ const BloggerQuery = graphql`
       weibo
       email
     }
+    viewer{
+      user{
+        name
+      }
+    }
   }
 `;
 
 const PostsQuery = graphql`
   query router_Posts_Query{
     viewer{
-      ...Posts_Viewer
+      ...Posts_viewer
     }
   }
 `;

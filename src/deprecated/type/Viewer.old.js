@@ -11,7 +11,7 @@ import {
   fromGlobalId,
   globalIdField,
 } from 'graphql-relay';
-import { PostConnection, CaptchaType, UserType } from '../index';
+import { PostConnection, CaptchaType, UserType } from '../../data/types/index';
 import { getCaptchaByUserId } from '../../../biz/Captcha';
 import { getUserById } from '../../../biz/User';
 import { getPosts } from '../../../biz/Post';

@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import { Link } from 'react-router';
+import { Link } from 'found/lib/Link';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Glance.css';
-import type { Meta } from '../SharedType';
+import type { Meta } from '../../data/FlowTypes';
 
 type Props = {
   post: {

@@ -3,7 +3,7 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
 import Author from '../Author';
-import type { Author as AuthorType, Meta } from '../SharedType';
+import type { Author as AuthorType, Meta } from '../../data/FlowTypes';
 
 type Props = {
   comment: {

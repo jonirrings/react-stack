@@ -21,3 +21,11 @@ export type Meta = {
   created: Date,
   updated: Date,
 }
+
+export type Blogger = {
+  resume: string,
+  qq: string,
+  github: string,
+  weibo: string,
+  email: string,
+}

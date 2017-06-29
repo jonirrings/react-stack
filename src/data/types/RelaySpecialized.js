@@ -7,7 +7,7 @@ import {
 import UserType from './User';
 import PostType from './Post';
 import CommentType from './Comment';
-import { getObjectFromTypeAndId } from '../apiHelper';
+import { getObjectFromTypeAndId } from '../models/apiHelper';
 
 const idFetcher: (id: string) => any = (globalId) => {
   const { type, id } = fromGlobalId(globalId);

@@ -24,7 +24,7 @@ const isDebug = !process.argv.includes('--release');
 // https://webpack.js.org/configuration/watch/#watchoptions
 const watchOptions = {
   // Watching may not work with NFS and machines in VirtualBox
-  // Uncomment next line if it's your case (use true or interval in milliseconds)
+  // Uncomment next line if it is your case (use true or interval in milliseconds)
   // poll: true,
 
   // Decrease CPU or memory usage in some file systems

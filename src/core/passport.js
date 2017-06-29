@@ -12,7 +12,7 @@ import { Strategy as GitHubStrategy } from 'passport-github2';
 import { toGlobalId } from 'graphql-relay';
 import { auth as config } from './config';
 import { UserModel } from '../data/models';
-import { Github } from '../data/models/OAuth';
+import { Github } from '../deprecated/models/OAuth';
 
 const { github: { clientID, clientSecret, callbackURL } } = config;
 passport.serializeUser((user, done) => {

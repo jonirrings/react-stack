@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
-import Glance from '../Glance';
+import Glance from '../../components/Glance/index';
 import s from './Posts.css';
-import Footer from '../Footer';
-import type { Edge, PageInfo } from '../SharedType';
+import Footer from '../../components/Footer/index';
+import type { Edge, PageInfo } from '../../data/FlowTypes';
 
 type Props = {
   relay: {

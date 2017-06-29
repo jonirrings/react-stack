@@ -22,7 +22,7 @@ import {
   globalIdField,
   nodeDefinitions,
 } from 'graphql-relay';
-import DateType from '../custom/Date';
+import DateType from '../../data/types/custom/Date';
 import { getUserById } from '../../../biz/User';
 import { getPostById } from '../../../biz/Post';
 import { getCommentById } from '../../../biz/Comment';
