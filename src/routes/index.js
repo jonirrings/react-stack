@@ -28,7 +28,7 @@ export function createResolver(fetcher) {
 }
 
 const BloggerQuery = graphql`
-  query router_Blogger_Query{
+  query routes_Blogger_Query{
     blogger{
       resume
       github
@@ -45,7 +45,7 @@ const BloggerQuery = graphql`
 `;
 
 const PostsQuery = graphql`
-  query router_Posts_Query{
+  query routes_Posts_Query{
     viewer{
       ...Posts_viewer
     }
@@ -53,7 +53,7 @@ const PostsQuery = graphql`
 `;
 
 const PostQuery = graphql`
-  query router_Post_Query($id: ID!){
+  query routes_Post_Query($id: ID!){
     node(id:$id){
       ...Post_post
     }

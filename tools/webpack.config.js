@@ -388,6 +388,9 @@ const serverConfig = {
               targets: {
                 node: pkg.engines.node.match(/(\d+\.?)+/)[0],
               },
+              include: [
+                'transform-es2015-classes',
+              ],
               modules: false,
               useBuiltIns: false,
               debug: false,
