@@ -1,0 +1,18 @@
+
+.footer {
+  display: block;
+  padding: 2em 0 0;
+  border-top: 2px solid #ddd;
+  font-size: 0.7em;
+  color: #b3b3b3;
+}
+
+.copyRight {
+  display: block;
+  margin-bottom: 0.7em;
+}
+
+.copyRight a {
+  color: #a6a6a6;
+  text-decoration: underline;
+}

@@ -1,0 +1,10 @@
+[ignore]
+.*/build
+.*/cache
+.*/docs
+.*/node_modules/fbjs
+.*/public
+
+[include]
+
+[libs]

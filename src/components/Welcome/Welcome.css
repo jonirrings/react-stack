@@ -1,0 +1,105 @@
+@import '../variables.css';
+
+.panelCover {
+  flex: 3;
+  background: url(https://congm.in/bing.php) center center no-repeat #666;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.6s ease-in-out;
+  position: relative;
+}
+
+.panelMain {
+  position: relative;
+  z-index: 101;
+}
+
+.panelCoverOverlay {
+  background: rgba(61, 66, 96, 0.4) linear-gradient(140deg, rgba(61, 66, 96, 0.4) 15%, rgba(31, 34, 49, 0.6));
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.home {
+  text-align: center;
+}
+
+.home a {
+  font-size: 6em;
+  text-decoration: none;
+  color: white;
+}
+
+.welcome {
+  font-size: 2em;
+  text-align: center;
+  color: white;
+}
+
+.welcome a {
+  color: white;
+  text-decoration: none;
+}
+
+.navContainer {
+  font-size: 0.725em;
+}
+
+.navs {
+  color: white;
+}
+
+.navs ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navs li {
+  display: inline-block;
+  list-style: none;
+  margin: auto 1em;
+}
+
+.navs a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  border-radius: 1.5em;
+  border: white 1px solid;
+  padding: 0.8em 1.6em;
+}
+
+.social ul {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.social li {
+  list-style: none;
+  display: inline-block;
+  margin: auto 1em;
+}
+
+.social a {
+  display: block;
+  color: white;
+  font-size: 2em;
+  text-decoration: none;
+}
+
+.social a .label {
+  display: none;
+}
+
+.navs,
+.social {
+  margin: 1.5em;
+}

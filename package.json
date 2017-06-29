@@ -1,0 +1,215 @@
+{
+  "name": "react-stack",
+  "version": "0.0.2",
+  "private": true,
+  "description": "An isomorphic web app boilerplate (Node.js, Express, GraphQL, React.js, Babel 6, PostCSS, Webpack, Browsersync)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonirrings/react-stack.git"
+  },
+  "keywords": [
+    "react",
+    "stack"
+  ],
+  "author": "Jonir Rings",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jonirrings/react-stack/issues"
+  },
+  "homepage": "https://github.com/jonirrings/react-stack#readme",
+  "engines": {
+    "node": ">=6.5",
+    "npm": ">=3.10"
+  },
+  "browserslist": [
+    ">1%",
+    "last 4 versions",
+    "Firefox ESR",
+    "not ie < 9"
+  ],
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "classnames": "^2.2.5",
+    "connect-mongodb-session": "^1.3.0",
+    "cookie-parser": "^1.4.3",
+    "core-js": "^2.4.1",
+    "dataloader": "^1.2.0",
+    "draft-js": "^0.10.0",
+    "express": "^4.15.3",
+    "express-graphql": "^0.6.6",
+    "express-jwt": "^5.3.0",
+    "express-session": "^1.14.1",
+    "fastclick": "^1.0.6",
+    "found": "^0.3.1",
+    "found-relay": "^v0.3.0-alpha.3",
+    "graphiql": "^0.11.2",
+    "graphql": "^0.10.1",
+    "graphql-relay": "^0.5.2",
+    "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-style-loader": "^2.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.0",
+    "normalize.css": "^7.0.0",
+    "passport": "^0.3.2",
+    "passport-github2": "^0.1.10",
+    "pretty-error": "^2.1.0",
+    "prop-types": "^15.5.10",
+    "query-string": "^4.3.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-relay": "^1.1.0",
+    "relay-runtime": "^1.1.0",
+    "serialize-javascript": "^1.3.0",
+    "source-map-support": "^0.4.15"
+  },
+  "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
+    "autoprefixer": "^7.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.0",
+    "babel-plugin-istanbul": "^4.1.4",
+    "babel-plugin-relay": "^1.1.0",
+    "babel-plugin-rewire": "^1.1.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "babel-template": "^6.25.0",
+    "babel-types": "^6.25.0",
+    "browser-sync": "^2.18.12",
+    "chai": "^4.0.2",
+    "chokidar": "^1.7.0",
+    "cross-env": "^5.0.1",
+    "css-loader": "^0.28.4",
+    "editorconfig-tools": "^0.1.1",
+    "enzyme": "^2.9.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-import-resolver-node": "^0.3.1",
+    "eslint-loader": "^1.8.0",
+    "eslint-plugin-css-modules": "^2.7.1",
+    "eslint-plugin-flowtype": "^2.32.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.0.1",
+    "file-loader": "^0.11.2",
+    "front-matter": "^2.1.2",
+    "glob": "^7.1.2",
+    "lint-staged": "^4.0.0",
+    "markdown-it": "^8.3.1",
+    "mkdirp": "^0.5.1",
+    "mocha": "^3.4.2",
+    "null-loader": "^0.1.1",
+    "nyc": "^11.0.2",
+    "opn-cli": "^3.1.0",
+    "pixrem": "^3.0.2",
+    "pleeease-filters": "^4.0.0",
+    "postcss": "^6.0.3",
+    "postcss-calc": "^6.0.0",
+    "postcss-color-function": "^4.0.0",
+    "postcss-custom-media": "^6.0.0",
+    "postcss-custom-properties": "^6.0.1",
+    "postcss-custom-selectors": "^4.0.1",
+    "postcss-flexbugs-fixes": "^3.0.0",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
+    "postcss-media-minmax": "^3.0.0",
+    "postcss-nested": "^2.0.2",
+    "postcss-nesting": "^4.0.1",
+    "postcss-pseudoelements": "^4.0.0",
+    "postcss-selector-matches": "^3.0.1",
+    "postcss-selector-not": "^3.0.1",
+    "pre-commit": "^1.2.2",
+    "raw-loader": "^0.5.1",
+    "react-deep-force-update": "^2.0.1",
+    "react-error-overlay": "^1.0.7",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "react-test-renderer": "^15.5.4",
+    "relay-compiler": "^1.1.0",
+    "rimraf": "^2.6.1",
+    "sinon": "^2.3.4",
+    "stylelint": "^7.11.0",
+    "stylelint-config-standard": "^16.0.0",
+    "stylelint-order": "^0.5.0",
+    "svg-url-loader": "^2.0.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.0.0",
+    "webpack-bundle-analyzer": "^2.8.2",
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.0",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ],
+      "stage-2",
+      "react"
+    ],
+    "plugins": [
+      "relay"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul",
+          "rewire"
+        ]
+      }
+    },
+    "ignore": [
+      "/node_modules/",
+      "/build/chunks/",
+      "/build/public/",
+      "/build/updates/",
+      "/build/server.js"
+    ]
+  },
+  "lint-staged": {
+    "*.{cmd,html,json,md,sh,txt,xml,yml}": [
+      "editorconfig-tools fix",
+      "git add"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{css,less,scss,sss}": [
+      "stylelint --fix",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "update-schema": "babel-node tools/run updateSchema",
+    "lint:js": "eslint --ignore-path .gitignore --ignore-pattern \"!**/.*\" .",
+    "lint:css": "stylelint \"src/**/*.{css,less,scss,sss}\"",
+    "lint:staged": "lint-staged",
+    "lint": "yarn run lint:js && yarn run lint:css",
+    "test": "mocha",
+    "test:watch": "yarn run test -- --reporter min --watch",
+    "test:cover": "cross-env NODE_ENV=test nyc npm run test",
+    "coverage": "yarn run test:cover && nyc report --reporter=html && opn coverage/index.html",
+    "relay": "relay-compiler --src ./src/ --schema ./cache/schema.json",
+    "relay:watch": "relay-compiler --watch --src ./src/ --schema ./cache/schema.json",
+    "clean": "babel-node tools/run clean",
+    "copy": "babel-node tools/run copy",
+    "bundle": "babel-node tools/run bundle",
+    "build": "babel-node tools/run build",
+    "build:stats": "yarn run build -- --release --analyse",
+    "serve": "babel-node tools/run runServer",
+    "start": "babel-node tools/run start"
+  }
+}

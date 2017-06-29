@@ -1,0 +1,108 @@
+.contentWrapper {
+  flex: 7;
+  transition: all 0.6s ease-in-out;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.goBack {
+  display: block;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 15px;
+  left: 15px;
+  padding: 5px;
+  color: #c9c9c9;
+  text-decoration: none;
+  transition: color ease 0.6s;
+}
+
+.goBack:hover {
+  color: #999;
+}
+
+.goBack i {
+  font-size: 18px;
+}
+
+.postContainer {
+  position: relative;
+  margin: 0 8%;
+  padding: 50px 0;
+}
+
+.postMeta {
+  margin: 0 0 0.4em;
+  color: #c7c7c7;
+  font-size: 0.8em;
+}
+
+.postDate {
+  margin-right: 0.5em;
+}
+
+.postTag {
+  margin-left: 0.4em;
+}
+
+.postTitle {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-weight: lighter;
+  font-size: 2.5em;
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+  color: #333;
+}
+
+.readMore {
+  overflow: hidden;
+  border-top: 1px solid #eee;
+  margin-top: 50px;
+}
+
+.readMoreItem {
+  display: inline;
+  width: 48%;
+  margin-top: 20pt;
+  margin-bottom: 20pt;
+}
+
+.readMoreItemLeft {
+  float: left;
+  text-align: left;
+}
+
+.readMoreItemRight {
+  float: right;
+  text-align: right;
+}
+
+.readMoreItemDim {
+  display: inline-block;
+  color: #7b0f19;
+  font-size: 0.8em;
+  padding-bottom: 0.5em;
+}
+
+.postListTitle {
+  margin-top: 0;
+  margin-bottom: 0.3em;
+  font-size: 1.2em;
+  line-height: 1.3em;
+  font-weight: lighter;
+  color: #333;
+}
+
+.postListTitle a {
+  text-decoration: none;
+  color: #333;
+}
+
+.postComments {
+  border-top: 1px solid #ddd;
+  padding: 60px 0;
+}
+
