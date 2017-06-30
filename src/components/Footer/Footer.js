@@ -6,19 +6,17 @@ import withStyle from 'isomorphic-style-loader/lib/withStyles';
 import s from './Footer.css';
 
 function Footer() {
+  const mcno = 'https://github.com/mcc108/mcno';
+  const mc = "https://congm.in"
   return (
     <footer className={s.footer}>
       <span className={s.copyRight}>&copy; 2017  All rights reserved.</span>
       <span className={s.copyRight}>
-        <a
-          href="https://github.com/mcc108/mcno"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-                Mcno
-              </a>
-            &nbsp;theme by &#64;&nbsp;
-            <a href="https://congm.in" target="_blank" rel="noopener noreferrer">Cong Min</a></span>
+        <a href={mcno} target="_blank" rel="noopener noreferrer">
+          Mcno
+        </a>
+        &nbsp;theme by &#64;&nbsp;
+        <a href={mc} target="_blank" rel="noopener noreferrer">Cong Min</a></span>
     </footer>
   );
 }

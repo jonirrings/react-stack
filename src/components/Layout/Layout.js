@@ -1,38 +1,31 @@
-/**
- * react-stack react-stack
- *
- * Copyright © 2016. JonirRings.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
+import normalizeCss from 'normalize.css';
+
 import s from './Layout.css';
+import Navigation from '../Navigation';
+import type { Author, Blogger } from '../../data/FlowTypes';
 
-const propTypes = {
-  children: PropTypes.oneOfType(
-    [
-      PropTypes.element,
-      PropTypes.array,
-    ],
-  ).isRequired,
-  nav: PropTypes.element.isRequired,
-  main: PropTypes.element.isRequired,
-};
+type Props = {
+  blogger: Blogger,
+  user: ?Author,
+  children: ?any,
+}
 
-function Layout(props) {
+function Layout(props: Props) {
+  const { blogger, user, children } = props;
   return (
-    <div className={s.root}>
-      {props.children}
-      {props.nav}
-      {props.main}
+    <div className={s.Layout}>
+      <Navigation {...blogger} user={user} />
+      {children || ''}
     </div>
   );
 }
 
-Layout.propTypes = propTypes;
+Layout.defaultProps = {
+  user: { name: 'Visitor' },
+  children: null,
+};
 
-export default withStyle(s)(Layout);
+export default withStyle(normalizeCss, s)(Layout);

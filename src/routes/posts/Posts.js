@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
-import Glance from '../../components/Glance/index';
 import s from './Posts.css';
 import Footer from '../../components/Footer/index';
 import type { Edge, PageInfo } from '../../data/FlowTypes';
@@ -47,7 +46,7 @@ class Posts extends Component {
         <div className={s.postsContainer}>
           <ul className={s.postList}>
             {
-            edges.map(edge => <Glance post={edge.node} key={edge.cursor} />)
+              edges.map(edge => <div>{edge.node} {edge.cursor} </div>)
           }
           </ul>
           <div>
@@ -70,7 +69,7 @@ export default createPaginationContainer(withStyle(s)(Posts), {
       posts(first: $count,after: $cursor)@connection(key:"Viewer_posts"){
         edges{
           node{
-            ...Glance_post
+            content
           }
           cursor
         }

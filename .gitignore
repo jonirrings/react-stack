@@ -5,7 +5,6 @@ node_modules/
 
 # Compiled output
 build
-__generated__
 
 # Runtime data
 database.sqlite
@@ -32,3 +31,6 @@ yarn-error.log*
 
 # Cache
 cache/
+
+# Generated files.
+__generated__

@@ -36,3 +36,8 @@ export type Blogger = {
   weibo: string,
   email: string,
 }
+
+export type Rel = {
+  title: string,
+  url: string,
+}

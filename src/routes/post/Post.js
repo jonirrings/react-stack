@@ -90,14 +90,14 @@ export default createRefetchContainer(
       fragment Post_post on Post{
         id
         author{
-          ...Author_author
+          name
         }
         title
         content
         comments(first: $count){
           edges{
             node{
-              ...Comment_comment
+              content
             }
           }
         }

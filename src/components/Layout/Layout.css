@@ -7,7 +7,7 @@ html {
   font-family: var(--font-family-base);
 }
 
-.root {
+.Layout {
   display: flex;
   position: fixed;
   height: 100%;

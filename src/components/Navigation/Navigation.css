@@ -1,6 +1,6 @@
-@import '../../components/variables.css';
+@import '../variables.css';
 
-.panelCover {
+.Navigation {
   flex: 3;
   background: url(https://congm.in/bing.php) center center no-repeat #666;
   background-size: cover;
