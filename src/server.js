@@ -1,8 +1,7 @@
+// @flow
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import Promise from 'bluebird';
 import path from 'path';
-import mongoose from 'mongoose';
 import express from 'express';
 import expressGraphQL from 'express-graphql';
 import cookieParser from 'cookie-parser';
@@ -15,14 +14,14 @@ import { getFarceResult } from 'found/lib/server';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import App from './components/App';
 import Html from './components/Html';
+import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
+import errorPageStyle from './routes/error/ErrorPage.css';
 import { ServerFetcher } from './core/fetcher';
 import { createResolver, historyMiddlewares, render, routeConfig } from './routes';
 import { port, auth, databaseUrl, description } from './core/config';
+import models from './data/models';
 import schema from './data/schema';
 
-const isDebug = process.env.NODE_ENV !== 'production';
-mongoose.Promise = Promise;
-mongoose.connect(databaseUrl, { config: { autoIndex: false } });
 const store = new (mongoDBStore(session))({
   uri: databaseUrl,
   collection: 'sessions',
@@ -40,7 +39,7 @@ global.navigator.userAgent = global.navigator.userAgent || 'all';
 //
 // Register Node.js middleware
 // -----------------------------------------------------------------------------
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -56,60 +55,64 @@ app.use(session({
 
 app.use('/graphql', expressGraphQL(req => ({
   schema,
-  graphiql: isDebug,
+  graphiql: __DEV__,
   rootValue: { request: req },
-  pretty: isDebug,
+  pretty: __DEV__,
 })));
 //
 // Register admin-only server-side rendering middleware
 // -----------------------------------------------------------------------------
 // app.get('/admin', renderOnServer(admin));
 
-
+//
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
-app.get('*', async (req, res) => {
-  const fetcher = new ServerFetcher(`http://localhost:${port}/graphql`);
+app.get('*', async (req, res, next) => {
+  try {
+    const fetcher = new ServerFetcher(`http://localhost:${port}/graphql`);
 
-  const { redirect, status, element } = await getFarceResult({
-    url: req.url,
-    historyMiddlewares,
-    routeConfig,
-    resolver: createResolver(fetcher),
-    render,
-  });
-  if (redirect) {
-    res.redirect(302, redirect.url);
-    return;
-  }
+    const { redirect, status, element } = await getFarceResult({
+      url: req.url,
+      historyMiddlewares,
+      routeConfig,
+      resolver: createResolver(fetcher),
+      render,
+    });
+    if (redirect) {
+      res.redirect(302, redirect.url);
+      return;
+    }
 
-  const css = new Set();
-  const data = {
-    title: description,
-    description,
-  };
-  const context = {
+    const css = new Set();
+    const data = {
+      title: description,
+      description,
+    };
+    const context = {
     // Enables critical path CSS rendering
     // https://github.com/kriasoft/isomorphic-style-loader
-    insertCss: (...styles) => {
+      insertCss: (...styles) => {
       // eslint-disable-next-line no-underscore-dangle
-      styles.forEach(style => css.add(style._getCss()));
-    },
-    setDescription: (desc) => {
-      data.description = desc;
-    },
-    setTitle: (title) => {
-      data.title = title;
-    },
-  };
-  data.children = ReactDOM.renderToString(<App context={context}>{element}</App>);
-  data.styles = [
+        styles.forEach(style => css.add(style._getCss()));
+      },
+      setDescription: (desc) => {
+        data.description = desc;
+      },
+      setTitle: (title) => {
+        data.title = title;
+      },
+    };
+    data.children = ReactDOM.renderToString(<App context={context}>{element}</App>);
+    data.styles = [
     { id: 'css', cssText: [...css].join('') },
-  ];
-  data.scripts = [assets.vendor.js, assets.client.js];
-  data.fetcher = fetcher;
-  const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
-  res.status(status).send(html);
+    ];
+    data.scripts = [assets.vendor.js, assets.client.js];
+    data.fetcher = fetcher;
+    const html = ReactDOM.renderToStaticMarkup(<Html {...data} />);
+    res.status(status).send(html);
+  } catch (err) {
+    next(err);
+  }
 });
 
 //
@@ -120,12 +123,38 @@ pe.skipNodeFiles();
 pe.skipPackage('express');
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-  console.log(pe.render(err)); // eslint-disable-line no-console
-  const html = `<html><body>${err.message}</body></html>`;
+  console.error(pe.render(err));
+  const html = ReactDOM.renderToStaticMarkup(
+    <Html
+      title="Internal Server Error"
+      description={err.message}
+      styles={[{ id: 'css', cssText: errorPageStyle._getCss() }]} // eslint-disable-line no-underscore-dangle
+    >
+      {ReactDOM.renderToString(<ErrorPageWithoutStyle error={err} />)}
+    </Html>,
+  );
   res.status(err.status || 500);
   res.send(`<!doctype html>${html}`);
 });
 
-app.listen(port, () => {
-  console.log(`The server is running at http://localhost:${port}/`);// eslint-disable-line no-console
-});
+//
+// Launch the server
+// -----------------------------------------------------------------------------
+const promise = models.sync().catch(err => console.error(err.stack));
+if (!module.hot) {
+  promise.then(() => {
+    app.listen(port, () => {
+      console.info(`The server is running at http://localhost:${port}/`);
+    });
+  });
+}
+
+//
+// Hot Module Replacement
+// -----------------------------------------------------------------------------
+if (module.hot) {
+  app.hot = module.hot;
+  module.hot.accept('./routes');
+}
+
+export default app;

@@ -1,5 +1,6 @@
 import BrowserProtocol from 'farce/lib/BrowserProtocol';
 import createInitialFarceRouter from 'found/lib/createInitialFarceRouter';
+import deepForceUpdate from 'react-deep-force-update';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -41,6 +42,7 @@ const onRenderComplete = function initialRenderComplete() {
 };
 
 const container = document.getElementById('app');
+let appInstance;
 
 (async () => {
   // eslint-disable-next-line no-underscore-dangle
@@ -55,7 +57,7 @@ const container = document.getElementById('app');
     render,
   });
 
-  ReactDOM.render(
+  appInstance = ReactDOM.render(
     <App context={context}>
       <Router resolver={resolver} />
     </App>,
@@ -63,3 +65,13 @@ const container = document.getElementById('app');
     () => { onRenderComplete(); },
   );
 })();
+
+// Enable Hot Module Replacement (HMR)
+if (module.hot) {
+  module.hot.accept('./routes', () => {
+    if (appInstance) {
+      // Force-update the whole tree, including components that refuse to update
+      deepForceUpdate(appInstance);
+    }
+  });
+}
