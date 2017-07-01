@@ -5,7 +5,9 @@ import {
   GraphQLBoolean,
   GraphQLNonNull,
 } from 'graphql';
-import { connectionArgs } from 'graphql-relay';
+import { connectionArgs, connectionFromPromisedArray } from 'graphql-relay';
+
+import { readPosts } from '../models/Post';
 
 import UserType from './User';
 import { PostConnection } from './RelaySpecialized';
@@ -22,9 +24,7 @@ const viewerType = new GraphQLObjectType({
     user: {
       type: UserType,
       description: 'the logged viewer',
-      async resolve() {
-        return getAdmin();
-      },
+      resolve: () => getAdmin(),
     },
     timezone: {
       type: new GraphQLNonNull(GraphQLInt),
@@ -38,6 +38,7 @@ const viewerType = new GraphQLObjectType({
       type: new GraphQLNonNull(PostConnection),
       args: connectionArgs,
       description: 'the posts which the viewer can browse',
+      resolve: (_, args) => connectionFromPromisedArray(readPosts(), args),
     },
   }),
 });
