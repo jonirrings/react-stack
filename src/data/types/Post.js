@@ -10,6 +10,7 @@ import { connectionArgs, toGlobalId } from 'graphql-relay';
 import MetaType from './Meta';
 import UserType from './User';
 import { nodeInterface, CommentConnection } from './RelaySpecialized';
+import { readUser } from '../models/User';
 
 const PostType = new GraphQLObjectType({
   name: 'Post',
@@ -27,6 +28,7 @@ const PostType = new GraphQLObjectType({
     author: {
       type: new GraphQLNonNull(UserType),
       description: 'the author of the post',
+      resolve: ({ author }) => readUser({ id: author }),
     },
     title: {
       type: new GraphQLNonNull(GraphQLString),

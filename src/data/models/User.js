@@ -20,15 +20,15 @@ export async function createUser(
   return user.save();
 }
 
-export async function readUser({ id }: {id: string}) {
+export function readUser({ id }: {id: string}) {
   return User.findById(id);
 }
 
-export async function readUsers() {
+export function readUsers() {
   return User.find();
 }
 
-export async function getAdmin() {
+export function getAdmin() {
   return User.findOne({ admin: true });
 }
 

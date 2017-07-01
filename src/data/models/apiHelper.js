@@ -3,27 +3,21 @@
 import { readUser } from './User';
 import { readPost } from './Post';
 
-export async function getObjectFromTypeAndId(
-  type: string,
-  id: string,
-) {
+export async function getObjectFromTypeAndId(type: string,
+  id: string) {
+  let ret = null;
   switch (type) {
     case 'User':
-      return readUser({ id });
+      ret = await readUser({ id });
+      break;
     case 'Post':
-      return readPost({ id });
+      ret = await readPost({ id });
+      break;
     default:
-      return null;
+      ret = {};
   }
-}
-
-export async function setObjectById(
-  object: any,
-  id: string,
-) {
-  return new Promise((resolve) => {
-    resolve(object, id); // fixme to add the data mutation logic
-  });
+  ret.type = type;
+  return ret;
 }
 
 export function virtualMeta() {

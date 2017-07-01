@@ -8,6 +8,7 @@ import PostCreateMutation from './post/create';
 
 const mutationType = new ObjectType({
   name: 'Mutation',
+  description: 'mutation query',
   fields: {
     createUser: UserCreateMutation,
     createPost: PostCreateMutation,

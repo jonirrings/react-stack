@@ -14,6 +14,7 @@ import { getFarceResult } from 'found/lib/server';
 import assets from './assets.json'; // eslint-disable-line import/no-unresolved
 import App from './components/App';
 import Html from './components/Html';
+import type { htmlProps } from './components/Html';
 import { ErrorPageWithoutStyle } from './routes/error/ErrorPage';
 import errorPageStyle from './routes/error/ErrorPage.css';
 import { ServerFetcher } from './core/fetcher';
@@ -21,6 +22,7 @@ import { createResolver, historyMiddlewares, render, routeConfig } from './route
 import { port, auth, databaseUrl, description } from './core/config';
 import models from './data/models';
 import schema from './data/schema';
+
 
 const store = new (mongoDBStore(session))({
   uri: databaseUrl,
@@ -84,7 +86,7 @@ app.get('*', async (req, res, next) => {
     }
 
     const css = new Set();
-    const data = {
+    const data: htmlProps = {
       title: description,
       description,
     };

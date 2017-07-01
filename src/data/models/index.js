@@ -7,13 +7,14 @@ import { databaseUrl } from '../../core/config';
 mongoose.Promise = Promise;
 
 const options = {
-  useMongoClient: true,
 };
 
 function sync() {
   return mongoose.connect(databaseUrl, options);
 }
 
+// CONNECTION EVENTS
+// When successfully connected
 mongoose.connection.on('connected', () => {
   console.info(`Mongoose default connection open to ${databaseUrl}`);
 });

@@ -8,12 +8,12 @@ type DefaultProps = {
   styles: [],
   scripts: [],
 };
-type Props = {
+export type htmlProps = {
   title: string,
   description: string,
   styles: Array<{cssText: string, id: string}>,
   scripts: string[],
-  fetcher: any,
+  fetcher: ?any,
   children: string,
 };
 type State = void;
@@ -23,9 +23,9 @@ const defaultProps = {
   scripts: [],
 };
 
-class Html extends React.Component<DefaultProps, Props, State> {
+class Html extends React.Component<DefaultProps, htmlProps, State> {
   static defaultProps: DefaultProps = defaultProps;
-  props: Props;
+  props: htmlProps;
   render() {
     const { title, description, styles, scripts, fetcher, children } = this.props;
     return (
