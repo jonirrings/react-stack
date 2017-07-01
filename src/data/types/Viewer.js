@@ -1,6 +1,4 @@
-/**
- * Created by jonirrings on 17/4/21.
- */
+// @flow
 import {
   GraphQLObjectType,
   GraphQLInt,
@@ -8,8 +6,10 @@ import {
   GraphQLNonNull,
 } from 'graphql';
 import { connectionArgs } from 'graphql-relay';
+
 import UserType from './User';
 import { PostConnection } from './RelaySpecialized';
+import { getAdmin } from '../models/User';
 
 const viewerType = new GraphQLObjectType({
   name: 'Viewer',
@@ -22,10 +22,17 @@ const viewerType = new GraphQLObjectType({
     user: {
       type: UserType,
       description: 'the logged viewer',
+      async resolve() {
+        return getAdmin();
+      },
     },
     timezone: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'the tz used to render the page',
+      async resolve() {
+        const admin = await getAdmin();
+        return admin.timezone;
+      },
     },
     posts: {
       type: new GraphQLNonNull(PostConnection),

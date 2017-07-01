@@ -1,8 +1,5 @@
 const getViewer = () => ({
-  user: {
-    name: 'Peter',
-    id: 'Fu',
-  },
+  login: true,
 });
 
 export default getViewer;

@@ -4,8 +4,8 @@ import {
 } from 'graphql';
 
 import { ViewerType, nodeField, BloggerType } from '../types';
-import getBlogger from '../models/BloggerModel';
-import getViewer from '../models/ViewerModel';
+import getBlogger from '../models/Blogger';
+import getViewer from '../models/Viewer';
 
 const queryType = new GraphQLObjectType({
   name: 'Query',

@@ -1,6 +1,4 @@
-/**
- * Created by jonirrings on 17/4/21.
- */
+// @flow
 
 import {
   GraphQLObjectType,
@@ -9,6 +7,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
 } from 'graphql';
+import { toGlobalId } from 'graphql-relay';
 import { nodeInterface } from './RelaySpecialized';
 
 const UserType = new GraphQLObjectType({
@@ -18,6 +17,7 @@ const UserType = new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       description: 'user id',
+      resolve: ({ id }) => toGlobalId('User', id),
     },
     name: {
       type: new GraphQLNonNull(GraphQLString),

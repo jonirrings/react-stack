@@ -13,8 +13,8 @@ const idFetcher: (id: string) => any = (globalId) => {
   const { type, id } = fromGlobalId(globalId);
   return getObjectFromTypeAndId(type, id);
 };
-const typeResolver = (obj) => {
-  switch (obj.type) {
+const typeResolver = ({ type }: {type: string}) => {
+  switch (type) {
     case 'User':
       return UserType;
     case 'Post':

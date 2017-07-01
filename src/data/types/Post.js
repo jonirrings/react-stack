@@ -1,6 +1,4 @@
-/**
- * Created by jonirrings on 17/4/21.
- */
+// @flow
 
 import {
   GraphQLObjectType,
@@ -8,7 +6,7 @@ import {
   GraphQLString,
   GraphQLNonNull,
 } from 'graphql';
-import { connectionArgs } from 'graphql-relay';
+import { connectionArgs, toGlobalId } from 'graphql-relay';
 import MetaType from './Meta';
 import UserType from './User';
 import { nodeInterface, CommentConnection } from './RelaySpecialized';
@@ -20,9 +18,10 @@ const PostType = new GraphQLObjectType({
     id: {
       type: new GraphQLNonNull(GraphQLID),
       description: 'post id',
+      resolve: ({ id }) => toGlobalId('Post', id),
     },
     url: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
       description: 'the semantic(**human friendly**) url',
     },
     author: {
@@ -38,7 +37,7 @@ const PostType = new GraphQLObjectType({
       description: 'the post content',
     },
     comments: {
-      type: new GraphQLNonNull(CommentConnection),
+      type: CommentConnection,
       args: connectionArgs,
       description: 'the comments of the posts',
     },
