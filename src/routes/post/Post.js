@@ -94,13 +94,6 @@ export default createRefetchContainer(
         }
         title
         content
-        comments(first: $count){
-          edges{
-            node{
-              content
-            }
-          }
-        }
         meta{
           created
           updated
@@ -108,11 +101,4 @@ export default createRefetchContainer(
       }
     `,
   },
-  graphql`
-    query PostCommentsRefetchQuery($count: Int,$id: ID!){
-      node(id: $id){
-        ...Post_post
-      }
-    }
-  `,
 );

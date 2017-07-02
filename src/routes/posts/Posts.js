@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
 
-import Preview from './Preview';
 import s from './Posts.css';
-import Footer from '../../components/Footer/index';
+import Preview from './Preview';
+import Page from '../../components/Page';
 import type { Edge, PageInfo } from '../../data/FlowTypes';
 
 type Props = {
@@ -28,7 +28,7 @@ type Props = {
 
 class Posts extends Component {
   props: Props;
-  loadMore() {
+  loadMore=() => {
     if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
       return;
     }
@@ -39,28 +39,25 @@ class Posts extends Component {
         console.error(e);
       },
     );
-  }
+  };
   render() {
     const edges = this.props.viewer.posts.edges;
     const pageInfo = this.props.viewer.posts.pageInfo;
     return (
-      <div className={s.posts}>
-        <div className={s.postsContainer}>
-          <ul className={s.postList}>
-            {
+      <Page>
+        <ul className={s.postList}>
+          {
               edges.map(edge => <Preview {...edge.node} key={edge.cursor} />)
           }
-          </ul>
-          <div>
-            <button
-              disabled={pageInfo.hasNextPage}
-              onClick={() => { this.loadMore(); }}
-            >next
+        </ul>
+        <div>
+          <button
+            disabled={pageInfo.hasNextPage}
+            onClick={this.loadMore}
+          >load more
             </button>
-          </div>
-          <Footer />
         </div>
-      </div>
+      </Page>
     );
   }
 }
@@ -71,10 +68,11 @@ export default createPaginationContainer(withStyle(s)(Posts), {
       posts(first: $count,after: $cursor)@connection(key:"Posts_posts"){
         edges{
           node{
+            id
+            title
             author{
               name
             }
-            title
             content
             meta{
               created
