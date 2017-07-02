@@ -39,7 +39,7 @@ const BloggerQuery = graphql`
 `;
 // ugly, refactor needed
 const PostsQuery = graphql`
-  query routes_Posts_Query{
+  query routes_Posts_Query($count: Int, $cursor: String){
     viewer{
       ...Posts_viewer
     }
@@ -58,7 +58,12 @@ export const routeConfig = makeRouteConfig(
   <Route path="/" Component={App}>
     <Route Component={Home} query={BloggerQuery}>
       <Route path="about" Component={About} />
-      <Route path="posts" Component={Posts} query={PostsQuery} />
+      <Route
+        path="posts"
+        Component={Posts}
+        query={PostsQuery}
+        prepareVariables={params => ({ ...params, count: 5, cursor: null })}
+      />
       <Route path="post/:id" Component={Post} query={PostQuery} />
     </Route>
     <Route path="admin" Component={Admin} />

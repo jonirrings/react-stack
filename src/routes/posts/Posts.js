@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import { createPaginationContainer, graphql } from 'react-relay';
 import withStyle from 'isomorphic-style-loader/lib/withStyles';
+
+import Preview from './Preview';
 import s from './Posts.css';
 import Footer from '../../components/Footer/index';
 import type { Edge, PageInfo } from '../../data/FlowTypes';
@@ -46,7 +48,7 @@ class Posts extends Component {
         <div className={s.postsContainer}>
           <ul className={s.postList}>
             {
-              edges.map(edge => <div>{edge.node} {edge.cursor} </div>)
+              edges.map(edge => <Preview {...edge.node} key={edge.cursor} />)
           }
           </ul>
           <div>
@@ -66,10 +68,17 @@ class Posts extends Component {
 export default createPaginationContainer(withStyle(s)(Posts), {
   viewer: graphql`
     fragment Posts_viewer on Viewer{
-      posts(first: $count,after: $cursor)@connection(key:"Viewer_posts"){
+      posts(first: $count,after: $cursor)@connection(key:"Posts_posts"){
         edges{
           node{
+            author{
+              name
+            }
+            title
             content
+            meta{
+              created
+            }
           }
           cursor
         }
@@ -83,17 +92,13 @@ export default createPaginationContainer(withStyle(s)(Posts), {
     }
   `,
 }, {
-  getVariables(props, { count, cursor }) {
+  direction: 'forward',
+  getConnectionFromProps: ({ viewer }) => viewer.posts,
+  getFragmentVariables(prevVars, totalCount) {
     return {
-      count,
-      cursor,
+      ...prevVars,
+      count: totalCount,
     };
   },
-  query: graphql`
-    query PostsQuery($count:Int!,$cursor: String){
-      viewer{
-        ...Posts_viewer
-      }
-    }
-  `,
+  getVariables: (_, args) => args,
 });
