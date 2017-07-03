@@ -11,12 +11,18 @@ import NotFound from './not-found';
 
 import App from '../components/App';
 
-const About = import(/* webpackChunkName: 'about' */'./about').then(module => module.default);
-const Admin = import(/* webpackChunkName: 'admin' */'./admin').then(module => module.default);
-const Home = import(/* webpackChunkName: 'home' */'./home').then(module => module.default);
-const Login = import(/* webpackChunkName: 'login' */'./login').then(module => module.default);
-const Post = import(/* webpackChunkName: 'post' */'./post').then(module => module.default);
-const Posts = import(/* webpackChunkName: 'posts' */'./posts').then(module => module.default);
+const About =
+  () => import(/* webpackChunkName: 'about' */'./about').then(module => module.default);
+const Admin =
+  () => import(/* webpackChunkName: 'admin' */'./admin').then(module => module.default);
+const Home =
+  () => import(/* webpackChunkName: 'home' */'./home').then(module => module.default);
+const Login =
+  () => import(/* webpackChunkName: 'login' */'./login').then(module => module.default);
+const Post =
+  () => import(/* webpackChunkName: 'post' */'./post').then(module => module.default);
+const Posts =
+  () => import(/* webpackChunkName: 'posts' */'./posts').then(module => module.default);
 
 // const NotFound =
 // import(/* webpackChunkName: 'not-found' */'./not-found').then(module => module.default);
@@ -61,18 +67,18 @@ const PostQuery = graphql`
 
 export const routeConfig = makeRouteConfig(
   <Route path="/" Component={App}>
-    <Route Component={Home} query={BloggerQuery}>
-      <Route path="about" Component={About} />
+    <Route getComponent={Home} query={BloggerQuery}>
+      <Route path="about" getComponent={About} />
       <Route
         path="posts"
-        Component={Posts}
+        getComponent={Posts}
         query={PostsQuery}
         prepareVariables={params => ({ ...params, count: 5, cursor: null })}
       />
-      <Route path="post/:id" Component={Post} query={PostQuery} />
+      <Route path="post/:id" getComponent={Post} query={PostQuery} />
     </Route>
-    <Route path="admin" Component={Admin} />
-    <Route path="login" Component={Login} />
+    <Route path="admin" getComponent={Admin} />
+    <Route path="login" getComponent={Login} />
   </Route>,
 );
 
