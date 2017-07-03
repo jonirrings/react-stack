@@ -7,6 +7,8 @@ import React from 'react';
 import { graphql } from 'react-relay';
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
+import NotFound from './not-found';
+
 import App from '../components/App';
 
 const About = import(/* webpackChunkName: 'about' */'./about').then(module => module.default);
@@ -15,6 +17,9 @@ const Home = import(/* webpackChunkName: 'home' */'./home').then(module => modul
 const Login = import(/* webpackChunkName: 'login' */'./login').then(module => module.default);
 const Post = import(/* webpackChunkName: 'post' */'./post').then(module => module.default);
 const Posts = import(/* webpackChunkName: 'posts' */'./posts').then(module => module.default);
+
+// const NotFound =
+// import(/* webpackChunkName: 'not-found' */'./not-found').then(module => module.default);
 
 export const historyMiddlewares = [queryMiddleware];
 
@@ -48,7 +53,7 @@ const PostsQuery = graphql`
 
 const PostQuery = graphql`
   query routes_Post_Query($id: ID!){
-    node(id:$id){
+    post: node(id:$id){
       ...Post_post
     }
   }
@@ -71,4 +76,10 @@ export const routeConfig = makeRouteConfig(
   </Route>,
 );
 
-export const render = createRender({});
+export const render = createRender({
+  renderError: async ({ error }) =>  // eslint-disable-line react/prop-types
+    (
+      <NotFound code={404} />
+    )
+  ,
+});

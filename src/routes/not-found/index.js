@@ -1,5 +1,10 @@
+// @flow
 import React from 'react';
 
-export default function () {
-  return <div>the 404 page, to be done</div>;
+type Props={
+  code: number,
+}
+
+export default function (props: Props) {
+  return <div>code: {props.code}, the 40x page, to be done</div>;
 }

@@ -23,8 +23,8 @@ export type Meta = {
 }
 
 export type Post = {
+  author: Author,
   title: string,
-  url: string,
   content: string,
   meta: Meta,
 }

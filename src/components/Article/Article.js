@@ -11,21 +11,24 @@ type Props = {
   title: string,
   author: Author,
   meta: Meta,
-  html: string,
+  content: string,
   prev: ?Rel,
   next: ?Rel,
 }
 
 function Article(props: Props) {
-  const { title, author, meta, html, prev, next } = props;
+  const { title, author, meta, content, prev, next } = props;
   return (
     <article className={s.Article}>
       <Header title={title} author={author} meta={meta} />
       <main
         // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: content }}
       />
-      <Pagination prev={prev} next={next} />
+      {
+        (prev || next) &&
+        <Pagination prev={prev} next={next} />
+      }
     </article>
   );
 }
