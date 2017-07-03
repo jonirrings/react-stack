@@ -77,9 +77,9 @@ export const routeConfig = makeRouteConfig(
 );
 
 export const render = createRender({
-  renderError: async ({ error }) =>  // eslint-disable-line react/prop-types
+  renderError: ({ error }) =>  // eslint-disable-line react/prop-types
     (
-      <NotFound code={404} />
+      <NotFound code={error.status} />
     )
   ,
 });
