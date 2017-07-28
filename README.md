@@ -1,4 +1,6 @@
 # react-stack
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/jonirrings/react-stack.svg)](https://greenkeeper.io/)
 An isomorphic web app boilerplate (Node.js, Express, GraphQL, React.js, Babel 6, PostCSS, Webpack, Browsersync)
 
 Refered from  [React Starter Kit](https://www.reactstarterkit.com)
